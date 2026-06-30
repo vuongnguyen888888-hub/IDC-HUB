@@ -162,3 +162,28 @@ body {
   font-family: var(--font-roboto), system-ui, sans-serif;
 }
 
+/* Custom scrollbar matching Tencent/Alibaba Cloud B2B style */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #EBEBEB transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #E0E0E0;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #C5C5C5;
+}
+
+

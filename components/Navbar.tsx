@@ -5,11 +5,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { 
-  Phone, FileText, Headphones, Globe, Search, ChevronDown, Check, ArrowRight, X, 
+  Phone, FileText, Headphones, Globe, Search, ChevronDown, Check, ArrowRight, X, Gift, Percent,
   Cpu, Database, Server, HardDrive, Network, Lock, BookOpen, Clock, Mail, MapPin, Shield, 
   Layers, Code, Box, Smartphone, Monitor, Zap, TrendingUp, Users, Star, UserPlus, 
   DollarSign, Info, Award, Heart, Newspaper, Calendar, Menu, Trash2, Eye, Settings, Laptop, Briefcase,
-  Sparkles, Calculator, UserCheck
+  Sparkles, Calculator, UserCheck, ShoppingCart, Building2, GraduationCap, Activity, Factory
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -28,13 +28,13 @@ interface ServiceItem {
 }
 
 const serviceCategories = [
-  'Tất cả', 'Điện toán & Container', 'Trung tâm dữ liệu', 'Lưu trữ & Bảo vệ dữ liệu',
+  'Dịch vụ nổi bật', 'Trung tâm dữ liệu', 'Điện toán & Container', 'Lưu trữ & Bảo vệ dữ liệu',
   'Nền tảng dữ liệu & Tích hợp', 'Mạng & Phân phối nội dung', 'Bảo mật & An ninh mạng',
   'Vận hành & Giám sát', 'Ứng dụng & Làm việc số', 'Dịch vụ quản lý & Tư vấn', 'Domain, Hosting & Email'
 ];
 
 const servicesList: Record<string, ServiceItem[]> = {
-  'Tất cả': [
+  'Dịch vụ nổi bật': [
     { name: 'Viettel Cloud Server (VM)', desc: 'Máy chủ ảo hiệu năng cao, khởi tạo trong 5 phút', icon: Cpu, iconBgClass: 'bg-[#FEF3C7]', iconColorClass: 'text-[#D97706]', badge: 'HOT' },
     { name: 'Viettel Cloud Firewall', desc: 'Bảo vệ hạ tầng toàn diện, stateful firewall', icon: Shield, iconBgClass: 'bg-[#FAF5F6]', iconColorClass: 'text-[#EE0033]' },
     { name: 'Viettel Cloud GPU', desc: 'Hạ tầng AI/ML, training model quy mô lớn', icon: Cpu, iconBgClass: 'bg-[#F3E8FF]', iconColorClass: 'text-[#7C3AED]', badge: 'NEW' },
@@ -121,7 +121,7 @@ const servicesList: Record<string, ServiceItem[]> = {
   ]
 };
 
-const solutionCategories = ['Hạ tầng & Cloud', 'Dev, Ops & AI', 'Kết nối & Workspace'];
+const solutionCategories = ['Hạ tầng & Cloud', 'Dev, Ops & AI', 'Kết nối & Workspace', 'Giải pháp theo ngành'];
 
 const solutionsList: Record<string, { name: string; desc: string; icon: any; iconBg: string; iconColor: string; href: string }[]> = {
   'Hạ tầng & Cloud': [
@@ -140,10 +140,18 @@ const solutionsList: Record<string, { name: string; desc: string; icon: any; ico
     { name: 'Mạng phân phối nội dung (CDN)', desc: 'Multi-CDN tối ưu hóa định tuyến tải web toàn quốc', icon: Globe, iconBg: 'bg-[#CCFBF1]', iconColor: 'text-[#0D9488]', href: '/solutions/cloud-migration' },
     { name: 'Làm việc di động', desc: 'Không gian làm việc số an toàn Cloud PC, Microsoft 365', icon: Laptop, iconBg: 'bg-[#E0F2FE]', iconColor: 'text-[#0369A1]', href: '/solutions/cloud-migration' },
     { name: 'Xây dựng Website', desc: 'Gói trọn bộ Web Hosting, SSD, tên miền SSL tin cậy', icon: Monitor, iconBg: 'bg-[#F0FDF4]', iconColor: 'text-[#15803D]', href: '/solutions/cloud-migration' }
+  ],
+  'Giải pháp theo ngành': [
+    { name: 'Tài chính - Ngân hàng (Fintech & Banking)', desc: 'Đáp ứng tiêu chuẩn bảo mật khắt khe PCI-DSS, kiến trúc hybrid mây bảo mật tối đa', icon: DollarSign, iconBg: 'bg-[#FAF5F6]', iconColor: 'text-[#EE0033]', href: '/solutions/backup-dr' },
+    { name: 'Thương mại điện tử & Bán lẻ (Retail & E-commerce)', desc: 'Hạ tầng chịu tải lớn, tự động co giãn (auto-scaling) mượt mà các dịp Sale lớn', icon: ShoppingCart, iconBg: 'bg-[#F0FDF4]', iconColor: 'text-[#15803D]', href: '/solutions/cloud-migration' },
+    { name: 'Y tế số (HealthTech & PACS Cloud)', desc: 'Lưu trữ hồ sơ PACS dung lượng siêu lớn, truyền tải nhanh, chuẩn hóa kết nối y khoa', icon: Activity, iconBg: 'bg-[#E0F2FE]', iconColor: 'text-[#0369A1]', href: '/solutions/backup-dr' },
+    { name: 'Giáo dục trực tuyến (EdTech & LMS)', desc: 'Phát trực tuyến bài giảng không độ trễ, lưu trữ quản lý tài nguyên học tập linh hoạt', icon: GraduationCap, iconBg: 'bg-[#FEF3C7]', iconColor: 'text-[#D97706]', href: '/solutions/cloud-migration' },
+    { name: 'Chính phủ số & Hành chính công', desc: 'Hạ tầng mây dùng riêng đạt chứng chỉ an toàn thông tin cấp độ 4 cho cơ quan bộ ngành', icon: Building2, iconBg: 'bg-[#EBEBEB]', iconColor: 'text-[#5A5A5A]', href: '/solutions/backup-dr' },
+    { name: 'Sản xuất thông minh & IoT Logistics', desc: 'Nền tảng kết nối IoT biên, phân tích hiệu năng dây chuyền và chuỗi cung ứng thực tế', icon: Factory, iconBg: 'bg-[#F3E8FF]', iconColor: 'text-[#7C3AED]', href: '/solutions/container' }
   ]
 };
 
-const partnerCategories = ['Chương trình hợp tác', 'Pinnacle Alliance', 'Hỗ trợ đối tác'];
+const partnerCategories = ['Chương trình hợp tác', 'Pinnacle Alliance', 'Viettelidc x Qualcomm'];
 
 const getCategorySlug = (categoryName: string) => {
   const mapping: Record<string, string> = {
@@ -188,7 +196,7 @@ const getProductCategoryName = (name: string) => {
 };
 
 const getProductRoute = (item: ServiceItem, activeCat: string) => {
-  const catSlug = getCategorySlug(activeCat === 'Tất cả' ? getProductCategoryName(item.name) : activeCat);
+  const catSlug = getCategorySlug(activeCat === 'Dịch vụ nổi bật' ? getProductCategoryName(item.name) : activeCat);
   const prodSlug = getProductSlug(item.name);
   if (prodSlug) {
     return `/services/${catSlug}/${prodSlug}`;
@@ -204,7 +212,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const [activeCategoryA, setActiveCategoryA] = useState('Tất cả');
+  const [activeCategoryA, setActiveCategoryA] = useState('Dịch vụ nổi bật');
   const [activeCategoryB, setActiveCategoryB] = useState('Hạ tầng & Cloud');
   const [activeCategoryE, setActiveCategoryE] = useState('Chương trình hợp tác');
   
@@ -220,7 +228,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
   const allServices = React.useMemo(() => {
     const list: { name: string; desc: string; category: string; slug: string | null; icon: any; iconBg: string; iconColor: string }[] = [];
     Object.entries(servicesList).forEach(([category, items]) => {
-      if (category === 'Tất cả') return;
+      if (category === 'Dịch vụ nổi bật') return;
       items.forEach(item => {
         if (!list.some(existing => existing.name === item.name)) {
           list.push({
@@ -454,7 +462,8 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                   { label: 'Bảng giá', key: 'pricing' },
                   { label: 'Tài nguyên', key: 'resources' },
                   { label: 'Đối tác', key: 'partners' },
-                  { label: 'Về Viettel IDC', key: 'about' }
+                  { label: 'Về Viettel IDC', key: 'about' },
+                  { label: 'Khuyến mại', key: 'promotions' }
                 ].map(item => (
                   <button
                     key={item.key}
@@ -726,7 +735,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
           {/* MEGA DROPDOWN A — "Dịch vụ" */}
           {activeMenu === 'services' && (
-            <div className="absolute left-0 right-0 top-full bg-white border-t border-[#EBEBEB] border-b border-[#EBEBEB] shadow-[0_20px_40px_rgba(0,0,0,0.12)] z-[99] max-h-[580px] overflow-y-auto animate-in fade-in slide-in-from-top-3 transition-all duration-200">
+            <div className="absolute left-0 right-0 top-full bg-white border-t border-[#EBEBEB] border-b border-[#EBEBEB] shadow-[0_20px_40px_rgba(0,0,0,0.12)] z-[99] animate-in fade-in slide-in-from-top-3 transition-all duration-200">
             <div className="ali-container py-[28px] flex relative">
               <button onClick={() => setActiveMenu(null)} className="absolute top-4 right-6 text-gray-400 hover:text-black p-1 rounded-md transition-colors">
                 <X className="w-[16px] h-[16px]" />
@@ -735,7 +744,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
               {/* Sidebar */}
               <div className="w-[220px] flex-shrink-0 pr-6 border-r border-[#EBEBEB]">
                 <Link 
-                  href={activeCategoryA === 'Tất cả' ? '/services' : `/services/${getCategorySlug(activeCategoryA)}`} 
+                  href={activeCategoryA === 'Dịch vụ nổi bật' ? '/services' : `/services/${getCategorySlug(activeCategoryA)}`} 
                   onClick={() => setActiveMenu(null)} 
                   className="text-[14px] font-bold text-[#1A1A1A] hover:text-[#EE0033] flex items-center gap-1.5 mb-4 transition-colors"
                 >
@@ -754,12 +763,13 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                   <Search className="w-3.5 h-3.5 text-gray-400 absolute right-3 top-2.5" />
                 </div>
 
-                <div className="space-y-[1px]">
+                <div className="space-y-[4px]">
                   {serviceCategories.map(cat => (
                     <button
                       key={cat}
                       onClick={() => { setActiveCategoryA(cat); setServiceSearchQuery(''); }}
-                      className={`w-full text-left py-1.5 px-2.5 rounded-[7px] text-[13px] transition-all flex items-center gap-2 ${
+                      onMouseEnter={() => { setActiveCategoryA(cat); setServiceSearchQuery(''); }}
+                      className={`w-full text-left py-2 px-3 rounded-[7px] text-[13px] transition-all flex items-center gap-2 ${
                         activeCategoryA === cat 
                           ? 'bg-[#FAF5F6] text-[#EE0033] font-semibold' 
                           : 'text-[#5A5A5A] hover:bg-[#FAF5F6] hover:text-[#EE0033]'
@@ -772,17 +782,17 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
               </div>
 
               {/* Center List Area */}
-              <div className="flex-1 px-7">
+              <div className="flex-1 px-7 max-h-[460px] overflow-y-auto custom-scrollbar pr-3">
                 <div className="text-[10px] font-bold text-gray-400 tracking-[1.2px] uppercase mb-3.5">
-                  {activeCategoryA === 'Tất cả' ? 'DỊCH VỤ NỔI BẬT' : activeCategoryA.toUpperCase()}
+                  {activeCategoryA === 'Dịch vụ nổi bật' ? 'DỊCH VỤ NỔI BẬT' : activeCategoryA.toUpperCase()}
                 </div>
 
                 {filteredServices.length === 0 ? (
                   <div className="py-12 text-center text-gray-400 text-xs">Không tìm thấy dịch vụ nào khớp.</div>
                 ) : (
-                  <div className="grid grid-cols-2 gap-x-3 gap-y-1">
-                    {/* If we are in non-Tất cả and subgroups exist, group them! */}
-                    {activeCategoryA !== 'Tất cả' && serviceSearchQuery === '' ? (
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-3.5">
+                    {/* If we are in non-Dịch vụ nổi bật and subgroups exist, group them! */}
+                    {activeCategoryA !== 'Dịch vụ nổi bật' && serviceSearchQuery === '' ? (
                       // Renders item grouped by heading sequentially
                       (() => {
                         const subgroups: Record<string, ServiceItem[]> = {};
@@ -792,15 +802,15 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                           subgroups[sg].push(item);
                         });
                         return Object.entries(subgroups).map(([groupName, items]) => (
-                          <div key={groupName} className="col-span-2 mb-3 last:mb-0">
-                            <div className="text-[10px] font-bold text-gray-400 tracking-[1px] uppercase border-b border-[#EBEBEB] pb-1.5 mb-2">{groupName}</div>
-                            <div className="grid grid-cols-2 gap-2">
+                          <div key={groupName} className="col-span-2 mb-5 last:mb-0">
+                            <div className="text-[10px] font-bold text-gray-400 tracking-[1px] uppercase border-b border-[#EBEBEB] pb-2 mb-3">{groupName}</div>
+                            <div className="grid grid-cols-2 gap-x-5 gap-y-3">
                               {items.map(item => (
                                 <Link
                                   key={item.name}
                                   href={getProductRoute(item, activeCategoryA)}
                                   onClick={() => setActiveMenu(null)}
-                                  className="flex items-start gap-3 p-2 rounded-[8px] hover:bg-gray-50 transition-all group text-left"
+                                  className="flex items-start gap-3.5 p-2.5 rounded-[8px] hover:bg-gray-50 transition-all group text-left"
                                 >
                                   <div className="w-9 h-9 rounded-[8px] flex items-center justify-center flex-shrink-0 bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white transition-colors duration-150">
                                     <item.icon className="w-[17px] h-[17px]" />
@@ -829,7 +839,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                           key={item.name}
                           href={getProductRoute(item, activeCategoryA)}
                           onClick={() => setActiveMenu(null)}
-                          className="flex items-start gap-3 p-2 rounded-[8px] hover:bg-gray-50 transition-all group text-left"
+                          className="flex items-start gap-3.5 p-2.5 rounded-[8px] hover:bg-gray-50 transition-all group text-left"
                         >
                           <div className="w-9 h-9 rounded-[8px] flex items-center justify-center flex-shrink-0 bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white transition-colors duration-150">
                             <item.icon className="w-[17px] h-[17px]" />
@@ -861,11 +871,11 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                   <span className="text-[12px] font-semibold text-[#FFB3C1] mt-3.5 flex items-center gap-1">Xem ngay →</span>
                 </a>
 
-                <a href="https://docs.viettelidc.com.vn" target="_blank" rel="noreferrer" className="rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5 border border-[#FCD9D8]/20" style={{ background: 'linear-gradient(140deg, #111827 0%, #EE0033 120%)' }}>
-                  <BookOpen className="w-[22px] h-[22px] text-white mb-2" />
-                  <h4 className="text-[14px] font-bold text-white">Tài liệu kỹ thuật</h4>
-                  <p className="text-[11.5px] text-white/80 mt-1 leading-relaxed">API guides, CLI, SDK tools và sơ đồ kiến trúc mây an toàn.</p>
-                  <span className="text-[12px] font-semibold text-[#FFB3C1] mt-3.5 flex items-center gap-1">docs.viettelidc.com.vn ↗</span>
+                <a href="https://docs.viettelidc.com.vn" target="_blank" rel="noreferrer" className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
+                  <BookOpen className="w-[22px] h-[22px] text-[#EE0033] mb-2" />
+                  <h4 className="text-[14px] font-bold text-gray-950">Tài liệu kỹ thuật</h4>
+                  <p className="text-[11.5px] text-gray-700 mt-1 leading-relaxed">API guides, CLI, SDK tools và sơ đồ kiến trúc mây an toàn.</p>
+                  <span className="text-[12px] font-bold text-[#EE0033] mt-3.5 flex items-center gap-1">docs.viettelidc.com.vn ↗</span>
                 </a>
               </div>
             </div>
@@ -874,23 +884,20 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
         {/* MEGA DROPDOWN B — "Giải pháp" */}
         {activeMenu === 'solutions' && (
-          <div className="absolute left-0 right-0 top-full bg-white border-t border-[#EBEBEB] border-b border-[#EBEBEB] shadow-[0_20px_40px_rgba(0,0,0,0.12)] z-[99] max-h-[580px] overflow-y-auto animate-in fade-in transition-all duration-200">
+          <div className="absolute left-0 right-0 top-full bg-white border-t border-[#EBEBEB] border-b border-[#EBEBEB] shadow-[0_20px_40px_rgba(0,0,0,0.12)] z-[99] animate-in fade-in transition-all duration-200">
             <div className="ali-container py-[28px] flex relative">
               <button onClick={() => setActiveMenu(null)} className="absolute top-4 right-6 text-gray-400 hover:text-black p-1">
                 <X className="w-4 h-4" />
               </button>
 
               <div className="w-[220px] flex-shrink-0 pr-6 border-r border-[#EBEBEB]">
-                <Link href="/solutions" onClick={() => setActiveMenu(null)} className="text-[14px] font-bold text-[#1A1A1A] hover:text-[#EE0033] flex items-center gap-1.5 mb-4 transition-colors">
-                  <span>Xem tất cả giải pháp</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-                <div className="space-y-1">
+                <div className="space-y-[4px]">
                   {solutionCategories.map(cat => (
                     <button
                       key={cat}
                       onClick={() => setActiveCategoryB(cat)}
-                      className={`w-full text-left py-1.5 px-2.5 rounded-[7px] text-[13px] transition-all flex items-center gap-2 ${
+                      onMouseEnter={() => setActiveCategoryB(cat)}
+                      className={`w-full text-left py-2 px-3 rounded-[7px] text-[13px] transition-all flex items-center gap-2 ${
                         activeCategoryB === cat 
                           ? 'bg-[#FAF5F6] text-[#EE0033] font-semibold' 
                           : 'text-[#5A5A5A] hover:bg-[#FAF5F6] hover:text-[#EE0033]'
@@ -902,24 +909,24 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                 </div>
               </div>
 
-              <div className="flex-1 px-8 text-left">
-                <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-3.5">
+              <div className="flex-1 px-8 text-left max-h-[460px] overflow-y-auto custom-scrollbar pr-3">
+                <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-4">
                   {activeCategoryB.toUpperCase()}
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-2.5">
                   {(solutionsList[activeCategoryB] || []).map(sol => (
                     <Link
                       key={sol.name}
                       href={sol.href}
                       onClick={() => setActiveMenu(null)}
-                      className="flex items-start gap-3.5 p-2.5 rounded-[8px] hover:bg-gray-50 transition-all group"
+                      className="flex items-start gap-4 p-3 rounded-[8px] hover:bg-gray-50 transition-all group"
                     >
                       <div className="w-9 h-9 rounded-[8px] flex items-center justify-center flex-shrink-0 bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white transition-colors duration-150">
                         <sol.icon className="w-[17px] h-[17px]" />
                       </div>
                       <div>
                         <h4 className="text-[13px] font-semibold text-[#1A1A1A] group-hover:text-[#EE0033] transition-colors">{sol.name}</h4>
-                        <p className="text-[11.5px] text-[#5A5A5A] mt-0.5 leading-normal">{sol.desc}</p>
+                        <p className="text-[11.5px] text-[#5A5A5A] mt-1 leading-normal">{sol.desc}</p>
                       </div>
                     </Link>
                   ))}
@@ -927,18 +934,18 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
               </div>
 
               <div className="w-[240px] flex-shrink-0 pl-6 border-l border-[#EBEBEB] flex flex-col gap-2.5">
-                <Link href="/pricing" onClick={() => setActiveMenu(null)} className="rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5" style={{ background: 'linear-gradient(140deg, #1A1A1A 0%, #EE0033 100%)' }}>
-                  <TrendingUp className="w-[22px] h-[22px] text-white mb-2" />
-                  <h4 className="text-[14px] font-bold text-white">ROI Calculator</h4>
-                  <p className="text-[11.5px] text-white/80 mt-1 leading-relaxed">Tính toán mức tài chính và tối ưu CAPEX/OPEX khi chuyển đổi lên Cloud.</p>
-                  <span className="text-[12px] font-semibold text-[#FFB3C1] mt-3.5 flex items-center gap-1">Tính ngay →</span>
+                <Link href="/pricing" onClick={() => setActiveMenu(null)} className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
+                  <TrendingUp className="w-[22px] h-[22px] text-[#EE0033] mb-2" />
+                  <h4 className="text-[14px] font-bold text-gray-950">ROI Calculator</h4>
+                  <p className="text-[11.5px] text-gray-750 mt-1 leading-relaxed">Tính toán mức tài chính và tối ưu CAPEX/OPEX khi chuyển đổi lên Cloud.</p>
+                  <span className="text-[12px] font-bold text-[#EE0033] mt-3.5 flex items-center gap-1">Tính ngay →</span>
                 </Link>
 
-                <Link href="/contact" onClick={() => setActiveMenu(null)} className="rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5 border border-[#FCD9D8]/20" style={{ background: 'linear-gradient(140deg, #111827 0%, #EE0033 120%)' }}>
-                  <Users className="w-[22px] h-[22px] text-white mb-2" />
-                  <h4 className="text-[14px] font-bold text-white">Tư vấn miễn phí</h4>
-                  <p className="text-[11.5px] text-white/80 mt-1 leading-relaxed">Chuyên viên tư vấn Viettel IDC thiết kế kiến trúc hạ tầng chuyên biệt.</p>
-                  <span className="text-[12px] font-semibold text-[#FFB3C1] mt-3.5 flex items-center gap-1">Đặt lịch ngay →</span>
+                <Link href="/contact" onClick={() => setActiveMenu(null)} className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
+                  <Users className="w-[22px] h-[22px] text-[#EE0033] mb-2" />
+                  <h4 className="text-[14px] font-bold text-gray-950">Tư vấn miễn phí</h4>
+                  <p className="text-[11.5px] text-gray-750 mt-1 leading-relaxed">Chuyên viên tư vấn Viettel IDC thiết kế kiến trúc hạ tầng chuyên biệt.</p>
+                  <span className="text-[12px] font-bold text-[#EE0033] mt-3.5 flex items-center gap-1">Đặt lịch ngay →</span>
                 </Link>
               </div>
             </div>
@@ -947,79 +954,129 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
         {/* MEGA DROPDOWN C — "Bảng giá" */}
         {activeMenu === 'pricing' && (
-          <div className="absolute left-0 right-0 top-full bg-white border-t border-[#EBEBEB] border-b border-[#EBEBEB] shadow-[0_20px_40px_rgba(0,0,0,0.12)] z-[99] max-h-[580px] overflow-y-auto animate-in fade-in transition-all duration-200">
-            <div className="ali-container py-[28px] flex relative">
+          <div className="absolute left-0 right-0 top-full bg-white border-t border-[#EBEBEB] border-b border-[#EBEBEB] shadow-[0_20px_40px_rgba(0,0,0,0.12)] z-[99] animate-in fade-in transition-all duration-200">
+            <div className="ali-container py-[28px] relative">
               <button onClick={() => setActiveMenu(null)} className="absolute top-4 right-6 text-gray-400 hover:text-black p-1">
                 <X className="w-4 h-4" />
               </button>
 
-              <div className="flex-1 pr-8 text-left">
-                <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-3.5">
-                  BẢNG GIÁ THEO NHÓM DỊCH VỤ
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {[
-                    { name: 'Điện toán & Container', desc: 'Bảng giá chi tiết dịch vụ Cloud Server, GPU, vOKS', path: '/pricing', icon: Cpu, bg: 'bg-[#FEF3C7]', text: 'text-[#D97706]' },
-                    { name: 'Lưu trữ & Dữ liệu', desc: 'Mức phí Object Storage, Cloud Backup, vDBS', path: '/pricing', icon: Database, bg: 'bg-[#E0F2FE]', text: 'text-[#0369A1]' },
-                    { name: 'Mạng & CDN', desc: 'Điều hướng kết nối riêng biệt, CDN, SD-WAN', path: '/pricing', icon: Network, bg: 'bg-[#CCFBF1]', text: 'text-[#0D9488]' },
-                    { name: 'Bảo mật & An ninh mạng', desc: 'Trang bị Cloud Firewall, Anti-DDoS, Virtual SOC', path: '/pricing', icon: Shield, bg: 'bg-[#FAF5F6]', text: 'text-[#EE0033]' },
-                    { name: 'Domain, Hosting & Email', desc: 'Báo giá đăng ký thương hiệu tên miền, Web hosting', path: '/pricing', icon: Globe, bg: 'bg-[#EBEBEB]', text: 'text-[#5A5A5A]' }
-                  ].map(pItem => (
-                    <Link
-                      key={pItem.name}
-                      href={pItem.path}
-                      onClick={() => setActiveMenu(null)}
-                      className="flex items-start gap-3 p-2.5 rounded-[8px] hover:bg-gray-50 transition-all group"
-                    >
-                      <div className="w-9 h-9 rounded-[8px] flex items-center justify-center flex-shrink-0 bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white transition-colors duration-150">
-                        <pItem.icon className="w-[17px] h-[17px]" />
-                      </div>
-                      <div>
-                        <h4 className="text-[13px] font-semibold text-[#1A1A1A] group-hover:text-[#EE0033] transition-colors">{pItem.name}</h4>
-                        <p className="text-[11.5px] text-[#767676] mt-0.5">{pItem.desc}</p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-
-                <div className="h-px bg-gray-100 my-4" />
-
-                <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-3.5">CÔNG CỤ TÍNH GIÁ</div>
-                <div className="grid grid-cols-2 gap-3">
-                  <Link href="/pricing" onClick={() => setActiveMenu(null)} className="flex items-start gap-3 p-3.5 bg-[#FAF5F6] border border-[#FCD9D8] hover:border-[#EE0033] rounded-[12px] transition-all group text-left">
-                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center flex-shrink-0 text-[#EE0033] shadow-sm">
-                      <TrendingUp className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <h4 className="text-[13px] font-semibold text-[#1A1A1A] group-hover:text-[#EE0033] transition-colors">Cost Calculator</h4>
-                      <p className="text-[11.5px] text-[#5A5A5A] mt-1">Ước tính kinh phí theo cấu hình máy, băng thông và lưu lượng dùng.</p>
-                    </div>
-                  </Link>
-                  
-                  <Link href="/contact" onClick={() => setActiveMenu(null)} className="flex items-start gap-3 p-3.5 bg-[#FAF5F6] border border-[#FCD9D8] hover:border-[#EE0033] rounded-[12px] transition-all group text-left">
-                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center flex-shrink-0 text-[#EE0033] shadow-sm">
-                      <Mail className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <h4 className="text-[13px] font-semibold text-[#1A1A1A] group-hover:text-[#EE0033] transition-colors">Báo giá Enterprise</h4>
-                      <p className="text-[11.5px] text-[#5A5A5A] mt-1">Hợp đồng dài hạn cùng chính sách chiết khấu quy mô hạ tầng lớn.</p>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-
-              {/* pricing-highlight right panel */}
-              <div className="w-[280px] flex-shrink-0 pl-6 border-l border-[#EBEBEB]">
-                <div className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-6 text-left flex flex-col justify-between h-full">
-                  <div>
-                    <TrendingUp className="w-7 h-7 text-[#EE0033] mb-2.5" />
-                    <div className="text-[28px] font-bold text-[#EE0033] tracking-tight">40%</div>
-                    <div className="text-[12px] font-bold text-gray-900 mt-1">Chi phí tiết kiệm so với on-premise</div>
-                    <p className="text-[11.5px] text-gray-500 mt-3 leading-relaxed">Không phí ẩn, cam kết SLA chất lượng cao, trả tiền theo phương án pay-as-you-go thực tế.</p>
+              <div className="grid grid-cols-12 gap-8 w-full">
+                {/* Left Side: Dịch vụ nổi bật (Col span 8) */}
+                <div className="col-span-8 pr-4 text-left border-r border-[#EBEBEB]">
+                  <div className="text-[10px] font-bold text-[#EE0033] tracking-wider uppercase mb-4 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#EE0033]" />
+                    DỊCH VỤ NỔI BẬT
                   </div>
-                  <Link href="/pricing" onClick={() => setActiveMenu(null)} className="mt-5 w-full bg-[#EE0033] text-white flex items-center justify-center h-9 rounded-[8px] text-[13px] font-bold hover:bg-[#FF302D] transition-colors">
-                    Tính chi phí ngay
-                  </Link>
+                  
+                  <div className="max-h-[360px] overflow-y-auto pr-3 custom-scrollbar">
+                    <div className="grid grid-cols-2 gap-x-5 gap-y-2">
+                      {[
+                        { name: 'Viettel Cloud Server', desc: 'Máy chủ ảo hiệu năng cao, SSD Enterprise', path: '/pricing', icon: Server, badge: 'HOT' },
+                        { name: 'Viettel Virtual Private Cloud', desc: 'Mạng đám mây riêng dùng độc lập, bảo mật', path: '/pricing', icon: Layers },
+                        { name: 'Viettel Cloud GPU', desc: 'Xử lý tăng tốc AI, Deep Learning đồ họa', path: '/pricing', icon: Cpu },
+                        { name: 'Thuê chỗ đặt thiết bị Colocation', desc: 'Chỗ đặt máy chủ chuẩn Tier III toàn quốc', path: '/pricing', icon: HardDrive },
+                        { name: 'Viettel Cloud Object Storage', desc: 'Lưu trữ đối tượng tương thích S3 vô hạn', path: '/pricing', icon: Database },
+                        { name: 'Viettel Cloud File Storage', desc: 'Lưu trữ tệp tin chia sẻ hiệu năng cao', path: '/pricing', icon: Box },
+                        { name: 'Viettel Cloud DR (Disaster Recovery - DRaaS)', desc: 'Sao lưu phục hồi thảm họa tự động', path: '/pricing', icon: Clock },
+                        { name: 'Viettel Cloud Migration', desc: 'Chuyển đổi hạ tầng lên mây an toàn', path: '/pricing', icon: TrendingUp },
+                        { name: 'Viettel Cloudrity (vCloudrity)', desc: 'Bảo mật website & quét lỗ hổng thông tin', path: '/pricing', icon: Shield },
+                        { name: 'Viettel Cloud Firewall', desc: 'Tường lửa thế hệ mới ngăn chặn xâm nhập', path: '/pricing', icon: Lock },
+                        { name: 'Viettel Endpoint Security', desc: 'Phòng chống mã độc, bảo mật điểm cuối', path: '/pricing', icon: Laptop },
+                        { name: 'Viettel Virtual SOC', desc: 'Giám sát an ninh mạng thế hệ mới 24/7', path: '/pricing', icon: Eye },
+                        { name: 'Viettel Anti-DDoS', desc: 'Chống tấn công từ chối dịch vụ băng rộng', path: '/pricing', icon: Zap },
+                        { name: 'Viettel CWAF', desc: 'Bảo vệ ứng dụng web và API chuyên sâu', path: '/pricing', icon: Shield },
+                        { name: 'Viettel Cyber Security Maturity Program (vCSMP)', desc: 'Đánh giá mức độ trưởng thành an ninh mạng', path: '/pricing', icon: Award },
+                        { name: 'Viettel Open Kubernetes Service (vOKS)', desc: 'Quản lý container tự động mở rộng', path: '/pricing', icon: Code }
+                      ].map(pItem => (
+                        <Link
+                          key={pItem.name}
+                          href={pItem.path}
+                          onClick={() => setActiveMenu(null)}
+                          className="flex items-start gap-3 p-2 rounded-[8px] hover:bg-gray-50 transition-all group"
+                        >
+                          <div className="w-8.5 h-8.5 rounded-[8px] flex items-center justify-center flex-shrink-0 bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white transition-colors duration-150">
+                            <pItem.icon className="w-[16px] h-[16px]" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <h4 className="text-[12.5px] font-semibold text-[#1A1A1A] group-hover:text-[#EE0033] transition-colors truncate">{pItem.name}</h4>
+                              {pItem.badge && (
+                                <span className="text-[9px] px-1.5 py-0.2 rounded font-extrabold bg-[#FAF5F6] text-[#EE0033] border border-[#FCD9D8]">
+                                  {pItem.badge}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-[11px] text-[#767676] mt-0.5 leading-normal line-clamp-1">{pItem.desc}</p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-gray-100 my-5" />
+
+                  {/* Nút xem tất cả dịch vụ */}
+                  <div className="flex justify-start pl-1">
+                    <Link
+                      href="/pricing"
+                      onClick={() => setActiveMenu(null)}
+                      className="inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[#EE0033] hover:text-[#FF302D] hover:underline"
+                    >
+                      <span>Xem tất cả bảng giá & dịch vụ</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Right Side: Công cụ tính giá & Liên hệ báo giá (Col span 4) */}
+                <div className="col-span-4 text-left flex flex-col justify-between">
+                  <div>
+                    <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-4">
+                      ƯỚC TÍNH CHI PHÍ & LIÊN HỆ
+                    </div>
+
+                    <div className="space-y-3.5">
+                      {/* Công cụ tính giá */}
+                      <Link 
+                        href="/pricing/calculator" 
+                        onClick={() => setActiveMenu(null)} 
+                        className="flex items-start gap-3.5 p-4 bg-white border border-gray-100 hover:border-[#EE0033] hover:shadow-[0_8px_16px_rgba(238,0,51,0.04)] rounded-[12px] transition-all group text-left block"
+                      >
+                        <div className="w-9 h-9 rounded-[8px] bg-[#FEF3C7] text-[#D97706] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+                          <Calculator className="w-4.5 h-4.5" />
+                        </div>
+                        <div>
+                          <h4 className="text-[13px] font-bold text-[#1A1A1A] group-hover:text-[#EE0033] transition-colors flex items-center gap-1">
+                            Công cụ tính giá
+                            <span className="text-[9px] bg-red-100 text-red-600 px-1 rounded">Mới</span>
+                          </h4>
+                          <p className="text-[11.5px] text-[#5A5A5A] mt-1 leading-relaxed">Ước tính kinh phí tức thì dựa trên cấu hình máy chủ, băng thông và bộ nhớ lưu trữ thực tế.</p>
+                          <span className="text-[11.5px] font-semibold text-[#EE0033] mt-2 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">Thử tính ngay &rarr;</span>
+                        </div>
+                      </Link>
+
+                      {/* Liên hệ báo giá */}
+                      <Link 
+                        href="/contact" 
+                        onClick={() => setActiveMenu(null)} 
+                        className="flex items-start gap-3.5 p-4 bg-white border border-gray-100 hover:border-[#EE0033] hover:shadow-[0_8px_16px_rgba(238,0,51,0.04)] rounded-[12px] transition-all group text-left block"
+                      >
+                        <div className="w-9 h-9 rounded-[8px] bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors duration-200">
+                          <Mail className="w-4.5 h-4.5" />
+                        </div>
+                        <div>
+                          <h4 className="text-[13px] font-bold text-[#1A1A1A] group-hover:text-[#EE0033] transition-colors">Liên hệ báo giá riêng</h4>
+                          <p className="text-[11.5px] text-[#5A5A5A] mt-1 leading-relaxed">Nhận thiết kế phương án hạ tầng chuyên biệt và chính sách ưu đãi quy mô Enterprise.</p>
+                          <span className="text-[11.5px] font-semibold text-[#EE0033] mt-2 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">Gửi yêu cầu báo giá &rarr;</span>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Elegant bottom banner or info */}
+                  <div className="bg-[#FAF5F6] border border-[#FCD9D8]/60 rounded-[10px] p-3.5 mt-4 text-[11.5px] text-[#5A5A5A] leading-relaxed">
+                    Đảm bảo tối ưu hóa chi phí đến <strong className="text-[#EE0033]">40%</strong> so với tự vận hành, hỗ trợ kỹ thuật <strong className="text-gray-900">24/7/365</strong> từ đội ngũ chuyên gia Viettel.
+                  </div>
                 </div>
               </div>
             </div>
@@ -1034,45 +1091,68 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                 <X className="w-4 h-4" />
               </button>
 
-              {/* Col 1 */}
+              {/* Col 1: Tin tức */}
               <div className="pr-4 border-r border-[#EBEBEB] text-left">
                 <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-4">TIN TỨC</div>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {[
-                    { title: 'Tin khuyến mãi', desc: 'Ưu đãi và chiết khấu mới nhất từ Viettel IDC', icon: Zap, bg: 'bg-[#FAF5F6]', text: 'text-[#EE0033]' },
-                    { title: 'Tin sự kiện', desc: 'Hội thảo trực tuyến, triển lãm công nghệ', icon: Calendar, bg: 'bg-[#E0F2FE]', text: 'text-[#0369A1]' },
-                    { title: 'Tin công nghệ', desc: 'Xu hướng đám mây mây, AI và hạ tầng số', icon: Cpu, bg: 'bg-[#CCFBF1]', text: 'text-[#0D9488]' }
+                    { title: 'Tin sự kiện', desc: 'Hội thảo trực tuyến, triển lãm công nghệ', icon: Calendar },
+                    { title: 'Tin công nghệ', desc: 'Xu hướng đám mây, AI và hạ tầng số', icon: Cpu }
                   ].map(news => (
-                    <Link key={news.title} href="/services" onClick={() => setActiveMenu(null)} className="group flex gap-3 text-left">
+                    <Link key={news.title} href="/services" onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
                       <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
                         <news.icon className="w-4 h-4" />
                       </div>
                       <div>
                         <h4 className="text-[13px] font-semibold text-gray-900 group-hover:text-[#EE0033] transition-colors">{news.title}</h4>
-                        <p className="text-[11px] text-gray-400 mt-0.5 leading-normal">{news.desc}</p>
+                        <p className="text-[11px] text-gray-400 mt-1 leading-normal">{news.desc}</p>
                       </div>
                     </Link>
                   ))}
                 </div>
-                <div className="h-px bg-gray-100 my-4" />
-                <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-3">CHÍNH SÁCH & PHÁP LÝ</div>
-                <div className="space-y-2">
-                  <Link href="/contact" onClick={() => setActiveMenu(null)} className="flex items-center gap-2 text-[12.5px] text-gray-700 hover:text-[#EE0033] transition-colors">
-                    <FileText className="w-4 h-4 text-gray-400" />
-                    <span>Điều khoản sử dụng dịch vụ</span>
+              </div>
+
+              {/* Col 2: Tri thức chuyên sâu */}
+              <div className="px-4 border-r border-[#EBEBEB] text-left">
+                <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-4">TRI THỨC CHUYÊN SÂU</div>
+                <div className="space-y-4">
+                  <Link href="/services" onClick={() => setActiveMenu(null)} className="flex items-start gap-3.5 group p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
+                    <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
+                      <Award className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-[13px] font-semibold text-gray-900 group-hover:text-[#EE0033] transition-colors">Case Study</h4>
+                      <p className="text-[11px] text-gray-400 mt-1 leading-normal">Khám phá hành trình số hóa của các khách hàng lớn.</p>
+                    </div>
                   </Link>
-                  <Link href="/contact" onClick={() => setActiveMenu(null)} className="flex items-center gap-2 text-[12.5px] text-gray-700 hover:text-[#EE0033] transition-colors">
-                    <Lock className="w-4 h-4 text-gray-400" />
-                    <span>Chính sách bảo mật</span>
+
+                  <Link href="/services" onClick={() => setActiveMenu(null)} className="flex items-start gap-3.5 group p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
+                    <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
+                      <Newspaper className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-[13px] font-semibold text-gray-900 group-hover:text-[#EE0033] transition-colors">Blog kỹ thuật</h4>
+                      <p className="text-[11px] text-gray-400 mt-1 leading-normal">Chuyên luận về công nghệ cloud, container, an ninh mạng.</p>
+                    </div>
+                  </Link>
+
+                  <Link href="/services" onClick={() => setActiveMenu(null)} className="flex items-start gap-3.5 group p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
+                    <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
+                      <FileText className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-[13px] font-semibold text-gray-900 group-hover:text-[#EE0033] transition-colors">Whitepaper</h4>
+                      <p className="text-[11px] text-gray-400 mt-1 leading-normal">Báo cáo khảo sát thị trường số và kiến nghị chính sách.</p>
+                    </div>
                   </Link>
                 </div>
               </div>
 
-              {/* Col 2 */}
-              <div className="px-4 border-r border-[#EBEBEB] text-left flex flex-col gap-3">
-                <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">HỖ TRỢ KỸ THUẬT</div>
+              {/* Col 3: Hướng dẫn & Tài liệu */}
+              <div className="pl-4 text-left">
+                <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-4">TÀI LIỆU KỸ THUẬT</div>
                 
-                <a href="https://docs.viettelidc.com.vn" target="_blank" rel="noreferrer" className="bg-[#FAF5F6] border border-[#FCD9D8] hover:border-[#EE0033] rounded-[10px] p-4 transition-all">
+                <a href="https://docs.viettelidc.com.vn" target="_blank" rel="noreferrer" className="bg-[#FAF5F6] border border-[#FCD9D8] hover:border-[#EE0033] rounded-[10px] p-4 transition-all block mb-4">
                   <div className="flex items-center gap-2 mb-1.5">
                     <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] flex items-center justify-center">
                       <BookOpen className="w-4.5 h-4.5" />
@@ -1083,51 +1163,8 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                   <p className="text-[11px] text-gray-500 mt-1 leading-relaxed">API Reference · SDK · CLI · Hướng dẫn triển khai · Release notes</p>
                 </a>
 
-                <a href="https://support.viettelidc.com.vn" target="_blank" rel="noreferrer" className="bg-[#FAF5F6] border border-[#FCD9D8] hover:border-[#EE0033] rounded-[10px] p-4 transition-all">
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] flex items-center justify-center">
-                      <Headphones className="w-4.5 h-4.5" />
-                    </div>
-                    <span className="text-[13px] font-bold text-[#EE0033]">Trung tâm hỗ trợ ↗</span>
-                  </div>
-                  <div className="text-[11px] font-bold text-[#EE0033] mt-0.5">support.viettelidc.com.vn</div>
-                  <p className="text-[11px] text-gray-500 mt-1 leading-relaxed">Gửi ticket · Theo dõi sự cố · Status page hệ thống · FAQ cơ bản</p>
-                </a>
-              </div>
-
-              {/* Col 3 */}
-              <div className="pl-4 text-left">
-                <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-4">TÀI NGUYÊN KHÁC</div>
-                <div className="space-y-3.5">
-                  <Link href="/services" onClick={() => setActiveMenu(null)} className="flex items-start gap-3 group">
-                    <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
-                      <Award className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <h4 className="text-[13px] font-semibold text-gray-900 group-hover:text-[#EE0033]">Case Study</h4>
-                      <p className="text-[11px] text-gray-400 mt-0.5 leading-normal">Khám phá hành trình số hóa của các khách hàng lớn.</p>
-                    </div>
-                  </Link>
-
-                  <Link href="/services" onClick={() => setActiveMenu(null)} className="flex items-start gap-3 group">
-                    <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
-                      <Newspaper className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <h4 className="text-[13px] font-semibold text-gray-900 group-hover:text-[#EE0033]">Blog kỹ thuật</h4>
-                      <p className="text-[11px] text-gray-400 mt-0.5 leading-normal">Chuyên luận về công nghệ cloud, container, an ninh mạng.</p>
-                    </div>
-                  </Link>
-
-                  <Link href="/services" onClick={() => setActiveMenu(null)} className="flex items-start gap-3 group">
-                    <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
-                      <FileText className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <h4 className="text-[13px] font-semibold text-gray-900 group-hover:text-[#EE0033]">Whitepaper</h4>
-                      <p className="text-[11px] text-gray-400 mt-0.5 leading-normal">Báo cáo khảo sát thị trường số và kiến nghị chính sách.</p>
-                    </div>
-                  </Link>
+                <div className="text-[11.5px] text-[#5A5A5A] leading-relaxed bg-gray-50 p-3 rounded-[8px] border border-gray-100/80">
+                  Hệ thống tài liệu hướng dẫn kỹ thuật chi tiết giúp tối ưu hóa việc quản lý và phát triển trên nền tảng đám mây Viettel IDC.
                 </div>
               </div>
             </div>
@@ -1147,12 +1184,13 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                   <span>Xem tất cả đối tác</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
-                <div className="space-y-1">
+                <div className="space-y-[4px]">
                   {partnerCategories.map(cat => (
                     <button
                       key={cat}
                       onClick={() => setActiveCategoryE(cat)}
-                      className={`w-full text-left py-1.5 px-2.5 rounded-[7px] text-[13px] transition-all flex items-center gap-2 ${
+                      onMouseEnter={() => setActiveCategoryE(cat)}
+                      className={`w-full text-left py-2 px-3 rounded-[7px] text-[13px] transition-all flex items-center gap-2 ${
                         activeCategoryE === cat 
                           ? 'bg-[#FAF5F6] text-[#EE0033] font-semibold' 
                           : 'text-[#5A5A5A] hover:bg-[#FAF5F6] hover:text-[#EE0033]'
@@ -1168,19 +1206,19 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                 {activeCategoryE === 'Chương trình hợp tác' && (
                   <div>
                     <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-3.5">ĐĂNG KÝ HỢP TÁC</div>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-3">
                       {[
-                        { title: 'Tổng quan chương trình đối tác', desc: 'Chính sách phân cấp Tier Reseller, Solution Partner, Pinnacle Alliance', icon: Users, bg: 'bg-[#E0F2FE]', text: 'text-[#0369A1]' },
-                        { title: 'Đăng ký hợp tác trực tuyến', desc: 'Trở thành Đại lý phần cứng, Tiếp thị mây (Affiliate) nhanh chóng', icon: UserPlus, bg: 'bg-[#F0FDF4]', text: 'text-[#15803D]' },
-                        { title: 'Chính sách lợi ích và Hoa hồng', desc: 'Tỷ lệ chiết khấu hấp dẫn, hỗ trợ co-marketing, deal registration bùng nổ', icon: DollarSign, bg: 'bg-[#FEF3C7]', text: 'text-[#D97706]' }
+                        { title: 'Đăng ký trở thành đối tác', desc: 'Chính sách phân cấp hợp tác dành cho các Reseller, Solution Partner chuyên nghiệp.', icon: Users },
+                        { title: 'Đăng ký trở thành đại lý', desc: 'Trở thành đại lý phân phối hạ tầng số, Cloud và Colocation chuẩn Tier III.', icon: UserPlus },
+                        { title: 'Đăng ký chương trình affiliate', desc: 'Tiếp thị liên kết mây, chia sẻ liên kết nhận hoa hồng trực tuyến nhanh chóng.', icon: DollarSign }
                       ].map(item => (
-                        <Link key={item.title} href="/partners" onClick={() => setActiveMenu(null)} className="flex items-start gap-3 p-2.5 rounded-[8px] hover:bg-gray-50 transition-all group">
+                        <Link key={item.title} href="/partners" onClick={() => setActiveMenu(null)} className="flex items-start gap-4 p-3 rounded-[8px] hover:bg-gray-50 transition-all group">
                           <div className="w-8 h-8 rounded-full bg-[#FAF5F6] text-[#EE0033] flex items-center justify-center flex-shrink-0 group-hover:bg-[#EE0033] group-hover:text-white transition-colors duration-150">
                             <item.icon className="w-4 h-4" />
                           </div>
                           <div>
                             <h4 className="text-[13px] font-semibold text-gray-950 group-hover:text-[#EE0033] transition-colors leading-tight">{item.title}</h4>
-                            <p className="text-[11.5px] text-[#767676] mt-1 leading-normal">{item.desc}</p>
+                            <p className="text-[11.5px] text-[#767676] mt-1.5 leading-normal">{item.desc}</p>
                           </div>
                         </Link>
                       ))}
@@ -1191,62 +1229,54 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                 {activeCategoryE === 'Pinnacle Alliance' && (
                   <div className="space-y-4">
                     <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase">VIETTEL IDC PINNACLE ALLIANCE</div>
-                    <div className="bg-[#1A1A1A] border border-[#2D2D2D] rounded-[12px] p-5 flex gap-4 items-start">
-                      <div className="w-[44px] h-[44px] bg-[#EE0033] rounded-[10px] flex items-center justify-center flex-shrink-0">
-                        <Star className="w-[22px] h-[22px] text-white" />
+                    <div className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-5 flex gap-4 items-start">
+                      <div className="w-[44px] h-[44px] bg-[#EE0033] rounded-[10px] flex items-center justify-center flex-shrink-0 text-white">
+                        <Award className="w-[22px] h-[22px]" />
                       </div>
                       <div>
-                        <h4 className="text-[14px] font-bold text-white">Viettel IDC × Qualcomm</h4>
-                        <p className="text-[12px] text-white/60 mt-1 leading-relaxed">Hợp tác chiến lược triển khai hạ tầng edge computing và AI tại Việt Nam. Nâng cao năng lực cạnh tranh quốc gia cực kỳ bứt phá.</p>
-                        <Link href="/partners" onClick={() => setActiveMenu(null)} className="text-[12px] font-bold text-[#EE0033] hover:underline mt-2.5 block">Xem chi tiết đặc biệt →</Link>
+                        <p className="text-[13px] text-gray-700 leading-relaxed font-medium">
+                          Viettel IDC chính thức triển khai chương trình Viettel IDC Pinnacle Alliance - mô hình hợp tác chiến lược dành cho các nhà cung cấp dịch vụ đám mây (CSPs), các nhà tích hợp hệ thống (SI), nhà cung cấp dịch vụ quản lý (MSP), nhà phát triển phần mềm (ISV), các đơn vị cung cấp hạ tầng tại khu vực và quốc tế.{' '}
+                          <Link href="/partners" onClick={() => setActiveMenu(null)} className="text-[#EE0033] font-bold hover:underline">
+                            xem thêm.
+                          </Link>
+                        </p>
                       </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <Link href="/partners" onClick={() => setActiveMenu(null)} className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 text-[12.5px] text-gray-800 font-semibold transition-colors">
-                        <Star className="w-4 h-4 text-[#EE0033]" />
-                        <span>Danh sách đối tác Pinnacle</span>
-                      </Link>
-                      <Link href="/partners" onClick={() => setActiveMenu(null)} className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 text-[12.5px] text-gray-800 font-semibold transition-colors">
-                        <Award className="w-4 h-4 text-[#D97706]" />
-                        <span>Trở thành đối tác hạng Pinnacle</span>
-                      </Link>
                     </div>
                   </div>
                 )}
 
-                {activeCategoryE === 'Hỗ trợ đối tác' && (
+                {activeCategoryE === 'Viettelidc x Qualcomm' && (
                   <div>
-                    <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-3.5">HỖ TRỢ ĐỐI TÁC</div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <Link href="/partners" onClick={() => setActiveMenu(null)} className="p-4 bg-gray-50 border border-gray-100 rounded-[12px] hover:bg-gray-100 transition-all text-left">
-                        <BookOpen className="w-5 h-5 text-gray-700 mb-2" />
-                        <h4 className="text-[13px] font-semibold text-[#1A1A1A]">Tài nguyên hỗ trợ bán hàng</h4>
-                        <p className="text-[11.5px] text-[#767676] mt-1 leading-normal">Sales kits, brochures, tài liệu kỹ thuật mây chuyên sâu hỗ trợ thuyết trình dự án.</p>
-                      </Link>
-
-                      <a href="https://console.viettelidc.com.vn" target="_blank" rel="noreferrer" className="p-4 bg-gray-50 border border-gray-100 rounded-[12px] hover:bg-gray-100 transition-all text-left">
-                        <Laptop className="w-5 h-5 text-gray-700 mb-2" />
-                        <h4 className="text-[13px] font-semibold text-[#1A1A1A]">Partner Portal ↗</h4>
-                        <p className="text-[11.5px] text-[#767676] mt-1 leading-normal">Cổng thông tin tự chủ dành cho đối tác quản lý cơ cấu hoa hồng, xem deal.</p>
-                      </a>
+                    <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-3.5">VIETTEL IDC × QUALCOMM</div>
+                    <div className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-5 flex gap-4 items-start text-left">
+                      <div className="w-[44px] h-[44px] bg-[#EE0033] rounded-[10px] flex items-center justify-center flex-shrink-0 text-white">
+                        <Cpu className="w-[22px] h-[22px]" />
+                      </div>
+                      <div>
+                        <h4 className="text-[14px] font-bold text-gray-950">Hợp tác chiến lược Viettel IDC & Qualcomm</h4>
+                        <p className="text-[13px] text-gray-700 mt-1 leading-relaxed font-medium">
+                          Hợp tác chiến lược triển khai hạ tầng edge computing và AI tại Việt Nam. Nâng cao năng lực cạnh tranh quốc gia cực kỳ bứt phá, phát triển hệ sinh thái AI Edge, camera thông minh, các giải pháp đô thị thông minh và hạ tầng điện toán đám mây biên cao cấp.{' '}
+                          <Link href="/partners" onClick={() => setActiveMenu(null)} className="text-[#EE0033] font-bold hover:underline mt-1.5 block">Xem chi tiết đặc biệt →</Link>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 )}
               </div>
 
               <div className="w-[240px] flex-shrink-0 pl-6 border-l border-[#EBEBEB] flex flex-col gap-2.5">
-                <a href="/partners" onClick={() => setActiveMenu(null)} className="rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5" style={{ background: 'linear-gradient(140deg, #1A1A1A 0%, #EE0033 100%)' }}>
-                  <UserPlus className="w-[22px] h-[22px] text-white mb-2" />
-                  <h4 className="text-[14px] font-bold text-white">Xây dựng đại lý</h4>
-                  <p className="text-[11.5px] text-white/80 mt-1 leading-relaxed">Gia nhập mạng lưới cung cấp hạ tầng số lớn hàng đầu toàn quốc.</p>
-                  <span className="text-[12px] font-semibold text-[#FFB3C1] mt-3.5 flex items-center gap-1">Đăng ký kinh doanh →</span>
-                </a>
+                <Link href="/partners" onClick={() => setActiveMenu(null)} className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
+                  <BookOpen className="w-[22px] h-[22px] text-[#EE0033] mb-2" />
+                  <h4 className="text-[14px] font-bold text-gray-950">Tài nguyên hỗ trợ bán hàng</h4>
+                  <p className="text-[11.5px] text-gray-700 mt-1 leading-relaxed">Sales kits, brochures, tài liệu kỹ thuật mây chuyên sâu hỗ trợ thuyết trình dự án.</p>
+                  <span className="text-[12px] font-bold text-[#EE0033] mt-3.5 flex items-center gap-1">Tải tài liệu ngay →</span>
+                </Link>
 
-                <a href="https://console.viettelidc.com.vn" target="_blank" rel="noreferrer" className="rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5 border border-[#FCD9D8]/20" style={{ background: 'linear-gradient(140deg, #111827 0%, #EE0033 120%)' }}>
-                  <Laptop className="w-[22px] h-[22px] text-white mb-2" />
-                  <h4 className="text-[14px] font-bold text-white">Partner Portal</h4>
-                  <p className="text-[11.5px] text-white/80 mt-1 leading-relaxed">Cổng ghi nhận đăng ký hỗ trợ bán hàng, kiểm toán giao dịch dự phòng.</p>
-                  <span className="text-[12px] font-semibold text-[#FFB3C1] mt-3.5 flex items-center gap-1">Đăng nhập cổng →</span>
+                <a href="https://console.viettelidc.com.vn" target="_blank" rel="noreferrer" className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
+                  <Laptop className="w-[22px] h-[22px] text-[#EE0033] mb-2" />
+                  <h4 className="text-[14px] font-bold text-gray-950">Partner Portal</h4>
+                  <p className="text-[11.5px] text-gray-700 mt-1 leading-relaxed">Cổng ghi nhận đăng ký hỗ trợ bán hàng, kiểm toán giao dịch dự phòng.</p>
+                  <span className="text-[12px] font-bold text-[#EE0033] mt-3.5 flex items-center gap-1">Đăng nhập cổng →</span>
                 </a>
               </div>
             </div>
@@ -1263,20 +1293,20 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
               <div className="pr-4 border-r border-[#EBEBEB] text-left">
                 <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-4">THƯƠNG HIỆU</div>
-                <div className="space-y-4">
+                <div className="space-y-4.5">
                   {[
                     { label: 'Câu chuyện thương hiệu', desc: 'Sứ mệnh tối thượng làm chủ hạ tầng số quốc gia', icon: Info },
                     { label: 'Chứng chỉ & Giải thưởng', desc: 'Rated 3 DC, ISO 27001, SOC 2 cam kết an ninh', icon: Award },
                     { label: 'Hạ tầng Data center', desc: 'Mạng lưới phòng máy an toàn tại HN, Đà Nẵng, TP.HCM', icon: MapPin },
                     { label: 'Trách nhiệm xã hội (CSR)', desc: 'Chiến dịch đầu tư hỗ trợ phát triển tài năng trẻ Việt', icon: Heart }
                   ].map(item => (
-                    <Link key={item.label} href="/contact" onClick={() => setActiveMenu(null)} className="group flex gap-3 text-left">
+                    <Link key={item.label} href="/contact" onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
                       <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors duration-150">
                         <item.icon className="w-4 h-4" />
                       </div>
                       <div>
                         <h4 className="text-[13px] font-semibold text-gray-900 group-hover:text-[#EE0033] transition-colors">{item.label}</h4>
-                        <p className="text-[11px] text-gray-400 mt-0.5 leading-normal">{item.desc}</p>
+                        <p className="text-[11px] text-gray-400 mt-1 leading-normal">{item.desc}</p>
                       </div>
                     </Link>
                   ))}
@@ -1285,20 +1315,20 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
               <div className="px-4 border-r border-[#EBEBEB] text-left">
                 <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-4">SỰ KIỆN & BÁO CHÍ</div>
-                <div className="space-y-4">
+                <div className="space-y-4.5">
                   {[
                     { label: 'Sự kiện sắp diễn ra', desc: 'Đăng ký tham luận trực tuyến chia sẻ mây công nghệ', icon: Calendar },
                     { label: 'Sự kiện đã hoàn tất', desc: 'Thư viện tư liệu, video diễn thuyết hạ tầng chuyên đề', icon: Clock },
                     { label: 'Thông cáo báo chí', desc: 'Báo cáo tuyên ngôn hoạt động chính thức từ hội đồng', icon: Newspaper },
                     { label: 'Cơ hội Tuyển dụng', desc: 'Gia nhập cụm kỹ sư hạ tầng hàng đầu xây mây nội địa', icon: Users }
                   ].map(item => (
-                    <Link key={item.label} href="/contact" onClick={() => setActiveMenu(null)} className="group flex gap-3 text-left">
+                    <Link key={item.label} href="/contact" onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
                       <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors duration-150">
                         <item.icon className="w-4 h-4" />
                       </div>
                       <div>
                         <h4 className="text-[13px] font-semibold text-gray-900 group-hover:text-[#EE0033] transition-colors">{item.label}</h4>
-                        <p className="text-[11px] text-gray-400 mt-0.5 leading-normal">{item.desc}</p>
+                        <p className="text-[11px] text-gray-400 mt-1 leading-normal">{item.desc}</p>
                       </div>
                     </Link>
                   ))}
@@ -1334,6 +1364,101 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
                   <div className="mt-3.5 text-center">
                     <Link href="/contact" onClick={() => setActiveMenu(null)} className="text-[11.5px] text-gray-400 hover:text-[#EE0033] hover:underline">hoặc để lại thông tin liên hệ ngay →</Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* MEGA DROPDOWN G — "Khuyến mại" */}
+        {activeMenu === 'promotions' && (
+          <div className="absolute left-0 right-0 top-full bg-white border-t border-[#EBEBEB] border-b border-[#EBEBEB] shadow-[0_20px_40px_rgba(0,0,0,0.12)] z-[99] max-h-[580px] overflow-y-auto animate-in fade-in transition-all duration-200">
+            <div className="ali-container py-[28px] grid grid-cols-3 gap-8 relative">
+              <button onClick={() => setActiveMenu(null)} className="absolute top-4 right-6 text-gray-400 hover:text-black p-1">
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="pr-4 border-r border-[#EBEBEB] text-left">
+                <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-4">CHƯƠNG TRÌNH NỔI BẬT</div>
+                <div className="space-y-4.5">
+                  {[
+                    { label: 'Đại tiệc Cloud Server', desc: 'Nhận ngay coupon giảm 35% cho tất cả gói VM khởi tạo mới', icon: Sparkles, badge: 'HOT' },
+                    { label: 'Mừng tuổi mây vàng', desc: 'Tặng thêm lên đến 6 tháng sử dụng dịch vụ lưu trữ dữ liệu', icon: Gift, badge: 'NEW' },
+                    { label: 'Ưu đãi chuyển đổi hạ tầng', desc: 'Miễn phí chuyển vùng từ các nhà cung cấp khác về Viettel IDC', icon: Zap },
+                    { label: 'Đồng hành cùng Start-up', desc: 'Gói hỗ trợ hạ tầng mây lên tới 50.000.000đ cho DN mới thành lập', icon: Award }
+                  ].map(item => (
+                    <Link key={item.label} href="/contact" onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
+                      <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors duration-150">
+                        <item.icon className="w-4 h-4" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-1.5">
+                          <h4 className="text-[13px] font-semibold text-gray-900 group-hover:text-[#EE0033] transition-colors">{item.label}</h4>
+                          {item.badge && (
+                            <span className={`text-[9px] px-1.5 py-0.2 rounded-full font-bold tracking-wide ${
+                              item.badge === 'HOT' ? 'bg-red-100 text-red-600' : 'bg-purple-100 text-purple-600'
+                            }`}>{item.badge}</span>
+                          )}
+                        </div>
+                        <p className="text-[11px] text-gray-400 mt-1 leading-normal">{item.desc}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+
+                <div className="h-px bg-gray-100 my-4" />
+                <div className="pl-1">
+                  <Link href="/contact" onClick={() => setActiveMenu(null)} className="inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[#EE0033] hover:text-[#FF302D] hover:underline">
+                    <span>Xem tất cả chương trình khuyến mại</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="px-4 border-r border-[#EBEBEB] text-left">
+                <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-4">MÃ ƯU ĐÃI THEO DỊCH VỤ</div>
+                <div className="space-y-4.5">
+                  {[
+                    { label: 'Mã IDC-CLOUD30', desc: 'Giảm 30% dịch vụ Viettel Cloud Server, Cloud GPU', icon: Percent },
+                    { label: 'Mã IDC-STORAGE50', desc: 'Giảm 50% Cloud Backup & Storage, Viettel Drive', icon: Percent },
+                    { label: 'Mã IDC-DOMAIN0D', desc: 'Đăng ký tên miền .VN chỉ từ 0đ kèm Hosting bất kỳ', icon: Percent },
+                    { label: 'Mã IDC-SECURITY20', desc: 'Giảm 20% các giải pháp Firewall, SOC và WAF cao cấp', icon: Percent }
+                  ].map(item => (
+                    <div key={item.label} className="group flex gap-3.5 text-left p-1 rounded-[6px]">
+                      <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] flex items-center justify-center flex-shrink-0">
+                        <item.icon className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <h4 className="text-[13px] font-bold text-gray-950 font-mono tracking-tight">{item.label}</h4>
+                        <p className="text-[11px] text-gray-500 mt-1 leading-normal">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pl-4 text-left">
+                <div className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-5">
+                  <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-3.5">ĐĂNG KÝ NHẬN QUÀ</div>
+                  
+                  <div className="flex items-center gap-2 text-[18px] font-extrabold text-[#EE0033] leading-none mb-4">
+                    <Gift className="w-5 h-5 text-[#EE0033]" />
+                    <span>Nhận mã 1,000,000đ</span>
+                  </div>
+
+                  <p className="text-[11.5px] text-gray-600 leading-relaxed mb-4">
+                    Để lại email để nhận ngay voucher trải nghiệm hạ tầng điện toán đám mây và bảo mật cao cấp từ Viettel IDC.
+                  </p>
+
+                  <div className="h-px bg-red-100 my-4" />
+
+                  <Link href="/contact" onClick={() => setActiveMenu(null)} className="w-full text-center py-2 bg-[#EE0033] hover:bg-[#FF302D] text-white flex items-center justify-center font-bold text-[13px] rounded-[8px] transition-colors">
+                    Đăng ký nhận quà ngay
+                  </Link>
+
+                  <div className="mt-3.5 text-center">
+                    <span className="text-[11px] text-gray-400">Áp dụng cho khách hàng đăng ký mới trong tháng này.</span>
                   </div>
                 </div>
               </div>
@@ -1379,6 +1504,9 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                   </Link>
                   <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
                     Yêu cầu cuộc gọi tư vấn
+                  </Link>
+                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
+                    Chương trình Khuyến mại
                   </Link>
                 </div>
               </div>

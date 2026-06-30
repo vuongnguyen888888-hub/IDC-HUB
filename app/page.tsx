@@ -932,27 +932,9 @@ function HomepageContent() {
               <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight md:whitespace-nowrap">
                 Giải pháp chuyên sâu cho doanh nghiệp
               </h2>
-              <p className="text-xs md:text-sm text-gray-500 leading-relaxed font-semibold">
+              <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
                 Kiến tạo hạ tầng số an toàn, bảo mật và đáp ứng đầy đủ tiêu chuẩn khắt khe nhất của mọi doanh nghiệp.
               </p>
-            </div>
-            
-            {/* Slide Navigation Controls */}
-            <div className="flex items-center gap-3">
-              <button 
-                onClick={() => scroll('left')}
-                className="w-10 h-10 rounded-full border border-gray-200 bg-white hover:border-[#EE0033] hover:text-[#EE0033] text-gray-650 flex items-center justify-center transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer"
-                aria-label="Previous Slide"
-              >
-                <ChevronLeft className="w-5 h-5 stroke-[2]" />
-              </button>
-              <button 
-                onClick={() => scroll('right')}
-                className="w-10 h-10 rounded-full border border-gray-200 bg-white hover:border-[#EE0033] hover:text-[#EE0033] text-gray-650 flex items-center justify-center transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer"
-                aria-label="Next Slide"
-              >
-                <ChevronRight className="w-5 h-5 stroke-[2]" />
-              </button>
             </div>
           </div>
 
@@ -1061,7 +1043,7 @@ function HomepageContent() {
               <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight font-sans text-gray-950 leading-tight">
                 Thiết kế tối ưu theo đặc thù từng kịch bản vận hành
               </h2>
-              <p className="text-sm text-gray-600 max-w-3xl leading-relaxed font-semibold">
+              <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
                 Hạ tầng tính toán tối ưu, bảo mật đa phòng vệ được may đo chuẩn xác để giải quyết triệt độ bài toán khó nhất của riêng ngành bạn.
               </p>
             </div>
@@ -1425,35 +1407,6 @@ function HomepageContent() {
                   Giải thưởng
                 </button>
               </div>
-
-              {/* Prev / Next controls */}
-              <div className="flex items-center gap-2 border-l border-gray-200 pl-4">
-                <button
-                  onClick={() => setActiveCertTab('cert')}
-                  className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all outline-none ${
-                    activeCertTab === 'cert' 
-                      ? 'bg-gray-50 text-gray-300 border-gray-150 cursor-not-allowed' 
-                      : 'border-gray-200 bg-white text-gray-700 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 cursor-pointer'
-                  }`}
-                  disabled={activeCertTab === 'cert'}
-                  aria-label="Previous page"
-                >
-                  <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
-                </button>
-
-                <button
-                  onClick={() => setActiveCertTab('award')}
-                  className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all outline-none ${
-                    activeCertTab === 'award' 
-                      ? 'bg-gray-50 text-gray-300 border-gray-150 cursor-not-allowed' 
-                      : 'border-gray-200 bg-white text-gray-700 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 cursor-pointer'
-                  }`}
-                  disabled={activeCertTab === 'award'}
-                  aria-label="Next page"
-                >
-                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-                </button>
-              </div>
             </div>
           </div>
 
@@ -1528,37 +1481,51 @@ function HomepageContent() {
             <div className="text-left w-full space-y-2 mb-10">
                 <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">ĐỒNG HÀNH CÙNG PHÁT TRIỂN</span>
                 <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
-                  Đối tác chiến lược & Công nghệ
+                  Đối tác công nghệ
                 </h2>
                 <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
                     Viettel IDC liên kết chặt chẽ với các tập đoàn công nghệ hàng đầu thế giới để mang đến những giải pháp hạ tầng tiên tiến, tin cậy và tối ưu nhất cho doanh nghiệp Việt Nam.
                 </p>
             </div>
 
-            {/* Partners Grid - Showing only the brand logos in an elegant, modern minimal grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 md:gap-5">
-                {PARTNERS.map((partner) => {
-                  return (
-                    <div 
-                      key={partner.id} 
-                      className="bg-white border border-gray-100 p-5 rounded-2xl flex flex-col items-center justify-center gap-3 hover:border-[#EE0033] hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer text-center h-[140px]"
-                      title={`${partner.name} - ${partner.role}`}
-                    >
-                      {/* Brand Logo Container */}
-                      <div className="w-full h-12 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-                        <img 
-                          src={partner.logoUrl} 
-                          alt={partner.name}
-                          className="max-w-[85%] max-h-[85%] object-contain grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-                          referrerPolicy="no-referrer"
-                        />
-                      </div>
-                      <span className="font-extrabold text-[11px] md:text-xs text-gray-500 group-hover:text-[#EE0033] transition-colors uppercase tracking-wider">
-                        {partner.name}
-                      </span>
+            {/* Partners Grid - Running infinite marquee from right to left */}
+            <div className="relative w-full overflow-hidden py-4">
+              <style>{`
+                @keyframes marqueePartners {
+                  0% { transform: translateX(0); }
+                  100% { transform: translateX(-50%); }
+                }
+                .animate-marquee-partners {
+                  display: flex;
+                  width: max-content;
+                  animation: marqueePartners 35s linear infinite;
+                }
+                .animate-marquee-partners:hover {
+                  animation-play-state: paused;
+                }
+              `}</style>
+              <div className="animate-marquee-partners gap-4 md:gap-5 flex">
+                {[...PARTNERS, ...PARTNERS].map((partner, index) => (
+                  <div 
+                    key={`${partner.id}-${index}`} 
+                    className="bg-white border border-gray-100 p-5 rounded-2xl flex flex-col items-center justify-center gap-3 hover:border-[#EE0033] hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer text-center h-[140px] w-[160px] md:w-[180px] flex-shrink-0"
+                    title={`${partner.name} - ${partner.role}`}
+                  >
+                    {/* Brand Logo Container */}
+                    <div className="w-full h-12 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                      <img 
+                        src={partner.logoUrl} 
+                        alt={partner.name}
+                        className="max-w-[85%] max-h-[85%] object-contain grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                        referrerPolicy="no-referrer"
+                      />
                     </div>
-                  );
-                })}
+                    <span className="font-extrabold text-[11px] md:text-xs text-gray-500 group-hover:text-[#EE0033] transition-colors uppercase tracking-wider">
+                      {partner.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
         </div>
       </section>
