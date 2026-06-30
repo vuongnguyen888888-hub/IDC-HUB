@@ -1,0 +1,6 @@
+{
+  "name": "Viettel IDC Hub",
+  "description": "Cổng thông tin thương hiệu, dịch vụ, giải pháp và điều hướng trung tâm của Viettel IDC, xây dựng dựa trên Untitled UI Pro và Roboto font.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

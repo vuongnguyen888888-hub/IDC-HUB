@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-roboto), system-ui, sans-serif;
+  
+  /* --- Alibaba Cloud Corporate Typography Scale --- */
+  --text-xs: 12px;     /* Secondary details, captions, meta info */
+  --text-sm: 14px;     /* Standard compact body text, cards descriptions */
+  --text-base: 15px;   /* Default body text, general paragraphs */
+  --text-lg: 16px;     /* Action lists, key value pairs, description subtitles */
+  --text-xl: 18px;     /* Card titles, navigation tabs, section groupers */
+  --text-2xl: 20px;    /* Subsections headings, sidebars, drawer titles */
+  --text-3xl: 24px;    /* Primary subsection titles, group titles */
+  --text-4xl: 32px;    /* Standard page H1 component titles */
+  --text-5xl: 40px;    /* Prominent page headers */
+  --text-6xl: 48px;    /* Huge hero headlines */
+
+  --color-brand-10: #FAF5F6;
+  --color-brand-50: #FBBCCA;
+  --color-brand-100: #FCD9D8;
+  --color-brand-300: #FF302D;
+  --color-brand-500: #EE0033;
+  --color-brand-600: #F00034;
+  --color-brand-700: #C5002A;
+  --color-brand-800: #8A001D;
+
+  --color-gray-50: #F7F7F7;
+  --color-gray-100: #EBEBEB;
+  --color-gray-200: #D0D0D0;
+  --color-gray-300: #BABABA;
+  --color-gray-400: #9A9A9A;
+  --color-gray-500: #767676;
+  --color-gray-600: #5A5A5A;
+  --color-gray-700: #344054;
+  --color-gray-800: #182230;
+  --color-gray-900: #1A1A1A;
+
+  --color-success: #12B76A;
+  --color-warning: #F79009;
+  --color-error: #F04438;
+}
+
+/* Custom transitions and scroll container */
+.transition-all-200 {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.focus-ring-brand {
+  box-shadow: 0 0 0 4px #FBBCCA, 0 0 0 2px #FFFFFF;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* --- Alibaba Cloud Corporate Grid, Columns & Spacing Layout System --- */
+/*
+  This system is based on an 8px base grid which defines standard layout alignments:
+  - Base Container: Max width 1200px matching Alibaba Cloud's content design specifications.
+  - Column Gutters / Gaps: Standard 24px (gap-6) between columns, and 16px (gap-4) for widgets.
+  - Section Padding: Large sections use py-16 / py-20, card internal paddings use p-6 (24px).
+*/
+
+.ali-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+@media (max-width: 1024px) {
+  .ali-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ali-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.ali-section-padding {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+@media (max-width: 1024px) {
+  .ali-section-padding {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ali-section-padding {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
+
+/* Standard B2B Enterprise Columns Grid */
+.ali-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 24px; /* 24px column gutter standard */
+}
+
+@media (min-width: 768px) {
+  .ali-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .ali-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ali-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 24px; /* 24px column gutter standard */
+}
+
+@media (min-width: 640px) {
+  .ali-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .ali-grid-4 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .ali-grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Base custom styles to support the clean light mode corporate B2B feel */
+body {
+  font-family: var(--font-roboto), system-ui, sans-serif;
+}
+
