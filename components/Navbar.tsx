@@ -473,7 +473,14 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                       activeMenu === item.key ? 'text-[#EE0033] border-[#EE0033]' : 'text-[#344054] border-transparent'
                     }`}
                   >
-                    <span className="whitespace-nowrap">{item.label}</span>
+                    <span className="whitespace-nowrap flex items-center gap-1.5">
+                      <span>{item.label}</span>
+                      {item.key === 'promotions' && (
+                        <span className="bg-[#EE0033] text-white text-[8px] font-bold px-1 rounded-full flex items-center justify-center min-w-[14px] h-[14px]">
+                          4
+                        </span>
+                      )}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -1505,8 +1512,11 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                   <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
                     Yêu cầu cuộc gọi tư vấn
                   </Link>
-                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
-                    Chương trình Khuyến mại
+                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px] flex items-center gap-1.5">
+                    <span>Chương trình Khuyến mại</span>
+                    <span className="bg-[#EE0033] text-white text-[8px] font-bold px-1 rounded-full flex items-center justify-center min-w-[14px] h-[14px]">
+                      4
+                    </span>
                   </Link>
                 </div>
               </div>

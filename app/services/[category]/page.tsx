@@ -8,6 +8,7 @@ import { Cpu, ChevronRight, Phone, CheckCircle2, ArrowRight, BookOpen, Headphone
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import ScreenSwitcher from '../../../components/ScreenSwitcher';
+import ComputeAndContainerPage from '../../../components/ComputeAndContainerPage';
 import { SERVICE_CATEGORIES } from '../../../lib/db';
 
 type PageParams = { category: string };
@@ -22,6 +23,10 @@ function ServiceCategoryPageContent({ params }: PageProps) {
   // Resolve the dynamic parameters safely
   const resolvedParams = use(params);
   const categorySlug = resolvedParams.category;
+
+  if (categorySlug === 'compute') {
+    return <ComputeAndContainerPage />;
+  }
 
   const category = SERVICE_CATEGORIES.find(c => c.slug === categorySlug) || {
     id: categorySlug,
