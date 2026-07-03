@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css'; // Global styles
+import ChatbotWidgets from '../components/ChatbotWidgets';
 
 const roboto = Roboto({
   subsets: ['latin', 'vietnamese'],
@@ -42,6 +43,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       </head>
       <body suppressHydrationWarning className="font-sans antialiased text-[#5A5A5A] bg-[#F7F7F7]">
         {children}
+        <ChatbotWidgets />
       </body>
     </html>
   );

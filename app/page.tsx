@@ -708,6 +708,15 @@ function HomepageContent() {
   const [loading, setLoading] = useState(false);
   const [report, setReport] = useState<string | null>(null);
   const [activeIndustry, setActiveIndustry] = useState(0);
+  const [isHoveringIndustry, setIsHoveringIndustry] = useState(false);
+
+  useEffect(() => {
+    if (isHoveringIndustry) return;
+    const timer = setInterval(() => {
+      setActiveIndustry((prev) => (prev + 1) % INDUSTRIES_DATA.length);
+    }, 7000); // Cycle every 7 seconds
+    return () => clearInterval(timer);
+  }, [isHoveringIndustry]);
   const [showAllServices, setShowAllServices] = useState(false);
   const [activeDCIndex, setActiveDCIndex] = useState(0);
   const [showDCModal, setShowDCModal] = useState(false);
@@ -970,13 +979,33 @@ function HomepageContent() {
                 Kiến tạo hạ tầng số an toàn, bảo mật và đáp ứng đầy đủ tiêu chuẩn khắt khe nhất của mọi doanh nghiệp.
               </p>
             </div>
+
+            {/* Navigation Slide Buttons aligned to top right */}
+            <div className="flex items-center gap-3 self-start md:self-end">
+              <button
+                id="btn-prev-slide"
+                onClick={() => scroll('left')}
+                className="w-11 h-11 rounded-full border border-gray-200 bg-white hover:bg-gray-50 flex items-center justify-center text-gray-700 hover:text-[#EE0033] hover:border-[#EE0033] shadow-sm hover:shadow transition-all duration-300 active:scale-95 cursor-pointer outline-none group"
+                aria-label="Slide trước"
+              >
+                <ChevronLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-0.5 text-gray-600 group-hover:text-[#EE0033]" />
+              </button>
+              <button
+                id="btn-next-slide"
+                onClick={() => scroll('right')}
+                className="w-11 h-11 rounded-full border border-gray-200 bg-white hover:bg-gray-50 flex items-center justify-center text-gray-700 hover:text-[#EE0033] hover:border-[#EE0033] shadow-sm hover:shadow transition-all duration-300 active:scale-95 cursor-pointer outline-none group"
+                aria-label="Slide tiếp theo"
+              >
+                <ChevronRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 text-gray-600 group-hover:text-[#EE0033]" />
+              </button>
+            </div>
           </div>
 
           {/* Carousel Track container */}
           <div 
             ref={scrollRef}
             onScroll={handleScroll}
-            className="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory pb-4"
+            className="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory pt-4 pb-6 -my-4"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {BUSSINESS_SOLUTIONS.map((sol, index) => {
@@ -984,8 +1013,11 @@ function HomepageContent() {
                 <Link 
                   key={index}
                   href={`/solutions/${sol.slug}`}
-                  className="min-w-[280px] sm:min-w-[325px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)] flex-shrink-0 snap-start bg-white rounded-2xl p-8 flex flex-col justify-between h-[420px] relative overflow-hidden border border-gray-200/80 hover:border-[#EE0033] hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer transform-gpu"
+                  className="min-w-[280px] sm:min-w-[325px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)] flex-shrink-0 snap-start bg-white rounded-2xl p-8 flex flex-col justify-between h-[420px] relative overflow-hidden hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer transform-gpu"
                 >
+                  {/* Premium Border Overlay to prevent the scaled image from covering the border on hover */}
+                  <div className="absolute inset-0 rounded-2xl border border-gray-200/80 group-hover:border-[#EE0033] transition-colors duration-300 pointer-events-none z-20" />
+
                   {/* Real design background image from Cloudinary */}
                   <div 
                     className="absolute inset-0 bg-cover bg-center transition-all duration-500 opacity-90 group-hover:scale-105 group-hover:opacity-100 pointer-events-none z-0"
@@ -1031,30 +1063,6 @@ function HomepageContent() {
             })}
           </div>
 
-          {/* Dots Indicator */}
-          <div className="flex justify-center items-center gap-2 pt-2">
-            {[0, 1].map((idx) => (
-              <button 
-                key={idx}
-                onClick={() => {
-                  if (scrollRef.current) {
-                    const cardElement = scrollRef.current.firstElementChild as HTMLElement;
-                    const cardWidth = cardElement ? cardElement.offsetWidth + 24 : 0;
-                    scrollRef.current.scrollTo({
-                      left: idx * (cardWidth * 4),
-                      behavior: 'smooth'
-                    });
-                    setActiveDot(idx);
-                  }
-                }}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  activeDot === idx ? 'w-6 bg-[#EE0033]' : 'w-1.5 bg-gray-300 hover:bg-gray-400'
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
-          </div>
-
         </div>
       </section>
 
@@ -1085,60 +1093,80 @@ function HomepageContent() {
           </div>
         </div>
 
-        {/* FULL BLEED MULTI-CARD VERTICAL EXPANDING ACCORDION (Matches screenshot style perfectly) */}
-        <div className="ali-container my-8 relative z-10 text-gray-950">
+        {/* FULL BLEED MULTI-CARD VERTICAL EXPANDING ACCORDION (Enhanced premium edition) */}
+        <div 
+          className="ali-container my-4 relative z-10 text-gray-950"
+          onMouseEnter={() => setIsHoveringIndustry(true)}
+          onMouseLeave={() => setIsHoveringIndustry(false)}
+        >
           
-          {/* Desktop view: side-by-side horizontal cards with dynamic flexible widths */}
-          <div className="hidden md:flex flex-row gap-4 h-[490px] w-full relative">
+          {/* Desktop view: side-by-side horizontal cards with dynamic flexible widths & Framer Motion layout spring expansion */}
+          <div className="hidden md:flex flex-row gap-4.5 h-[530px] w-full relative">
             {INDUSTRIES_DATA.map((item, index) => {
               const isActive = activeIndustry === index;
               const IconComponent = item.bottomIcon;
 
               return (
-                <div
+                <motion.div
                   key={item.id}
+                  layout="position"
                   onMouseEnter={() => setActiveIndustry(index)}
                   onClick={() => setActiveIndustry(index)}
-                  className={`relative h-full rounded-xl overflow-hidden transition-all duration-700 ease-out border cursor-pointer select-none group min-w-0 ${
+                  className={`relative h-full rounded-2xl overflow-hidden cursor-pointer select-none border transition-all duration-500 min-w-0 group ${
                     isActive 
-                      ? "flex-[3.2] border-[#EE0033]/20" 
-                      : "flex-1 border-white/5 hover:flex-[1.1] hover:border-white/10"
+                      ? "flex-[3.5] border-[#EE0033]/20 shadow-[0_20px_50px_rgba(238,0,51,0.06)]" 
+                      : "flex-1 border-gray-200/40 hover:flex-[1.1] hover:border-gray-300/60"
                   }`}
+                  transition={{ type: "spring", stiffness: 180, damping: 25 }}
                 >
                   {/* High quality background image corresponding to the service */}
                   <div 
-                    className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out scale-100 group-hover:scale-105"
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-[2000ms] ease-out scale-100 group-hover:scale-105"
                     style={{ backgroundImage: `url('${item.bgPattern}')` }}
                   />
 
-                  {/* Gradient overlay: fading from 80% black at the top to transparent at the bottom */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent pointer-events-none z-[1]" />
+                  {/* Gradient overlays: sophisticated top and bottom dark fade */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/45 to-black/95 pointer-events-none z-[1]" />
+
+                  {/* Active glowing accent border overlay */}
+                  <div className={`absolute inset-0 border-[1.5px] rounded-2xl pointer-events-none z-[2] transition-opacity duration-500 ${
+                    isActive ? "border-[#EE0033]/45 opacity-100" : "border-transparent opacity-0"
+                  }`} />
 
                   {/* Main card interface interior with absolute/relative positioning for high control */}
-                  <div className="relative z-10 p-7 md:p-8 h-full flex flex-col justify-between items-start w-full">
+                  <div className="relative z-10 p-8 h-full flex flex-col justify-between items-start w-full">
                     
                     {isActive ? (
-                      // ACTIVE EXPANDED VIEW LAYOUT
-                      <div className="absolute inset-7 md:inset-8 flex flex-col justify-between items-start text-left">
+                      // ACTIVE EXPANDED VIEW LAYOUT (Richly styled, clean & responsive)
+                      <div className="absolute inset-8 flex flex-col justify-between items-start text-left h-[calc(100%-64px)] w-[calc(100%-64px)]">
+                        {/* Top sector-meta row */}
+                        <div className="flex items-center justify-end w-full">
+                          <span className="text-white/30 font-mono font-black text-2xl tracking-tighter">
+                            0{index + 1}
+                          </span>
+                        </div>
+
                         {/* Title & Description & Bullets */}
-                        <div className="space-y-4 max-w-xl">
-                          <h2 className="text-2.5xl text-white font-bold tracking-tight leading-tight">
-                            {item.title}
-                          </h2>
+                        <div className="space-y-4 max-w-2xl mt-4">
+                          <div className="space-y-1">
+                            <h2 className="text-3xl text-white font-extrabold tracking-tight leading-tight">
+                              {item.title}
+                            </h2>
+                          </div>
 
                           {/* Dynamic Paragraph narrative */}
-                          <p className="text-[12.5px] font-normal text-white/85 leading-relaxed max-w-lg mt-1">
+                          <p className="text-sm font-normal text-white/85 leading-relaxed max-w-xl">
                             {item.desc}
                           </p>
 
                           {/* Bullet points styled as list items with custom checks */}
-                          <div className="space-y-3 pt-3 max-w-lg">
+                          <div className="space-y-3 pt-3 max-w-xl">
                             {item.bullets.slice(0, 3).map((bullet, idx) => (
-                              <div key={idx} className="flex items-start gap-2.5">
-                                <span className="w-5 h-5 rounded-full border border-white/55 flex items-center justify-center shrink-0 mt-0.5">
-                                  <Check className="w-2.5 h-2.5 text-white stroke-[4.5]" />
+                              <div key={idx} className="flex items-start gap-3">
+                                <span className="w-5 h-5 rounded-full bg-[#EE0033]/20 border border-[#EE0033]/40 flex items-center justify-center shrink-0 mt-0.5">
+                                  <Check className="w-3 h-3 text-[#FF3366] stroke-[4]" />
                                 </span>
-                                <span className="text-[12.5px] font-medium text-white/95 leading-normal">
+                                <span className="text-[13px] font-medium text-white/95 leading-normal">
                                   {bullet}
                                 </span>
                               </div>
@@ -1147,56 +1175,65 @@ function HomepageContent() {
                         </div>
 
                         {/* Red capsule button positioned at bottom left of active card */}
-                        <div className="mt-auto">
+                        <div className="pt-6 mt-auto flex justify-between items-center w-full">
                           <Link 
                             href={`/solutions/${item.slug}`}
-                            className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#EE0033] hover:bg-[#CC002B] text-white text-xs font-bold uppercase tracking-wider transition-all duration-300 transform active:scale-95"
+                            className="inline-flex items-center gap-2.5 px-6.5 py-3 rounded-full bg-[#EE0033] hover:bg-[#D0002D] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#EE0033]/15 transition-all duration-300 transform active:scale-95 cursor-pointer animate-fade-in"
                           >
-                            <span>Tìm hiểu thêm</span>
+                            <span>Tìm hiểu chi tiết</span>
                             <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-[#EE0033]">
-                              <ArrowRight className="w-3 h-3 stroke-[3]" />
+                              <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
                             </div>
                           </Link>
                         </div>
                       </div>
                     ) : (
-                      // INACTIVE COLLAPSED VIEW LAYOUT - matching mockup with increased icon/circle sizes
-                      <div className="absolute inset-7 md:inset-8 flex flex-col justify-between items-start text-left">
-                        {/* Title at the top-left */}
-                        <h2 className="text-xl md:text-2xl text-white font-bold tracking-tight leading-tight break-words max-w-[150px]">
-                          {item.title}
-                        </h2>
+                      // INACTIVE COLLAPSED VIEW LAYOUT (Sophisticated vertical presentation)
+                      <div className="absolute inset-0 p-8 flex flex-col justify-between items-center text-center h-full w-full">
+                        {/* Top: Circular Index count */}
+                        <span className="text-white/30 font-mono font-bold text-base bg-white/5 w-8 h-8 rounded-full border border-white/5 flex items-center justify-center">
+                          0{index + 1}
+                        </span>
 
-                        {/* Domain-specific Icon in circled white-outline at bottom center (increased sizes) */}
-                        <div className="mt-auto w-full flex justify-center pb-2">
-                          <div className="w-14 h-14 rounded-full border border-white/40 flex items-center justify-center text-white/95 bg-black/40 backdrop-blur-xs group-hover:scale-110 group-hover:border-white transition-all duration-300">
-                            <IconComponent className="w-7 h-7 text-white stroke-[1.5]" />
+                        {/* Middle: rotated vertical title for high end visual design */}
+                        <div className="absolute inset-y-24 flex items-center justify-center pointer-events-none w-full">
+                          <div className="rotate-90 origin-center whitespace-nowrap text-white font-black text-sm uppercase tracking-[0.25em] opacity-45 group-hover:opacity-100 transition-all duration-500 leading-none">
+                            {item.title}
+                          </div>
+                        </div>
+
+                        {/* Bottom: Domain-specific Icon in circled red/white-outline at bottom center */}
+                        <div className="mt-auto w-full flex justify-center z-10">
+                          <div className="w-13 h-13 rounded-full border border-white/15 flex items-center justify-center text-white/95 bg-black/50 backdrop-blur-md group-hover:scale-110 group-hover:border-[#EE0033] group-hover:shadow-[0_0_20px_rgba(238,0,51,0.25)] transition-all duration-500">
+                            <IconComponent className="w-5.5 h-5.5 text-white group-hover:text-[#EE0033] transition-colors stroke-[1.8]" />
                           </div>
                         </div>
                       </div>
                     )}
 
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
 
-          {/* Mobile view: Stacked collapsible accordion blocks for tactile usability */}
-          <div className="flex md:hidden flex-col gap-3.5 w-full">
+          {/* Mobile view: Stacked collapsible accordion blocks for tactile usability with Framer Motion layout transitions */}
+          <div className="flex md:hidden flex-col gap-4 w-full">
             {INDUSTRIES_DATA.map((item, index) => {
               const isActive = activeIndustry === index;
               const IconComponent = item.bottomIcon;
 
               return (
-                <div
+                <motion.div
                   key={item.id}
+                  layout="position"
                   onClick={() => setActiveIndustry(index)}
-                  className={`relative rounded-xl overflow-hidden transition-all duration-500 border ease-out cursor-pointer select-none ${
+                  className={`relative rounded-2xl overflow-hidden cursor-pointer select-none border transition-all duration-500 ${
                     isActive 
-                      ? "h-[360px] border-[#EE0033]/40" 
-                      : "h-[80px] border-white/5"
+                      ? "h-[340px] border-[#EE0033]/30 shadow-lg" 
+                      : "h-[85px] border-gray-200/40"
                   }`}
+                  transition={{ type: "spring", stiffness: 200, damping: 25 }}
                 >
                   {/* Background image */}
                   <div 
@@ -1204,51 +1241,57 @@ function HomepageContent() {
                     style={{ backgroundImage: `url('${item.bgPattern}')` }}
                   />
 
-                  {/* Gradient overlay: fading from 80% black at the top to transparent at the bottom */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent pointer-events-none z-[1]" />
+                  {/* Gradient overlays */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/50 to-black/90 pointer-events-none z-[1]" />
+
+                  {/* Active border overlay */}
+                  <div className={`absolute inset-0 border-[1.5px] rounded-2xl pointer-events-none z-[2] transition-opacity duration-500 ${
+                    isActive ? "border-[#EE0033]/30 opacity-100" : "border-transparent opacity-0"
+                  }`} />
 
                   {/* Inner relative content */}
-                  <div className="relative z-10 p-5 h-full flex flex-col justify-between items-start w-full">
+                  <div className="relative z-10 p-6 h-full flex flex-col justify-between items-start w-full">
                     
                     <div className="w-full flex justify-between items-center gap-2">
-                      <div className="space-y-0.5">
-                        <h2 className="text-base text-white font-extrabold leading-tight">
+                      <div className="flex items-center gap-3">
+                        <span className="text-[#EE0033] font-mono font-black text-sm">0{index + 1}</span>
+                        <h2 className="text-base text-white font-extrabold leading-tight tracking-tight">
                           {item.title}
                         </h2>
                       </div>
                       <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all ${
                         isActive ? "border-white/20 bg-white/10 text-white" : "border-white/10 text-white/40"
                       }`}>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>
 
                     {isActive && (
                       <div className="w-full space-y-4 animate-fade-in mt-2 flex-grow flex flex-col justify-end">
-                        <p className="text-[11.5px] text-white/90 leading-relaxed bg-black/40 backdrop-blur-sm p-3 rounded-lg border border-white/5">
+                        <p className="text-[12.5px] text-white/90 leading-relaxed bg-black/40 backdrop-blur-md p-4 rounded-xl border border-white/5 shadow-inner">
                           {item.desc}
                         </p>
                         
                         {/* Red capsule button on mobile active as well */}
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between pt-2 border-t border-white/10">
                           <Link 
                             href={`/solutions/${item.slug}`}
-                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EE0033] text-white text-[10px] font-bold uppercase tracking-wider"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#EE0033] hover:bg-[#D0002D] text-white text-xs font-bold uppercase tracking-wider"
                           >
                             <span>Tìm hiểu</span>
-                            <ArrowRight className="w-3 h-3 text-white" />
+                            <ArrowRight className="w-3.5 h-3.5 text-white" />
                           </Link>
                           
-                          <div className="flex items-center gap-2 pt-1">
+                          <div className="flex items-center gap-2">
                             <IconComponent className="w-4 h-4 text-[#EE0033]" />
-                            <span className="text-[9px] font-mono text-white/55 uppercase tracking-widest">Viettel Cloud Standard</span>
+                            <span className="text-[10px] font-mono text-white/55 uppercase tracking-widest font-bold">Standard Cloud</span>
                           </div>
                         </div>
                       </div>
                     )}
 
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
@@ -1259,11 +1302,11 @@ function HomepageContent() {
       </section>
 
       {/* SECTION: NETWORK OF DATA CENTERS (MẠNG LƯỚI TRUNG TÂM DỮ LIỆU) */}
-      <section id="datacenter-network-section" className="bg-white py-16 relative overflow-hidden">
+      <section id="datacenter-network-section" className="bg-white py-20 relative overflow-hidden">
         <div className="ali-container relative z-10">
           
           {/* Section Header */}
-          <div className="text-left space-y-2.5 max-w-3xl mb-8">
+          <div className="text-left space-y-2.5 max-w-3xl mb-12">
             <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">
               HẠ TẦNG SỐ KHẮT KHE NHẤT
             </span>
@@ -1275,50 +1318,88 @@ function HomepageContent() {
             </p>
           </div>
 
-          {/* Interactive Stats Panel - Redesigned to match mockup */}
-          <div className="w-full h-[600px] relative rounded-[32px] overflow-hidden border border-neutral-800 flex items-center mb-4" 
-               style={{ backgroundImage: `url(${DATACENTER_VIEWS[activeDCIndex].image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          {/* Interactive Bento Split Panel */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-8">
             
-            {/* Dark gradient overlay covering left 2/3 with 80% to 0% opacity */}
-            <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 to-transparent z-0" />
-            
-            <div className="relative z-10 p-12 max-w-2xl text-white space-y-6">
-              <h2 className="text-5xl font-extrabold">
-                {DATACENTER_VIEWS[activeDCIndex].name}
-              </h2>
-              <p className="text-gray-200 text-lg leading-relaxed">
-                {DATACENTER_VIEWS[activeDCIndex].desc}
-              </p>
+            {/* Left: Beautiful Image Showcase */}
+            <div className="lg:col-span-7 relative h-[380px] lg:h-auto rounded-3xl overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.07)] group">
+              <img 
+                src={DATACENTER_VIEWS[activeDCIndex].image} 
+                alt={DATACENTER_VIEWS[activeDCIndex].name} 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                referrerPolicy="no-referrer"
+              />
+              {/* Premium Border Overlay to prevent the scaled image from covering the border on hover */}
+              <div className="absolute inset-0 rounded-3xl border border-gray-100/50 pointer-events-none z-20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent pointer-events-none" />
               
-              <div className="space-y-4 pt-4">
-                <h4 className="text-lg font-semibold text-white">Thông số kỹ thuật:</h4>
-                <div className="flex flex-col gap-3">
-                  {DATACENTER_VIEWS[activeDCIndex].metrics.map((metric, index) => (
-                    <div key={index} className="flex items-baseline gap-2">
-                      <span className="font-bold text-lg">{metric.desc}:</span>
-                      <span className="text-2xl font-black">{metric.value} {metric.unit}</span>
-                    </div>
-                  ))}
+              {/* Floating Tag */}
+              <div className="absolute top-6 left-6 z-10">
+                <span className="px-3.5 py-1.5 bg-[#EE0033] text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg leading-none">
+                  {DATACENTER_VIEWS[activeDCIndex].tag}
+                </span>
+              </div>
+            </div>
+
+            {/* Right: Premium Spec & Control Card */}
+            <div className="lg:col-span-5 bg-[#FAF9F9]/90 border border-gray-200/50 rounded-3xl p-8 lg:p-10 flex flex-col justify-between shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
+              <div className="space-y-6">
+                <div>
+                  <span className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest block mb-1">DATA CENTER PROFILE</span>
+                  <h3 className="text-2xl lg:text-3xl font-extrabold text-gray-950 font-sans tracking-tight leading-tight">
+                    {DATACENTER_VIEWS[activeDCIndex].name}
+                  </h3>
+                </div>
+                
+                <p className="text-xs lg:text-sm text-gray-600 leading-relaxed font-normal">
+                  {DATACENTER_VIEWS[activeDCIndex].desc}
+                </p>
+                
+                <div className="border-t border-gray-200/60 pt-6 space-y-4">
+                  <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-wider">Thông số kỹ thuật tiêu chuẩn</h4>
+                  
+                  <div className="grid grid-cols-1 gap-2.5">
+                    {DATACENTER_VIEWS[activeDCIndex].metrics.map((metric, index) => (
+                      <div key={index} className="flex items-center justify-between p-3.5 bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.01)] transition-all duration-200 group/item">
+                        <div className="text-left pr-4">
+                          <span className="text-xs font-semibold text-gray-600 leading-snug">{metric.desc}</span>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <span className="text-base lg:text-lg font-black text-gray-950 font-sans tracking-tight">
+                            {metric.value} <span className="text-[10px] font-bold text-gray-400 uppercase">{metric.unit}</span>
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              
-              <button
-                onClick={() => {
-                  const matchingDC = DATA_CENTERS.find(dc => dc.id === DATACENTER_VIEWS[activeDCIndex].id);
-                  if (matchingDC) {
-                    setSelectedDCData(matchingDC);
-                    setShowDCModal(true);
-                  }
-                }}
-                className="inline-flex items-center gap-2 px-8 py-3 border border-white hover:bg-white hover:text-black transition-all rounded-full font-bold text-sm uppercase tracking-wider mt-4"
-              >
-                <span>Xem chi tiết</span>
-              </button>
+
+              <div className="pt-6 mt-6 border-t border-gray-200/60 flex items-center justify-between">
+                <button
+                  onClick={() => {
+                    const matchingDC = DATA_CENTERS.find(dc => dc.id === DATACENTER_VIEWS[activeDCIndex].id);
+                    if (matchingDC) {
+                      setSelectedDCData(matchingDC);
+                      setShowDCModal(true);
+                    }
+                  }}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#EE0033] hover:bg-[#D0002D] text-white font-extrabold text-[11px] uppercase tracking-wider rounded-full shadow-[0_4px_14px_rgba(238,0,51,0.2)] hover:shadow-[0_6px_20px_rgba(238,0,51,0.3)] transition-all duration-200 cursor-pointer"
+                >
+                  <span>Xem hồ sơ chi tiết</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+                
+                <span className="text-[10px] font-mono font-bold tracking-widest text-gray-400 uppercase">
+                  0{activeDCIndex + 1} / 0{DATACENTER_VIEWS.length}
+                </span>
+              </div>
             </div>
+
           </div>
 
-          {/* Slider Row of the 5 preview thumbnails matching the mockup */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4.5 mt-0 w-full animate-fadeIn">
+          {/* Slider Row of the 6 preview thumbnails with glassmorphic labels */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4 mt-4 w-full animate-fadeIn">
             {DATACENTER_VIEWS.map((view, index) => {
               const isActive = activeDCIndex === index;
               return (
@@ -1334,30 +1415,32 @@ function HomepageContent() {
                   }}
                   className={`group relative overflow-hidden aspect-[16/10.5] w-full rounded-2xl cursor-pointer transition-all duration-300 ${
                     isActive 
-                      ? 'ring-2 ring-[#EE0033] shadow-[0_8px_25px_rgba(238,0,51,0.25)] scale-[1.02]' 
-                      : 'border border-gray-200/80 hover:border-gray-400 hover:shadow-sm'
+                      ? 'ring-2 ring-[#EE0033] ring-offset-2 shadow-[0_8px_25px_rgba(238,0,51,0.2)] scale-[1.02]' 
+                      : 'border border-gray-200/60 hover:border-gray-400/80 hover:shadow-sm'
                   }`}
                 >
                   <img 
                     src={view.thumbnail} 
                     alt={view.name} 
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
-                  {/* Backdrop Filter */}
-                  <div className="absolute inset-0 bg-neutral-950/25 group-hover:bg-neutral-950/15 transition-colors duration-300" />
+                  <div className="absolute inset-0 bg-neutral-950/20 group-hover:bg-neutral-950/10 transition-colors duration-300" />
                   
-                  {/* Interactive Red Capsule Badge at bottom left */}
-                  <span className="absolute bottom-2 left-2 px-2.5 py-1 bg-[#EE0033] text-white text-[8px] md:text-[9.5px] font-extrabold uppercase tracking-wide rounded-md shadow-md leading-none whitespace-nowrap">
-                    {view.tag}
-                  </span>
+                  {/* Glassmorphic Bar for Name */}
+                  <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-md px-3 py-2 flex items-center justify-between">
+                    <span className="text-[9.5px] md:text-[10.5px] font-bold text-white truncate max-w-[85%]">
+                      {view.name.replace("Trung tâm Dữ liệu", "TTDL").replace("TTDL ", "")}
+                    </span>
+                    <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${isActive ? 'bg-[#EE0033] animate-pulse' : 'bg-white/40'}`} />
+                  </div>
                 </div>
               );
             })}
           </div>
 
           {/* Slide Navigation Pagination and Detailed Modal trigger aligned bottom */}
-          <div className="hidden sm:flex items-center justify-between mt-4">
+          <div className="hidden sm:flex items-center justify-between mt-6">
             
             {/* Left Action Button to open fully detailed specs if specific center selected */}
             {activeDCIndex > 0 ? (

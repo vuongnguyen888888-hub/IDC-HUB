@@ -239,10 +239,11 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
   
   const [langOpen, setLangOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState(isGlobal ? 'Singapore' : 'Việt Nam');
-
-  useEffect(() => {
+  const [prevIsGlobal, setPrevIsGlobal] = useState(isGlobal);
+  if (isGlobal !== prevIsGlobal) {
+    setPrevIsGlobal(isGlobal);
     setCurrentLang(isGlobal ? 'Singapore' : 'Việt Nam');
-  }, [isGlobal]);
+  }
 
   const [serviceSearchQuery, setServiceSearchQuery] = useState('');
 
