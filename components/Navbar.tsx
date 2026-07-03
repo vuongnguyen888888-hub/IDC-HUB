@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useMarket } from '../hooks/useMarket';
+import { motion } from 'motion/react';
 import { 
   Phone, FileText, Headphones, Globe, Search, ChevronDown, Check, ArrowRight, X, Gift, Percent,
   Cpu, Database, Server, HardDrive, Network, Lock, BookOpen, Clock, Mail, MapPin, Shield, 
@@ -510,12 +511,29 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                       activeMenu === item.key ? 'text-[#EE0033] border-[#EE0033]' : 'text-[#344054] border-transparent'
                     }`}
                   >
-                    <span className="whitespace-nowrap flex items-center gap-1.5">
+                    <span className="whitespace-nowrap flex items-center gap-0.5">
                       <span>{item.label}</span>
                       {item.key === 'promotions' && (
-                        <span className="bg-[#EE0033] text-white text-[8px] font-bold px-1 rounded-full flex items-center justify-center min-w-[14px] h-[14px]">
-                          4
-                        </span>
+                        <motion.span
+                          animate={{
+                            rotate: [0, -12, 12, -12, 12, 0],
+                          }}
+                          whileHover={{ scale: 1.15 }}
+                          transition={{
+                            rotate: {
+                              duration: 1.2,
+                              repeat: Infinity,
+                              repeatDelay: 2.5,
+                              ease: "easeInOut"
+                            },
+                            scale: {
+                              duration: 0.15
+                            }
+                          }}
+                          className="inline-flex text-[#EE0033] ml-0 flex-shrink-0 cursor-pointer"
+                        >
+                          <Gift className="w-4 h-4" />
+                        </motion.span>
                       )}
                     </span>
                   </button>
