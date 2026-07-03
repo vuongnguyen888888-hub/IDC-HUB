@@ -341,7 +341,7 @@ export default function ComputeAndContainerPage() {
                       'Kết nối an toàn về văn phòng hoặc DC On-Premise'
                     ],
                     icon: Network,
-                    link: '/contact'
+                    link: '/services/compute/viettel-virtual-private-cloud'
                   },
                   {
                     name: 'Viettel Private Cloud',
@@ -353,7 +353,7 @@ export default function ComputeAndContainerPage() {
                       'Toàn quyền kiểm soát và cấp phát tài nguyên nội bộ'
                     ],
                     icon: Lock,
-                    link: '/contact'
+                    link: '/services/compute/viettel-private-cloud'
                   },
                   {
                     name: 'Viettel Dedicated Private Cloud',
@@ -365,7 +365,7 @@ export default function ComputeAndContainerPage() {
                       'Đặt tại trung tâm dữ liệu chuẩn Rated 3 an toàn nhất'
                     ],
                     icon: Shield,
-                    link: '/contact'
+                    link: '/services/compute/viettel-dedicated-private-cloud'
                   },
                   {
                     name: 'Viettel Open Private Cloud',
@@ -377,7 +377,7 @@ export default function ComputeAndContainerPage() {
                       'Tiết kiệm tối đa chi phí bản quyền cho doanh nghiệp'
                     ],
                     icon: Settings,
-                    link: '/contact'
+                    link: '/services/compute/viettel-open-private-cloud'
                   },
                   {
                     name: 'Viettel Cloud GPU',
@@ -389,7 +389,7 @@ export default function ComputeAndContainerPage() {
                       'Kết nối mạng GPU siêu tốc qua NVLink băng thông lớn'
                     ],
                     icon: Cpu,
-                    link: '/services/compute/viettel-gpu-server'
+                    link: '/services/compute/viettel-cloud-gpu'
                   },
                   {
                     name: 'Viettel Cloud NPU',
@@ -401,7 +401,7 @@ export default function ComputeAndContainerPage() {
                       'Đáp ứng thời gian phản hồi siêu tốc độ cho Chatbot, Vision'
                     ],
                     icon: Activity,
-                    link: '/contact'
+                    link: '/services/compute/viettel-cloud-npu'
                   }
                 ].map((prod, idx) => {
                   const IconComponent = prod.icon;
@@ -592,7 +592,7 @@ export default function ComputeAndContainerPage() {
 
           {/* Bento-style grid advantages */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs hover:shadow-md transition-all duration-300 space-y-4 text-left">
+            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs hover:shadow-md hover:border-gray-200 transition-all duration-300 space-y-4 text-left">
               <div className="w-10 h-10 rounded-lg bg-red-50 text-[#EE0033] flex items-center justify-center">
                 <Calculator className="w-5 h-5" />
               </div>
@@ -602,7 +602,7 @@ export default function ComputeAndContainerPage() {
               </p>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs hover:shadow-md transition-all duration-300 space-y-4 text-left">
+            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs hover:shadow-md hover:border-gray-200 transition-all duration-300 space-y-4 text-left">
               <div className="w-10 h-10 rounded-lg bg-red-50 text-[#EE0033] flex items-center justify-center">
                 <Zap className="w-5 h-5" />
               </div>
@@ -612,7 +612,7 @@ export default function ComputeAndContainerPage() {
               </p>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs hover:shadow-md transition-all duration-300 space-y-4 text-left">
+            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs hover:shadow-md hover:border-gray-200 transition-all duration-300 space-y-4 text-left">
               <div className="w-10 h-10 rounded-lg bg-red-50 text-[#EE0033] flex items-center justify-center">
                 <Shield className="w-5 h-5" />
               </div>
@@ -622,7 +622,7 @@ export default function ComputeAndContainerPage() {
               </p>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs hover:shadow-md transition-all duration-300 space-y-4 text-left">
+            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs hover:shadow-md hover:border-gray-200 transition-all duration-300 space-y-4 text-left">
               <div className="w-10 h-10 rounded-lg bg-red-50 text-[#EE0033] flex items-center justify-center">
                 <Globe className="w-5 h-5" />
               </div>

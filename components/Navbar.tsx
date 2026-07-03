@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import { useMarket } from '../hooks/useMarket';
 import { 
   Phone, FileText, Headphones, Globe, Search, ChevronDown, Check, ArrowRight, X, Gift, Percent,
   Cpu, Database, Server, HardDrive, Network, Lock, BookOpen, Clock, Mail, MapPin, Shield, 
@@ -127,27 +128,27 @@ const solutionsList: Record<string, { name: string; desc: string; icon: any; ico
   'Hạ tầng & Cloud': [
     { name: 'Sao lưu & Dự phòng dữ liệu', desc: 'Backup tự động, DR cross-DC, RTO < 15 phút, RPO < 1 giờ', icon: Server, iconBg: 'bg-[#F0FDF4]', iconColor: 'text-[#15803D]', href: '/solutions/backup-dr' },
     { name: 'Chuyển đổi hạ tầng Cloud', desc: 'Migration toàn diện từ on-premise lên Cloud, không gián đoạn', icon: Layers, iconBg: 'bg-[#E0F2FE]', iconColor: 'text-[#0369A1]', href: '/solutions/cloud-migration' },
-    { name: 'Triển khai Multi-Availability Zone', desc: 'Hạ tầng HA ổn định liên tục, bảo hộ rủi ro kỹ thuật', icon: Layers, iconBg: 'bg-[#CCFBF1]', iconColor: 'text-[#0D9488]', href: '/solutions/backup-dr' },
-    { name: 'Viettel IaC Hub', desc: 'Tự động hóa hạ tầng thông qua Terraform templates và GitOps', icon: Code, iconBg: 'bg-[#EBEBEB]', iconColor: 'text-[#5A5A5A]', href: '/solutions/container' }
+    { name: 'Triển khai Multi-Availability Zone', desc: 'Hạ tầng HA ổn định liên tục, bảo hộ rủi ro kỹ thuật', icon: Layers, iconBg: 'bg-[#CCFBF1]', iconColor: 'text-[#0D9488]', href: '/solutions/multi-az' },
+    { name: 'Viettel IaC Hub', desc: 'Tự động hóa hạ tầng thông qua Terraform templates và GitOps', icon: Code, iconBg: 'bg-[#EBEBEB]', iconColor: 'text-[#5A5A5A]', href: '/solutions/iac-hub' }
   ],
   'Dev, Ops & AI': [
     { name: 'Container & Kubernetes', desc: 'Triển khai cụm container quản trị K8s managed vOKS/vDKS', icon: Box, iconBg: 'bg-[#E0F2FE]', iconColor: 'text-[#0369A1]', href: '/solutions/container' },
-    { name: 'DevSecOps', desc: 'Tích hợp bảo mật tự động vào quy trình CI/CD hoàn hảo', icon: Shield, iconBg: 'bg-[#FAF5F6]', iconColor: 'text-[#EE0033]', href: '/solutions/container' },
-    { name: 'Giám sát & Ứng dụng AI', desc: 'Quản lý hiệu năng APM tích hợp phân tích bất thường bằng AI', icon: Cpu, iconBg: 'bg-[#FEF3C7]', iconColor: 'text-[#D97706]', href: '/solutions/container' },
-    { name: 'Đám mây hiệu năng cao', desc: 'Cụm máy GPU NVIDIA A100/H100 phục vụ học sâu training mẫu', icon: Zap, iconBg: 'bg-[#F3E8FF]', iconColor: 'text-[#7C3AED]', href: '/solutions/container' }
+    { name: 'DevSecOps', desc: 'Tích hợp bảo mật tự động vào quy trình CI/CD hoàn hảo', icon: Shield, iconBg: 'bg-[#FAF5F6]', iconColor: 'text-[#EE0033]', href: '/solutions/devsecops' },
+    { name: 'Giám sát & Ứng dụng AI', desc: 'Quản lý hiệu năng APM tích hợp phân tích bất thường bằng AI', icon: Cpu, iconBg: 'bg-[#FEF3C7]', iconColor: 'text-[#D97706]', href: '/solutions/monitoring-ai' },
+    { name: 'Đám mây hiệu năng cao', desc: 'Cụm máy GPU NVIDIA A100/H100 phục vụ học sâu training mẫu', icon: Zap, iconBg: 'bg-[#F3E8FF]', iconColor: 'text-[#7C3AED]', href: '/solutions/hpc' }
   ],
   'Kết nối & Workspace': [
-    { name: 'Mạng phân phối nội dung (CDN)', desc: 'Multi-CDN tối ưu hóa định tuyến tải web toàn quốc', icon: Globe, iconBg: 'bg-[#CCFBF1]', iconColor: 'text-[#0D9488]', href: '/solutions/cloud-migration' },
-    { name: 'Làm việc di động', desc: 'Không gian làm việc số an toàn Cloud PC, Microsoft 365', icon: Laptop, iconBg: 'bg-[#E0F2FE]', iconColor: 'text-[#0369A1]', href: '/solutions/cloud-migration' },
-    { name: 'Xây dựng Website', desc: 'Gói trọn bộ Web Hosting, SSD, tên miền SSL tin cậy', icon: Monitor, iconBg: 'bg-[#F0FDF4]', iconColor: 'text-[#15803D]', href: '/solutions/cloud-migration' }
+    { name: 'Mạng phân phối nội dung (CDN)', desc: 'Multi-CDN tối ưu hóa định tuyến tải web toàn quốc', icon: Globe, iconBg: 'bg-[#CCFBF1]', iconColor: 'text-[#0D9488]', href: '/solutions/cdn' },
+    { name: 'Làm việc di động', desc: 'Không gian làm việc số an toàn Cloud PC, Microsoft 365', icon: Laptop, iconBg: 'bg-[#E0F2FE]', iconColor: 'text-[#0369A1]', href: '/solutions/mobile-work' },
+    { name: 'Xây dựng Website', desc: 'Gói trọn bộ Web Hosting, SSD, tên miền SSL tin cậy', icon: Monitor, iconBg: 'bg-[#F0FDF4]', iconColor: 'text-[#15803D]', href: '/solutions/website' }
   ],
   'Giải pháp theo ngành': [
-    { name: 'Tài chính - Ngân hàng (Fintech & Banking)', desc: 'Đáp ứng tiêu chuẩn bảo mật khắt khe PCI-DSS, kiến trúc hybrid mây bảo mật tối đa', icon: DollarSign, iconBg: 'bg-[#FAF5F6]', iconColor: 'text-[#EE0033]', href: '/solutions/backup-dr' },
-    { name: 'Thương mại điện tử & Bán lẻ (Retail & E-commerce)', desc: 'Hạ tầng chịu tải lớn, tự động co giãn (auto-scaling) mượt mà các dịp Sale lớn', icon: ShoppingCart, iconBg: 'bg-[#F0FDF4]', iconColor: 'text-[#15803D]', href: '/solutions/cloud-migration' },
-    { name: 'Y tế số (HealthTech & PACS Cloud)', desc: 'Lưu trữ hồ sơ PACS dung lượng siêu lớn, truyền tải nhanh, chuẩn hóa kết nối y khoa', icon: Activity, iconBg: 'bg-[#E0F2FE]', iconColor: 'text-[#0369A1]', href: '/solutions/backup-dr' },
-    { name: 'Giáo dục trực tuyến (EdTech & LMS)', desc: 'Phát trực tuyến bài giảng không độ trễ, lưu trữ quản lý tài nguyên học tập linh hoạt', icon: GraduationCap, iconBg: 'bg-[#FEF3C7]', iconColor: 'text-[#D97706]', href: '/solutions/cloud-migration' },
-    { name: 'Chính phủ số & Hành chính công', desc: 'Hạ tầng mây dùng riêng đạt chứng chỉ an toàn thông tin cấp độ 4 cho cơ quan bộ ngành', icon: Building2, iconBg: 'bg-[#EBEBEB]', iconColor: 'text-[#5A5A5A]', href: '/solutions/backup-dr' },
-    { name: 'Sản xuất thông minh & IoT Logistics', desc: 'Nền tảng kết nối IoT biên, phân tích hiệu năng dây chuyền và chuỗi cung ứng thực tế', icon: Factory, iconBg: 'bg-[#F3E8FF]', iconColor: 'text-[#7C3AED]', href: '/solutions/container' }
+    { name: 'Tài chính - Ngân hàng (Fintech & Banking)', desc: 'Đáp ứng tiêu chuẩn bảo mật khắt khe PCI-DSS, kiến trúc hybrid mây bảo mật tối đa', icon: DollarSign, iconBg: 'bg-[#FAF5F6]', iconColor: 'text-[#EE0033]', href: '/solutions/fintech' },
+    { name: 'Thương mại điện tử & Bán lẻ (Retail & E-commerce)', desc: 'Hạ tầng chịu tải lớn, tự động co giãn (auto-scaling) mượt mà các dịp Sale lớn', icon: ShoppingCart, iconBg: 'bg-[#F0FDF4]', iconColor: 'text-[#15803D]', href: '/solutions/ecommerce' },
+    { name: 'Y tế số (HealthTech & PACS Cloud)', desc: 'Lưu trữ hồ sơ PACS dung lượng siêu lớn, truyền tải nhanh, chuẩn hóa kết nối y khoa', icon: Activity, iconBg: 'bg-[#E0F2FE]', iconColor: 'text-[#0369A1]', href: '/solutions/healthtech' },
+    { name: 'Giáo dục trực tuyến (EdTech & LMS)', desc: 'Phát trực tuyến bài giảng không độ trễ, lưu trữ quản lý tài nguyên học tập linh hoạt', icon: GraduationCap, iconBg: 'bg-[#FEF3C7]', iconColor: 'text-[#D97706]', href: '/solutions/edtech' },
+    { name: 'Chính phủ số & Hành chính công', desc: 'Hạ tầng mây dùng riêng đạt chứng chỉ an toàn thông tin cấp độ 4 cho cơ quan bộ ngành', icon: Building2, iconBg: 'bg-[#EBEBEB]', iconColor: 'text-[#5A5A5A]', href: '/solutions/digital-gov' },
+    { name: 'Sản xuất thông minh & IoT Logistics', desc: 'Nền tảng kết nối IoT biên, phân tích hiệu năng dây chuyền và chuỗi cung ứng thực tế', icon: Factory, iconBg: 'bg-[#F3E8FF]', iconColor: 'text-[#7C3AED]', href: '/solutions/smart-manufacturing' }
   ]
 };
 
@@ -171,11 +172,29 @@ const getCategorySlug = (categoryName: string) => {
 
 const getProductSlug = (name: string) => {
   const nameLower = name.toLowerCase();
-  if (nameLower.includes('server') && !nameLower.includes('gpu') && !nameLower.includes('leasing')) return 'viettel-cloud-server';
-  if (nameLower.includes('kubernetes') || nameLower.includes('voks')) return 'viettel-kubernetes';
+  if (nameLower.includes('dedicated private cloud')) return 'viettel-dedicated-private-cloud';
+  if (nameLower.includes('open private cloud')) return 'viettel-open-private-cloud';
+  if (nameLower.includes('virtual private cloud') || nameLower.includes('vpc')) return 'viettel-virtual-private-cloud';
+  if (nameLower.includes('private cloud')) return 'viettel-private-cloud';
+  if (nameLower.includes('cloud gpu')) return 'viettel-cloud-gpu';
+  if (nameLower.includes('cloud npu')) return 'viettel-cloud-npu';
+  if (nameLower.includes('server (vm)') || (nameLower.includes('server') && !nameLower.includes('gpu') && !nameLower.includes('leasing'))) return 'viettel-cloud-server';
+  if (nameLower.includes('dedicated kubernetes')) return 'viettel-dedicated-kubernetes-service-vdks';
+  if (nameLower.includes('open kubernetes') || nameLower.includes('voks')) return 'viettel-open-kubernetes-service-voks';
+  if (nameLower.includes('kubernetes')) return 'viettel-kubernetes';
   if (nameLower.includes('gpu') && nameLower.includes('server')) return 'viettel-gpu-server';
   if (nameLower.includes('colocation') || nameLower.includes('chỗ đặt')) return 'viettel-colocation';
-  return null;
+  
+  // Clean slugify for other services
+  return name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[đĐ]/g, 'd')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
 };
 
 const getProductCategoryName = (name: string) => {
@@ -208,6 +227,8 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
   const pathname = usePathname();
   const router = useRouter();
   
+  const { market, isGlobal, getLocalizedPath } = useMarket();
+  
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -217,7 +238,11 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
   const [activeCategoryE, setActiveCategoryE] = useState('Chương trình hợp tác');
   
   const [langOpen, setLangOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState('Việt Nam');
+  const [currentLang, setCurrentLang] = useState(isGlobal ? 'Singapore' : 'Việt Nam');
+
+  useEffect(() => {
+    setCurrentLang(isGlobal ? 'Singapore' : 'Việt Nam');
+  }, [isGlobal]);
 
   const [serviceSearchQuery, setServiceSearchQuery] = useState('');
 
@@ -354,7 +379,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
         )}
         
         {/* ━━━ Selector 3: TOP BAR ━━━ */}
-        <div className="h-[36px] bg-[#1A1A1A] text-white text-[12px] relative z-30 flex items-center border-b border-white/5">
+        <div className="h-[36px] bg-[#1A1A1A] text-white text-[12px] relative z-[1010] flex items-center border-b border-white/5">
           {/* ━━━ Selector 2: TOP BAR INNER ALIGNMENT ━━━ */}
           <div className="ali-container h-[36px] flex justify-end items-center">
             <a href="tel:18008088" className="h-full flex items-center gap-1.5 px-4 border-r border-white/10 text-white font-semibold hover:text-[#EE0033] transition-colors whitespace-nowrap">
@@ -405,6 +430,17 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                           onClick={() => {
                             setCurrentLang(item.name);
                             setLangOpen(false);
+                            
+                            // Extract sub-route and navigate to localized market path
+                            let subRoute = pathname || '/';
+                            subRoute = subRoute.replace(/^\/(vn|global)/, '');
+                            if (subRoute === '') subRoute = '/';
+                            
+                            if (item.name === 'Việt Nam') {
+                              router.push(`/vn${subRoute === '/' ? '' : subRoute}`);
+                            } else {
+                              router.push(`/global${subRoute === '/' ? '' : subRoute}`);
+                            }
                           }}
                           className={`flex justify-between items-center w-full px-4 py-2 hover:bg-gray-50 transition-colors cursor-pointer border-l-[3px] ${
                             isActive 
@@ -439,7 +475,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
             <div className="flex items-center gap-6 xl:gap-10 h-full flex-grow">
               {/* Logo */}
               <Link 
-                href="/" 
+                href={isGlobal ? "/global" : "/vn"} 
                 className="flex items-center gap-2 flex-shrink-0" 
                 onClick={() => setActiveMenu(null)}
                 onMouseEnter={() => setActiveMenu(null)}
@@ -1483,7 +1519,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
             <div className="relative w-[300px] bg-white h-full z-10 flex flex-col justify-between p-6 animate-in slide-in-from-left duration-200 text-left">
               <div>
                 <div className="flex items-center justify-between border-b border-gray-100 pb-4 mb-5">
-                  <Link href="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
+                  <Link href={isGlobal ? "/global" : "/vn"} className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
                     <img 
                       src="https://res.cloudinary.com/dpyizq1m2/image/upload/v1782053913/logo-IDC_2_up2gqp.svg" 
                       alt="Viettel IDC" 

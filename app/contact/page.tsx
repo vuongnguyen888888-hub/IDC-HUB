@@ -2,6 +2,7 @@
 
 import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
+import { useMarket } from '../../hooks/useMarket';
 import { MapPin, Phone, Clock, Mail, ShieldAlert, CheckCircle, ExternalLink, Users } from 'lucide-react';
 
 import Navbar from '../../components/Navbar';
@@ -9,6 +10,7 @@ import Footer from '../../components/Footer';
 import ScreenSwitcher from '../../components/ScreenSwitcher';
 
 function ContactPageContent() {
+  const { market, isGlobal, getLocalizedPath } = useMarket();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -27,7 +29,23 @@ function ContactPageContent() {
     setSubmitted(true);
   };
 
-  const offices = [
+  const offices = isGlobal ? [
+    {
+      city: 'Global Headquarters (Singapore)',
+      address: 'Marina Bay Financial Centre Tower 1, 8 Marina Blvd, Singapore 018981.',
+      hotline: '+65 6808 5858'
+    },
+    {
+      city: 'Vietnam Representative (Hanoi)',
+      address: '16th Floor, Viettel Building, 268 Tran Nguyen Han St, Hoan Kiem, Hanoi, Vietnam.',
+      hotline: '+84 1800 585821 (Ext 1)'
+    },
+    {
+      city: 'Southern Branch (Ho Chi Minh City)',
+      address: '5th Floor, Viettel Complex, 285 Cach Mang Thang Tam, Dist 10, HCMC, Vietnam.',
+      hotline: '+84 1800 585821 (Ext 2)'
+    }
+  ] : [
     {
       city: 'Hà Nội (Trụ sở chính)',
       address: 'Tầng 16, Tòa nhà Viettel, Số 268 Trần Nguyên Hãn, Quận Hoàn Kiếm, Hà Nội.',
@@ -55,11 +73,15 @@ function ContactPageContent() {
         <nav aria-label="Breadcrumb" className="mb-8">
           <ol className="flex items-center space-x-2 text-xs text-gray-400 font-sans">
             <li>
-              <Link href="/" className="hover:text-brand-500 transition-all-200">Trang chủ</Link>
+              <Link href={getLocalizedPath('/')} className="hover:text-brand-500 transition-all-200">
+                {isGlobal ? 'Home' : 'Trang chủ'}
+              </Link>
             </li>
             <li className="text-gray-300">/</li>
             <li>
-              <span className="text-gray-700 font-medium" aria-current="page">Liên hệ tư vấn</span>
+              <span className="text-gray-700 font-medium" aria-current="page">
+                {isGlobal ? 'Contact Us' : 'Liên hệ tư vấn'}
+              </span>
             </li>
           </ol>
         </nav>
@@ -71,20 +93,24 @@ function ContactPageContent() {
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
               <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded bg-[#FAF5F6] text-[#EE0033] border border-[#FCD9D8] tracking-widest w-max block">
-                CỔNG KẾT NỐI KHÁCH HÀNG
+                {isGlobal ? 'CUSTOMER SUPPORT PORTAL' : 'CỔNG KẾT NỐI KHÁCH HÀNG'}
               </span>
               <h1 className="text-3xl md:text-4.5xl font-bold tracking-tight text-gray-905 leading-none">
-                Liên hệ với chúng tôi
+                {isGlobal ? 'Contact Us' : 'Liên hệ với chúng tôi'}
               </h1>
               <p className="text-xs md:text-sm text-gray-500 leading-relaxed max-w-md">
-                Viettel IDC Hub luôn sẵn lòng lắng nghe và đồng hành thiết lập hệ thống máy chủ, lưu trữ dung lượng lớn và giải pháp chuyển dịch lên mây toàn diện cho doanh nghiệp bạn.
+                {isGlobal ? (
+                  'Viettel IDC is always ready to listen and help set up high-performance computing, reliable storage, and comprehensive cloud transition solutions for your business.'
+                ) : (
+                  'Viettel IDC Hub luôn sẵn lòng lắng nghe và đồng hành thiết lập hệ thống máy chủ, lưu trữ dung lượng lớn và giải pháp chuyển dịch lên mây toàn diện cho doanh nghiệp bạn.'
+                )}
               </p>
             </div>
 
             {/* Regionals block */}
             <div className="space-y-6">
               <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block border-b border-gray-100 pb-2">
-                Hệ thống 3 văn phòng đại diện toàn quốc
+                {isGlobal ? 'Global Representative Offices' : 'Hệ thống văn phòng đại diện'}
               </span>
               
               {offices.map((off, idx) => (

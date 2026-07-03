@@ -9,6 +9,13 @@ import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import ScreenSwitcher from '../../../components/ScreenSwitcher';
 import ComputeAndContainerPage from '../../../components/ComputeAndContainerPage';
+import DataCenterPage from '../../../components/DataCenterPage';
+import StoragePage from '../../../components/StoragePage';
+import DataPlatformPage from '../../../components/DataPlatformPage';
+import NetworkingPage from '../../../components/NetworkingPage';
+import SecurityPage from '../../../components/SecurityPage';
+import CloudOperationsPage from '../../../components/CloudOperationsPage';
+import DigitalServicesPage from '../../../components/DigitalServicesPage';
 import { SERVICE_CATEGORIES } from '../../../lib/db';
 
 type PageParams = { category: string };
@@ -26,6 +33,34 @@ function ServiceCategoryPageContent({ params }: PageProps) {
 
   if (categorySlug === 'compute') {
     return <ComputeAndContainerPage />;
+  }
+
+  if (categorySlug === 'data-center') {
+    return <DataCenterPage />;
+  }
+
+  if (categorySlug === 'storage') {
+    return <StoragePage />;
+  }
+
+  if (categorySlug === 'data-platform') {
+    return <DataPlatformPage />;
+  }
+
+  if (categorySlug === 'networking') {
+    return <NetworkingPage />;
+  }
+
+  if (categorySlug === 'security') {
+    return <SecurityPage />;
+  }
+
+  if (categorySlug === 'cloud-operations') {
+    return <CloudOperationsPage />;
+  }
+
+  if (categorySlug === 'digital-services') {
+    return <DigitalServicesPage />;
   }
 
   const category = SERVICE_CATEGORIES.find(c => c.slug === categorySlug) || {

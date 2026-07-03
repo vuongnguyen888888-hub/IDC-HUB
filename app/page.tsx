@@ -3,6 +3,7 @@
 import React, { useState, useEffect, Suspense, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useMarket } from '../hooks/useMarket';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowRight, Search, Cpu, Database, HardDrive, Layers, Globe, Shield, 
@@ -19,6 +20,7 @@ import { SERVICE_CATEGORIES, CLIENT_LOGOS } from '../lib/db';
 const BUSSINESS_SOLUTIONS = [
   {
     title: "Sao lưu & Phục hồi thảm họa",
+    slug: "backup-dr",
     items: [
       "Sao lưu tự động đa vùng",
       "DRaaS với RPO/RTO cam kết",
@@ -29,6 +31,7 @@ const BUSSINESS_SOLUTIONS = [
   },
   {
     title: "Chuyển đổi hạ tầng lên Cloud",
+    slug: "cloud-migration",
     items: [
       "Khảo sát & lập lộ trình migration",
       "Di chuyển không gián đoạn",
@@ -39,6 +42,7 @@ const BUSSINESS_SOLUTIONS = [
   },
   {
     title: "Đám mây hiệu năng cao",
+    slug: "hpc",
     items: [
       "GPU H100 / L40S cho AI & ML",
       "Hạ tầng độ trễ thấp <1ms",
@@ -49,6 +53,7 @@ const BUSSINESS_SOLUTIONS = [
   },
   {
     title: "An toàn TT & Tuân thủ",
+    slug: "digital-gov",
     items: [
       "Tuân thủ Nghị định 13 / ISO 27001",
       "SOC vận hành 24/7",
@@ -59,6 +64,7 @@ const BUSSINESS_SOLUTIONS = [
   },
   {
     title: "DevSecOps",
+    slug: "devsecops",
     items: [
       "Pipeline CI/CD an toàn",
       "Quét bảo mật tự động (SAST/DAST)",
@@ -68,6 +74,7 @@ const BUSSINESS_SOLUTIONS = [
   },
   {
     title: "Container hóa ứng dụng",
+    slug: "container",
     items: [
       "Kubernetes quản trị (vOKS)",
       "Container Registry riêng",
@@ -77,6 +84,7 @@ const BUSSINESS_SOLUTIONS = [
   },
   {
     title: "Mạng phân phối nội dung",
+    slug: "cdn",
     items: [
       "CDN tốc độ cao trong nước",
       "Multi-CDN dự phòng",
@@ -86,6 +94,7 @@ const BUSSINESS_SOLUTIONS = [
   },
   {
     title: "Digital Workplace",
+    slug: "mobile-work",
     items: [
       "Cloud PC / DaaS",
       "M365, Email & collaboration",
@@ -98,6 +107,7 @@ const BUSSINESS_SOLUTIONS = [
 const INDUSTRIES_DATA = [
   {
     id: "finance",
+    slug: "fintech",
     title: "Tài chính-ngân hàng",
     title_en: "Finance & Banking",
     subtitle: "Thiết kế tối ưu theo đặc thù từng kịch bản vận hành",
@@ -117,6 +127,7 @@ const INDUSTRIES_DATA = [
   },
   {
     id: "ecommerce",
+    slug: "ecommerce",
     title: "Thương mại điện tử",
     title_en: "E-Commerce Web",
     subtitle: "Thiết kế tối ưu theo đặc thù từng kịch bản vận hành",
@@ -136,6 +147,7 @@ const INDUSTRIES_DATA = [
   },
   {
     id: "healthcare",
+    slug: "healthtech",
     title: "Y tế-bệnh viện",
     title_en: "Digital Healthcare",
     subtitle: "Thiết kế tối ưu theo đặc thù từng kịch bản vận hành",
@@ -155,6 +167,7 @@ const INDUSTRIES_DATA = [
   },
   {
     id: "education",
+    slug: "edtech",
     title: "Giáo dục",
     title_en: "EdTech Platform",
     subtitle: "Thiết kế tối ưu theo đặc thù từng kịch bản vận hành",
@@ -174,6 +187,7 @@ const INDUSTRIES_DATA = [
   },
   {
     id: "government",
+    slug: "digital-gov",
     title: "Chính phủ số",
     title_en: "Smart Government",
     subtitle: "Thiết kế tối ưu theo đặc thù từng kịch bản vận hành",
@@ -623,6 +637,7 @@ const AWARDS_DATA = [
 
 function HomepageContent() {
   const searchParams = useSearchParams();
+  const { market, isGlobal, getLocalizedPath } = useMarket();
   
   // Simulated force navigation parameters from Panel Switcher
   const forceServicesOpen = searchParams.get('forceServicesOpen') === 'true';
@@ -755,28 +770,41 @@ function HomepageContent() {
           <div className="space-y-6 max-w-3xl flex flex-col items-start">
             <div className="inline-flex items-center space-x-2 bg-brand-500/10 border border-brand-500/30 px-3 py-1.5 rounded-full text-brand-500 text-xs font-bold uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-[#EE0033] mr-1 animate-ping" />
-              VIETTEL IDC x QUALCOMM
+              {isGlobal ? 'GLOBAL CLOUD PLATFORM' : 'VIETTEL IDC x QUALCOMM'}
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1] font-sans">
-              <span className="block md:whitespace-nowrap">Đồng hành cùng doanh nghiệp</span>
-              <span className="text-white block md:whitespace-nowrap">Việt Nam đưa AI vào thực chiến</span>
+              {isGlobal ? (
+                <>
+                  <span className="block md:whitespace-nowrap">Empowering Global Enterprises</span>
+                  <span className="text-[#EE0033] block md:whitespace-nowrap">To Accelerate AI Innovation</span>
+                </>
+              ) : (
+                <>
+                  <span className="block md:whitespace-nowrap">Đồng hành cùng doanh nghiệp</span>
+                  <span className="text-white block md:whitespace-nowrap">Việt Nam đưa AI vào thực chiến</span>
+                </>
+              )}
             </h1>
             
             <p className="text-gray-300 text-sm md:text-base leading-relaxed max-w-2xl">
-              Hiện thực hóa ý tưởng AI của bạn với sức mạnh từ nền tảng tăng tốc AI của Qualcomm trên hệ sinh thái đám mây của Viettel IDC. Đăng ký tham gia để bắt đầu trải nghiệm hạ tầng chuyên biệt và nhận hỗ trợ kỹ thuật chuyên sâu ngay hôm nay!
+              {isGlobal ? (
+                'Realize your AI initiatives globally with high-performance computing infrastructure, low-latency networking, and robust international cloud security standards backed by Qualcomm\'s acceleration ecosystem.'
+              ) : (
+                'Hiện thực hóa ý tưởng AI của bạn với sức mạnh từ nền tảng tăng tốc AI của Qualcomm trên hệ sinh thái đám mây của Viettel IDC. Đăng ký tham gia để bắt đầu trải nghiệm hạ tầng chuyên biệt và nhận hỗ trợ kỹ thuật chuyên sâu ngay hôm nay!'
+              )}
             </p>
             
             <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-start space-y-3 sm:space-y-0 sm:space-x-4">
-              <a 
-                href="/contact" 
+              <Link 
+                href={getLocalizedPath('/contact')} 
                 className="group relative inline-flex items-center justify-center gap-2 px-7 py-3 bg-[#EE0033] text-white font-bold text-sm tracking-wider rounded-full shadow-[0_4px_14px_rgba(238,0,51,0.4)] transition-all duration-300 hover:bg-[#FF1A4E] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-[0_6px_20px_rgba(238,0,51,0.5)] focus:outline-none focus:ring-2 focus:ring-[#EE0033]/50 focus:ring-offset-2 focus:ring-offset-[#1A1A1A]"
               >
-                <span>Xem thêm</span>
+                <span>{isGlobal ? 'Get Started' : 'Xem thêm'}</span>
                 <span className="w-3.5 h-3.5 rounded-full border border-white/60 flex items-center justify-center text-[8px] font-bold group-hover:border-white group-hover:scale-110 transition-all duration-300">
                   ○
                 </span>
-              </a>
+              </Link>
             </div>
             
 
@@ -790,7 +818,7 @@ function HomepageContent() {
       <section className="bg-white border-y border-gray-100 py-5 overflow-hidden">
         <div id="social-proof-section" className="ali-container">
           <p className="text-left text-xs font-bold text-gray-400 mb-3 font-sans">
-            Thương hiệu được tin dùng bởi các doanh nghiệp hàng đầu Việt nam
+            {isGlobal ? 'Trusted by leading enterprises globally' : 'Thương hiệu được tin dùng bởi các doanh nghiệp hàng đầu Việt nam'}
           </p>
           <div className="relative w-full overflow-hidden">
             {/* Elegant Gradient Fade Masks on sides */}
@@ -844,12 +872,18 @@ function HomepageContent() {
           
           {/* Header styled exactly like mockup */}
           <div className="text-left w-full space-y-2 mb-10">
-            <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">DANH MỤC TOÀN DIỆN</span>
+            <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">
+              {isGlobal ? 'SERVICE PORTFOLIO' : 'DANH MỤC TOÀN DIỆN'}
+            </span>
             <h2 id="services-section-title" className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
-              Danh mục dịch vụ chuẩn quốc tế
+              {isGlobal ? 'Standard International Service Portfolio' : 'Danh mục dịch vụ chuẩn quốc tế'}
             </h2>
             <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
-              Khám phá hệ sinh thái 10 nhóm giải pháp hạ tầng số đồng bộ, bảo mật và hiệu năng cao hàng đầu từ Viettel IDC.
+              {isGlobal ? (
+                'Discover our ecosystem of 10 unified, secure, and high-performance digital infrastructure service groups at international standards.'
+              ) : (
+                'Khám phá hệ sinh thái 10 nhóm giải pháp hạ tầng số đồng bộ, bảo mật và hiệu năng cao hàng đầu từ Viettel IDC.'
+              )}
             </p>
           </div>
 
@@ -947,8 +981,9 @@ function HomepageContent() {
           >
             {BUSSINESS_SOLUTIONS.map((sol, index) => {
               return (
-                <div 
+                <Link 
                   key={index}
+                  href={`/solutions/${sol.slug}`}
                   className="min-w-[280px] sm:min-w-[325px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)] flex-shrink-0 snap-start bg-white rounded-2xl p-8 flex flex-col justify-between h-[420px] relative overflow-hidden border border-gray-200/80 hover:border-[#EE0033] hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer transform-gpu"
                 >
                   {/* Real design background image from Cloudinary */}
@@ -991,7 +1026,7 @@ function HomepageContent() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -1113,12 +1148,15 @@ function HomepageContent() {
 
                         {/* Red capsule button positioned at bottom left of active card */}
                         <div className="mt-auto">
-                          <button className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#EE0033] hover:bg-[#CC002B] text-white text-xs font-bold uppercase tracking-wider transition-all duration-300 transform active:scale-95">
+                          <Link 
+                            href={`/solutions/${item.slug}`}
+                            className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#EE0033] hover:bg-[#CC002B] text-white text-xs font-bold uppercase tracking-wider transition-all duration-300 transform active:scale-95"
+                          >
                             <span>Tìm hiểu thêm</span>
                             <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-[#EE0033]">
                               <ArrowRight className="w-3 h-3 stroke-[3]" />
                             </div>
-                          </button>
+                          </Link>
                         </div>
                       </div>
                     ) : (
@@ -1193,10 +1231,13 @@ function HomepageContent() {
                         
                         {/* Red capsule button on mobile active as well */}
                         <div className="flex items-center justify-between">
-                          <button className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EE0033] text-white text-[10px] font-bold uppercase tracking-wider">
+                          <Link 
+                            href={`/solutions/${item.slug}`}
+                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EE0033] text-white text-[10px] font-bold uppercase tracking-wider"
+                          >
                             <span>Tìm hiểu</span>
                             <ArrowRight className="w-3 h-3 text-white" />
-                          </button>
+                          </Link>
                           
                           <div className="flex items-center gap-2 pt-1">
                             <IconComponent className="w-4 h-4 text-[#EE0033]" />

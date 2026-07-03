@@ -15,6 +15,7 @@ import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import ScreenSwitcher from '../../../../components/ScreenSwitcher';
 import ViettelCloudServerPage from '../../../../components/ViettelCloudServerPage';
+import ViettelCustomServicePage from '../../../../components/ViettelCustomServicePage';
 import { SERVICE_CATEGORIES } from '../../../../lib/db';
 
 type PageParams = { category: string; slug: string };
@@ -134,6 +135,10 @@ function ServiceDetailPageContent({ params }: PageProps) {
   // --- SPECIALIZED VIETTEL CLOUD SERVER LAYOUT ---
   if (productSlug === 'viettel-cloud-server') {
     return <ViettelCloudServerPage />;
+  }
+
+  // Render all other service pages using the high-fidelity custom service page template
+  return <ViettelCustomServicePage key={productSlug} slug={productSlug} />;
     const standardSeries = [
       { name: 'Standard S1', cpu: 1, ram: 2, ssd: 50, ip: 1, bandwidth: '100 Mbps', price: '190.000' },
       { name: 'Standard S2', cpu: 2, ram: 4, ssd: 100, ip: 1, bandwidth: '100 Mbps', price: '380.000', isPopular: true },
@@ -1188,7 +1193,6 @@ function ServiceDetailPageContent({ params }: PageProps) {
         <ScreenSwitcher />
       </div>
     );
-  }
 
   // --- FALLBACK GENERIC SERVICE DETAIL LAYOUT ---
   return (
@@ -1299,25 +1303,48 @@ function ServiceDetailPageContent({ params }: PageProps) {
         </section>
 
         {/* FEATURES GRID */}
-        <section className="mb-16 space-y-8">
-          <div className="text-center max-w-xl mx-auto space-y-2">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-950">Tính năng vượt trội của cấu trúc</h2>
-            <p className="text-xs text-gray-500">
+        <section id="features" className="mb-16 space-y-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-left w-full space-y-2 mb-10"
+          >
+            <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">TÍNH NĂNG VƯỢT TRỘI</span>
+            <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
+              Tính năng vượt trội của cấu trúc
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
               Được thiết kế tỉ mỉ để đáp ứng nhu cầu khắt khe nhất của mọi hệ thống thương mại điện tử, tài chính và logistics.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
             {product.features.map((feat, i) => (
-              <div key={i} className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="w-8 h-8 rounded bg-brand-10 text-[#EE0033] flex items-center justify-center">
-                    <Check className="w-4 h-4" />
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                whileHover={{ y: -4 }}
+                className="bg-white rounded-2xl p-6 md:p-8 flex flex-col justify-between border border-gray-200/80 hover:border-[#EE0033] hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] transition-all duration-350 group cursor-pointer"
+              >
+                <div className="space-y-5">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[#FAFAFA] text-[#EE0033] border border-gray-100 transition-all duration-300 group-hover:bg-[#FFF0F2] group-hover:border-[#FCD9D8]">
+                    <Check className="w-5 h-5 stroke-[2.5]" />
                   </div>
-                  <h3 className="font-bold text-sm text-gray-950 leading-tight">Tính năng bảo chứng {i+1}</h3>
-                  <p className="text-[11px] text-gray-500 leading-relaxed">{feat}</p>
+                  <div className="space-y-2">
+                    <h3 className="font-bold text-sm md:text-base text-gray-950 tracking-tight group-hover:text-[#EE0033] transition-colors duration-200">
+                      Tính năng bảo chứng {i+1}
+                    </h3>
+                    <p className="text-xs text-gray-500 leading-relaxed">
+                      {feat}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -1446,11 +1473,22 @@ function ServiceDetailPageContent({ params }: PageProps) {
         </section>
 
         {/* FAQ ACCORDION */}
-        <section className="mb-16 max-w-3xl mx-auto space-y-6">
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-950">Giải đáp thắc mắc (FAQ)</h2>
-            <p className="text-xs text-gray-500">Mọi câu hỏi xoay quanh SLA, kỹ năng cài đặt và quá trình bàn giao dữ liệu dịch vụ.</p>
-          </div>
+        <section id="faq" className="mb-16 max-w-4xl mx-auto space-y-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-left w-full space-y-2 mb-10"
+          >
+            <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">HỎI ĐÁP KỸ THUẬT</span>
+            <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
+              Giải đáp thắc mắc thường gặp
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
+              Mọi câu hỏi xoay quanh SLA, kỹ năng cài đặt và quá trình bàn giao dữ liệu dịch vụ.
+            </p>
+          </motion.div>
 
           <div className="border border-gray-100 rounded-xl bg-white p-3 divide-y divide-gray-100 shadow-xs">
             {product.faqs.map((faq, idx) => {
@@ -1489,43 +1527,60 @@ function ServiceDetailPageContent({ params }: PageProps) {
         </section>
 
         {/* RELATED SERVICES */}
-        <section className="mb-16 space-y-6">
-          <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-            <h2 className="text-base font-bold text-gray-950">Dịch vụ bổ trợ liên quan</h2>
-            <Link href={`/services/${categorySlug}`} className="text-xs font-bold text-[#EE0033] hover:underline">
+        <section className="mb-16 space-y-8">
+          <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+            <h2 className="text-lg md:text-xl font-extrabold text-gray-950 tracking-tight font-sans">
+              Dịch vụ bổ trợ liên quan
+            </h2>
+            <Link href={`/services/${categorySlug}`} className="text-xs font-bold text-[#EE0033] hover:text-[#C8002B] transition-colors duration-200">
               Xem tất cả →
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:border-brand-50 transition-all-200">
-              <span className="text-[10px] font-extrabold uppercase text-[#EE0033] block mb-2">Trung tâm giám sát</span>
-              <h3 className="font-bold text-sm text-gray-900 mb-1">Viettel Kubernetes Service</h3>
-              <p className="text-xs text-gray-500 mb-4">Tự động co giãn cụm container an toàn, tối ưu chi phí hạ tầng ảo hóa.</p>
-              <Link href="/services/compute" className="text-xs font-bold text-brand-500 hover:text-brand-800">Tìm hiểu thêm →</Link>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              whileHover={{ y: -4 }}
+              className="bg-white p-6 md:p-8 rounded-2xl border border-gray-200/85 hover:border-[#EE0033]/30 hover:shadow-md transition-all duration-300"
+            >
+              <span className="text-[10px] font-extrabold uppercase text-[#EE0033] bg-[#EE0033]/10 px-2.5 py-0.5 rounded-full inline-block mb-3">Trung tâm giám sát</span>
+              <h3 className="font-extrabold text-base text-gray-950 mb-1.5 tracking-tight">Viettel Kubernetes Service</h3>
+              <p className="text-xs text-gray-500 mb-5 leading-relaxed">Tự động co giãn cụm container an toàn, tối ưu chi phí hạ tầng ảo hóa.</p>
+              <Link href="/services/compute" className="text-xs font-bold text-[#EE0033] hover:text-[#C8002B] transition-colors duration-200 inline-flex items-center gap-1">Tìm hiểu thêm <ArrowRight className="w-3.5 h-3.5" /></Link>
+            </motion.div>
             
-            <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:border-brand-50 transition-all-200">
-              <span className="text-[10px] font-extrabold uppercase text-[#EE0033] block mb-2">Bảo vệ vật lý</span>
-              <h3 className="font-bold text-sm text-gray-900 mb-1">Dịch vụ Cho thuê chỗ đặt máy chủ</h3>
-              <p className="text-xs text-gray-500 mb-4 font-sans">Độ tin cậy tuyệt đối với tủ rack TIA-942 Rated 3 cao cấp mở rộng toàn quốc.</p>
-              <Link href="/services/data-center" className="text-xs font-bold text-brand-500 hover:text-brand-800">Tìm hiểu thêm →</Link>
-            </div>
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              whileHover={{ y: -4 }}
+              className="bg-white p-6 md:p-8 rounded-2xl border border-gray-200/85 hover:border-[#EE0033]/30 hover:shadow-md transition-all duration-300"
+            >
+              <span className="text-[10px] font-extrabold uppercase text-[#EE0033] bg-[#EE0033]/10 px-2.5 py-0.5 rounded-full inline-block mb-3">Bảo vệ vật lý</span>
+              <h3 className="font-extrabold text-base text-gray-950 mb-1.5 tracking-tight">Dịch vụ Cho thuê chỗ đặt máy chủ</h3>
+              <p className="text-xs text-gray-500 mb-5 leading-relaxed font-sans">Độ tin cậy tuyệt đối với tủ rack TIA-942 Rated 3 cao cấp mở rộng toàn quốc.</p>
+              <Link href="/services/data-center" className="text-xs font-bold text-[#EE0033] hover:text-[#C8002B] transition-colors duration-200 inline-flex items-center gap-1">Tìm hiểu thêm <ArrowRight className="w-3.5 h-3.5" /></Link>
+            </motion.div>
           </div>
         </section>
 
         {/* FINAL HUBSPOT FORM EMBED */}
-        <section className="bg-gray-50 border border-gray-100 rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto">
-          <div className="space-y-4 max-w-xl mx-auto">
-            <span className="text-xs font-extrabold uppercase text-brand-600 tracking-wider">ĐĂNG KÝ BẢNG BÁO GIÁ KỸ THUẬT</span>
-            <h2 className="text-2xl font-bold text-gray-950 leading-tight">Yêu cầu liên hệ trực tiếp từ Kỹ sư giải pháp</h2>
-            <p className="text-xs text-gray-500">
+        <section className="bg-[#1E2329] border border-[#374151] rounded-3xl p-8 md:p-12 relative overflow-hidden text-left max-w-4xl mx-auto shadow-xl">
+          <div className="absolute top-0 right-0 bg-[#EE0033]/5 w-64 h-64 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative z-10 space-y-5 max-w-2xl">
+            <span className="text-xs font-bold uppercase text-[#EE0033] bg-[#EE0033]/15 px-3 py-1 rounded-full w-max block tracking-widest">ĐĂNG KÝ BÁO GIÁ KỸ THUẬT</span>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-tight">Yêu cầu liên hệ trực tiếp từ Kỹ sư giải pháp</h2>
+            <p className="text-sm text-zinc-400 leading-relaxed">
               Hãy để lại email doanh nghiệp và số điện thoại, đội ngũ Kỹ sư giải pháp của Viettel IDC Hub sẽ liên hệ và thiết kế topo mạng cho bạn trong vòng 2 giờ làm việc.
             </p>
-            <div className="pt-4 max-w-md mx-auto">
+            <div className="pt-4 max-w-sm">
               <Link 
                 href="/contact" 
-                className="w-full block text-center py-3 bg-[#EE0033] hover:bg-[#FF302D] text-white font-bold text-xs uppercase tracking-wider rounded transition-all-200 shadow-md focus-ring-brand"
+                className="w-full inline-flex items-center justify-center py-3.5 px-6 bg-[#EE0033] hover:bg-[#C8002B] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all duration-300 shadow-md shadow-[#EE0033]/25 hover:-translate-y-0.5"
               >
                 Gửi yêu cầu Khảo sát & Nhận báo giá
               </Link>

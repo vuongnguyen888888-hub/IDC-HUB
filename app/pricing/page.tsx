@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import { useMarket } from '../../hooks/useMarket';
 import { Check, Info, Calculator, Laptop, Phone, HelpCircle, Sparkles } from 'lucide-react';
 
 import Navbar from '../../components/Navbar';
@@ -9,6 +10,7 @@ import Footer from '../../components/Footer';
 import ScreenSwitcher from '../../components/ScreenSwitcher';
 
 function PricingPageContent() {
+  const { market, isGlobal, getLocalizedPath } = useMarket();
   const [activeTab, setActiveTab] = useState<'compute' | 'storage' | 'network' | 'security' | 'quote'>('compute');
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +32,13 @@ function PricingPageContent() {
     setFormSubmitted(true);
   };
 
-  const tabs = [
+  const tabs = isGlobal ? [
+    { id: 'compute', name: 'Cloud Compute' },
+    { id: 'storage', name: 'Object Storage' },
+    { id: 'network', name: 'Network & CDN' },
+    { id: 'security', name: 'Cloud Security' },
+    { id: 'quote', name: 'Enterprise Quote' }
+  ] : [
     { id: 'compute', name: 'Điện toán mây' },
     { id: 'storage', name: 'Lưu trữ đối tượng' },
     { id: 'network', name: 'Mạng & CDN' },
@@ -39,7 +47,29 @@ function PricingPageContent() {
   ];
 
   // Pricing Data Tiers
-  const computePlans = [
+  const computePlans = isGlobal ? [
+    {
+      name: 'Cloud Server Basic',
+      price: '8.00',
+      specs: ['1 vCPU Intel Xeon', '2 GB DDR4 ECC Ram', '50 GB Enterprise SAS SSD', '1 Public IPv4', '100Mbps Shared Network'],
+      isPopular: false,
+      ctaText: 'Buy Now'
+    },
+    {
+      name: 'Cloud Server Professional',
+      price: '16.00',
+      specs: ['2 vCPU Intel Xeon', '4 GB DDR4 ECC Ram', '100 GB Enterprise SAS SSD', '1 Public IPv4', '200Mbps Shared Network'],
+      isPopular: true,
+      ctaText: 'Buy Now'
+    },
+    {
+      name: 'Cloud Server Custom Premium',
+      price: 'Contact Us',
+      specs: ['UP TO 128 vCPUs', 'UP TO 512 GB Ram', 'Custom NVMe SSD', 'Dedicated International Bandwidth', '24/7 SOC Cyber Security'],
+      isPopular: false,
+      ctaText: 'Request Quote'
+    }
+  ] : [
     {
       name: 'Cloud Server Basic',
       price: '190.000',
@@ -63,7 +93,29 @@ function PricingPageContent() {
     }
   ];
 
-  const storagePlans = [
+  const storagePlans = isGlobal ? [
+    {
+      name: 'Storage Standard SAS',
+      price: '2.00',
+      specs: ['From $0.02 / GB / month', 'Minimum 100 GB', '99.99% SLA Guarantee', 'Double Encrypted Security'],
+      isPopular: false,
+      ctaText: 'Select Pack'
+    },
+    {
+      name: 'Object Storage S3-compatible',
+      price: '6.00',
+      specs: ['Minimum 500 GB', 'S3 v4 Compatible API', 'Anti-ransomware Object Lock', 'Unlimited Data Transfer Bandwidth'],
+      isPopular: true,
+      ctaText: 'Select Pack'
+    },
+    {
+      name: 'Cloud Backup Enterprise',
+      price: 'Contact Us',
+      specs: ['Retain 30 version history', 'Secure End-to-end Encryption', 'Automatic logs & reports'],
+      isPopular: false,
+      ctaText: 'Request Quote'
+    }
+  ] : [
     {
       name: 'Storage Standard SAS',
       price: '50.000',
@@ -87,13 +139,21 @@ function PricingPageContent() {
     }
   ];
 
-  const networkPlans = [
+  const networkPlans = isGlobal ? [
+    { name: 'Cloud CDN Lite', price: '19.00', specs: ['High-speed International Bandwidth', '12 global CDN edge nodes', 'Smart cache routing', 'Basic layer 3/4 Anti-DDoS'], isPopular: false, ctaText: 'Select Pack' },
+    { name: 'Cloud CDN Pro', price: '49.00', specs: ['HTTP/3 Support', 'Automatic WebP image compression', 'Custom SSL Certificates', '24/7 Direct Engineering Support'], isPopular: true, ctaText: 'Select Pack' },
+    { name: 'VPC Connection', price: 'Contact Us', specs: ['Dedicated speed up to 10 Gbps', 'Isolated private VLANs', 'Hybrid secure connectivity'], isPopular: false, ctaText: 'Contact Us' }
+  ] : [
     { name: 'Cloud CDN Lite', price: '450.000', specs: ['Băng thông rộng quốc tế', 'Phân phối nhanh 12 POPs VN', 'Caching thông minh', 'Anti-DDoS layer 3/4'], isPopular: false, ctaText: 'Chọn gói' },
     { name: 'Cloud CDN Pro', price: '1.200.000', specs: ['Hỗ trợ giao thức HTTP/3', 'Tối ưu ảnh WebP tự động', 'SSL Custom riêng biệt', 'Hỗ trợ kỹ thuật trực ban'], isPopular: true, ctaText: 'Chọn gói' },
     { name: 'VPC Connection (Kênh riêng)', price: 'Liên hệ', specs: ['Tốc độ bảo chứng tới 10 Gbps', 'Phân tách VLAN biệt lập', 'Kết nối Hybrid an toàn'], isPopular: false, ctaText: 'Liên hệ' }
   ];
 
-  const securityPlans = [
+  const securityPlans = isGlobal ? [
+    { name: 'Cloud WAF Standard', price: '38.00', specs: ['Protect 1 main domain', 'SQL Injection, XSS filtering...', 'Free SSL Included', 'Attack log visual reports'], isPopular: false, ctaText: 'Select Pack' },
+    { name: 'DDoS Protection basic', price: '105.00', specs: ['Block up to 50 Gbps attacks', 'AI-assisted threat response', 'Ultra-low packet delivery delay'], isPopular: true, ctaText: 'Select Pack' },
+    { name: 'Virtual SOC Monitoring', price: 'Contact Us', specs: ['24/7/365 Centralized Monitoring', 'Experienced SIEM analyst engineers', 'Immediate incident response SLAs'], isPopular: false, ctaText: 'Contact Us' }
+  ] : [
     { name: 'Cloud WAF Standard', price: '900.000', specs: ['Bảo vệ 1 Domain chính', 'Lọc SQL Injection, XSS...', 'SSL miễn phí đính kèm', 'Báo cáo biểu đồ tấn công'], isPopular: false, ctaText: 'Chọn gói' },
     { name: 'DDoS Protection basic', price: '2.500.000', specs: ['Chặn đứng tấn công tới 50 Gbps', 'Phòng thủ tự động AI', 'Độ trễ truyền tải không đổi'], isPopular: true, ctaText: 'Chọn gói' },
     { name: 'Virtual SOC Monitoring', price: 'Liên hệ', specs: ['Giám sát tập trung 24/7/365', 'Kỹ sư phân tích SIEM', 'Cam kết ứng cứu sự cố tức thì'], isPopular: false, ctaText: 'Liên hệ' }
@@ -113,23 +173,33 @@ function PricingPageContent() {
         <nav aria-label="Breadcrumb" className="mb-6">
           <ol className="flex items-center space-x-2 text-xs text-gray-400 font-sans">
             <li>
-              <Link href="/" className="hover:text-brand-500 transition-all-200">Trang chủ</Link>
+              <Link href={getLocalizedPath('/')} className="hover:text-brand-500 transition-all-200">
+                {isGlobal ? 'Home' : 'Trang chủ'}
+              </Link>
             </li>
             <li className="text-gray-300">/</li>
             <li>
-              <span className="text-gray-700 font-medium" aria-current="page">Bảng giá dịch vụ</span>
+              <span className="text-gray-700 font-medium" aria-current="page">
+                {isGlobal ? 'Service Pricing' : 'Bảng giá dịch vụ'}
+              </span>
             </li>
           </ol>
         </nav>
 
         {/* HEADER */}
         <div className="text-center max-w-2xl mx-auto space-y-3 mb-10">
-          <span className="text-[#EE0033] font-bold text-xs uppercase tracking-wider block">PHÂN LOẠI MINH BẠCH</span>
+          <span className="text-[#EE0033] font-bold text-xs uppercase tracking-wider block">
+            {isGlobal ? 'TRANSPARENT PRICING' : 'PHÂN LOẠI MINH BẠCH'}
+          </span>
           <h1 className="text-3xl md:text-4.5xl font-bold tracking-tight text-gray-900 leading-none">
-            Bảng giá dịch vụ đám mây
+            {isGlobal ? 'Cloud Service Pricing' : 'Bảng giá dịch vụ đám mây'}
           </h1>
           <p className="text-xs md:text-sm text-gray-500 max-w-xl mx-auto leading-relaxed">
-            Hạ tầng tự động hóa, cấu trúc chi phí OPEX linh hoạt theo từng giờ sử dụng hoặc thanh toán chu kỳ tháng để chiết khấu tới 20%.
+            {isGlobal ? (
+              'Automated infrastructure with flexible OPEX pricing. Pay-as-you-go per hour or choose monthly billing cycles for up to a 20% discount.'
+            ) : (
+              'Hạ tầng tự động hóa, cấu trúc chi phí OPEX linh hoạt theo từng giờ sử dụng hoặc thanh toán chu kỳ tháng để chiết khấu tới 20%.'
+            )}
           </p>
         </div>
 
@@ -188,7 +258,7 @@ function PricingPageContent() {
                   >
                     {plan.isPopular && (
                       <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[9px] font-extrabold bg-[#EE0033] text-white py-1 px-3.5 rounded-full tracking-wider shadow-sm uppercase">
-                        Khuyên dùng chính
+                        {isGlobal ? 'Recommended' : 'Khuyên dùng chính'}
                       </span>
                     )}
 
@@ -196,12 +266,14 @@ function PricingPageContent() {
                       <div>
                         <h3 className="font-extrabold text-xs md:text-sm text-gray-950 uppercase tracking-tight block">{plan.name}</h3>
                         <div className="mt-3 flex items-baseline text-gray-900 group">
-                          <span className={`font-extrabold text-[#EE0033] tracking-tight ${plan.price === 'Liên hệ' ? 'text-2xl' : 'text-3.5xl'}`}>
+                          <span className={`font-extrabold text-[#EE0033] tracking-tight ${(plan.price === 'Liên hệ' || plan.price === 'Contact Us') ? 'text-2xl' : 'text-3.5xl'}`}>
                             {plan.price}
                           </span>
-                          {plan.price !== 'Liên hệ' && <span className="text-[11px] text-gray-400 font-medium ml-1.5">đ / tháng</span>}
+                          {(plan.price !== 'Liên hệ' && plan.price !== 'Contact Us') && <span className="text-[11px] text-gray-400 font-medium ml-1.5">{isGlobal ? 'USD / mo' : 'đ / tháng'}</span>}
                         </div>
-                        <span className="text-[9px] text-gray-400 block mt-0.5 font-sans">Giá chưa bao gồm VAT</span>
+                        <span className="text-[9px] text-gray-400 block mt-0.5 font-sans">
+                          {isGlobal ? 'Price excludes VAT' : 'Giá chưa bao gồm VAT'}
+                        </span>
                       </div>
 
                       <ul className="space-y-2.5 pt-4 border-t border-gray-100">

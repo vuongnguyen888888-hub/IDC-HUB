@@ -30,7 +30,7 @@ export interface Solution {
   id: string;
   name: string;
   slug: string;
-  segment: 'infra-cloud' | 'devops-ai' | 'connectivity';
+  segment: string;
   segmentName: string;
   problemHeadline: string;
   painPoints: string[];
@@ -233,7 +233,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
 export const SOLUTIONS: Solution[] = [
   {
     id: 'backup-dr',
-    name: 'Sao lưu & Phục hồi thảm họa (Backup & Disaster Recovery)',
+    name: 'Sao lưu & Dự phòng dữ liệu (Backup & Disaster Recovery)',
     slug: 'backup-dr',
     segment: 'infra-cloud',
     segmentName: 'Hạ tầng & Cloud',
@@ -263,29 +263,435 @@ export const SOLUTIONS: Solution[] = [
   },
   {
     id: 'cloud-migration',
-    name: 'Chuyển đổi lên đám mây (Cloud Migration)',
+    name: 'Chuyển đổi hạ tầng Cloud (Cloud Migration)',
     slug: 'cloud-migration',
     segment: 'infra-cloud',
     segmentName: 'Hạ tầng & Cloud',
     description: 'Giúp doanh nghiệp chuyển dịch toàn hệ thống phần cứng, cơ sở dữ liệu cũ lên mây an toàn, không gián đoạn dịch vụ.',
     problemHeadline: 'Bài toán hạ tầng vật lý cồng kềnh, chi phí bảo trì khổng lồ biến thành mây linh hoạt.',
-    painPoints: ['Mở rộng phần cứng mất vài tháng mua sắm thiết bị.', 'Hạ tầng cũ không đáp ứng lượng truy cập tăng vọt đột ngột.'],
-    solutions: ['Khảo sát hạ tầng tổng thể bằng công cụ chuyên dụng.', 'Thiết lập mạng ảo hybrid an toàn kết nối vật lý và đám mây.'],
-    relatedProducts: [{ name: 'Viettel Cloud Server', slug: 'viettel-cloud-server', categorySlug: 'compute' }],
-    caseStudy: { client: 'Tập đoàn Vingroup', metric: '65% Tiết kiệm', result: 'Giảm 65% chi phí vận hành máy chủ vật lý sau 3 tháng chuyển dịch toàn diện.' }
+    painPoints: [
+      'Mở rộng phần cứng mất vài tháng mua sắm và lắp đặt thiết bị.',
+      'Hạ tầng tại chỗ cũ kỹ, không đáp ứng được lượng truy cập tăng vọt đột ngột của doanh nghiệp.',
+      'Rủi ro gián đoạn vận hành kinh doanh trong quá trình chuyển dịch dữ liệu khổng lồ.'
+    ],
+    solutions: [
+      'Khảo sát hạ tầng tổng thể tự động bằng công cụ chuyên dụng, lập lộ trình chi tiết.',
+      'Thiết lập mạng ảo hybrid an toàn kết nối vật lý on-premise và đám mây Viettel Cloud.',
+      'Di chuyển dữ liệu bằng phương pháp nhân bản không ảnh hưởng hiệu năng hệ thống hiện hành.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Cloud Server', slug: 'viettel-cloud-server', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Tập đoàn Vingroup',
+      metric: '65% Tiết kiệm',
+      result: 'Giảm 65% chi phí vận hành máy chủ vật lý sau 3 tháng chuyển dịch toàn diện hệ thống SAP HANA lên đám mây.'
+    }
+  },
+  {
+    id: 'multi-az',
+    name: 'Triển khai Multi-Availability Zone',
+    slug: 'multi-az',
+    segment: 'infra-cloud',
+    segmentName: 'Hạ tầng & Cloud',
+    description: 'Kiến trúc phân tán đa vùng khả dụng (Multi-AZ) giúp loại bỏ điểm lỗi đơn lẻ (SPOF), đảm bảo ứng dụng hoạt động liên tục 99.99%.',
+    problemHeadline: 'Làm sao để hệ thống giao dịch trực tuyến đứng vững trước các sự cố tủ rack, mất điện toàn trạm hoặc thảm họa thiên tai?',
+    painPoints: [
+      'Thời gian chết (Downtime) tính bằng phút cũng có thể gây thiệt hại hàng tỷ đồng và hủy hoại danh tiếng doanh nghiệp.',
+      'Cơ chế đồng bộ cơ sở dữ liệu phức tạp dễ gây mất mát hoặc bất nhất dữ liệu khi chuyển vùng (failover).',
+      'Thiếu đường truyền tải mạng băng thông rộng độ trễ cực thấp giữa các phòng máy biệt lập.'
+    ],
+    solutions: [
+      'Thiết lập topo Active-Active giữa 3 trung tâm dữ liệu chuẩn Rated 3 độc lập hoàn toàn về địa lý và nguồn điện.',
+      'Kết nối cáp quang ngầm chuyên dụng tốc độ cao với độ trễ truyền phản hồi cực thấp dưới 1ms.',
+      'Tích hợp bộ cân bằng tải phân tán (Cloud Load Balancer) tự động phát hiện lỗi và chuyển hướng thông minh.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Cloud Server', slug: 'viettel-cloud-server', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Ví điện tử VNPAY',
+      metric: '✓ SLA 99.99%',
+      result: 'Duy trì hệ thống xử lý 50.000 giao dịch/giây ổn định hoàn hảo ngay cả khi giả lập ngắt điện đột ngột tại một vùng khả dụng.'
+    }
+  },
+  {
+    id: 'iac-hub',
+    name: 'Viettel IaC Hub',
+    slug: 'iac-hub',
+    segment: 'devops-ai',
+    segmentName: 'Dev, Ops & AI',
+    description: 'Tự động hóa toàn bộ vòng đời hạ tầng thông qua Terraform templates, Ansible playbook và GitOps, giảm thời gian provisioning từ nhiều tuần xuống dưới 10 phút.',
+    problemHeadline: 'Hạ tầng mở rộng thủ công bằng tay kéo dài thời gian ra mắt tính năng và phát sinh hàng loạt lỗi cấu hình an ninh.',
+    painPoints: [
+      'Kỹ sư hệ thống mất hàng giờ click chọn cấu hình trên console cho mỗi môi trường Dev/Staging/Prod.',
+      'Sự sai lệch cấu hình (Configuration Drift) giữa các môi trường gây ra những lỗi ứng dụng cực kỳ khó bắt vết.',
+      'Không thể theo dõi lịch sử thay đổi hạ tầng và khôi phục nhanh về trạng thái an toàn trước đó khi có lỗi phát sinh.'
+    ],
+    solutions: [
+      'Chuyển đổi toàn bộ tài nguyên VM, Mạng, Tường lửa thành mã nguồn khai báo Infrastructure as Code.',
+      'Cung cấp kho thư viện Terraform Templates chuẩn hóa cao được kiểm thử tự động (tflint, tfsec) nghiêm ngặt.',
+      'Áp dụng quy trình GitOps, tự động triển khai thay đổi hạ tầng ngay khi pull request được phê duyệt.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Cloud Server', slug: 'viettel-cloud-server', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Sở Thông tin và Truyền thông Hà Nội',
+      metric: '⚡ Khởi tạo < 10 phút',
+      result: 'Tự động hóa toàn bộ quy trình khởi dựng môi trường cổng dịch vụ công trực tuyến đồng loạt cho 30 quận huyện, giảm sai lỗi 98%.'
+    }
   },
   {
     id: 'containerization',
-    name: 'Giải pháp Container & Microservices',
+    name: 'Giải pháp Container (Containerization)',
     slug: 'container',
     segment: 'devops-ai',
     segmentName: 'Dev, Ops & AI',
-    description: 'Chuyển đổi kiến trúc ứng dụng từ Monolithic sang Microservices trên nền tảng Kubernetes được quản lý.',
+    description: 'Chuyển đổi kiến trúc ứng dụng từ Monolithic sang Microservices trên nền tảng Kubernetes được quản lý và bảo mật tối đa.',
     problemHeadline: 'Nâng cấp tính năng ứng dụng mất quá nhiều thời gian và dễ gây lỗi hệ thống liên đới.',
-    painPoints: ['Hệ thống nặng nề, khó cô lập lỗi khi có sự cố.', 'Năng suất bàn giao sản phẩm của đội dev bị giới hạn.'],
-    solutions: ['Quy chuẩn cụm Container tự động co giãn thông minh.', 'Tự động CI/CD tối ưu hóa quy trình release phiên bản mới.'],
-    relatedProducts: [{ name: 'Viettel Kubernetes Service (vK8s)', slug: 'viettel-kubernetes', categorySlug: 'compute' }],
-    caseStudy: { client: 'Ứng dụng TMĐT MyViettel', metric: '⚡ Deploy 10 phút', result: 'Rút ngắn thời gian triển khai ứng dụng từ 2 ngày xuống còn 10 phút.' }
+    painPoints: [
+      'Hệ thống cồng kềnh, khó cô lập lỗi khi xảy ra sự cố đột xuất ở một phân hệ.',
+      'Tốn kém tài nguyên máy chủ vật lý do không thể chia nhỏ và tối ưu hóa mật độ ứng dụng.',
+      'Năng suất bàn giao sản phẩm của đội ngũ phát triển bị giới hạn bởi quy trình deploy thủ công.'
+    ],
+    solutions: [
+      'Chuẩn hóa ứng dụng thành các Container gọn nhẹ, chạy độc lập và nhất quán trên mọi môi trường.',
+      'Quy chuẩn cụm Kubernetes tự động co giãn thông minh theo tải thực tế (Horizontal Pod Autoscaler).',
+      'Tích hợp CI/CD tự động build, test và rolling-update ứng dụng không gây downtime gián đoạn người dùng.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Kubernetes Service (vK8s)', slug: 'viettel-kubernetes', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Ứng ứng dụng MyViettel',
+      metric: '⚡ Deploy 10 phút',
+      result: 'Rút ngắn thời gian phát hành tính năng mới từ 2 ngày xuống còn 10 phút, tự động co giãn đáp ứng vượt bão 10 triệu người dùng.'
+    }
+  },
+  {
+    id: 'devsecops',
+    name: 'DevSecOps',
+    slug: 'devsecops',
+    segment: 'devops-ai',
+    segmentName: 'Dev, Ops & AI',
+    description: 'Tích hợp bảo mật tự động vào mọi giai đoạn của vòng đời phát triển phần mềm (CI/CD Pipeline), đảm bảo an toàn tuyệt đối mà không kìm hãm tốc độ release.',
+    problemHeadline: 'Yêu cầu kiểm thử an toàn thông tin thủ công cuối dự án trở thành nút thắt cổ chai kìm hãm tốc độ phát hành ứng dụng.',
+    painPoints: [
+      'Lỗ hổng bảo mật được phát hiện quá muộn dẫn đến việc phải thiết kế lại lượng lớn kiến trúc mã nguồn.',
+      'Thư viện mã nguồn mở bên thứ ba chứa mã độc liên tục bị lọt vào môi trường Production mà không được kiểm soát.',
+      'Xung đột thường xuyên giữa mục tiêu phát triển nhanh của Dev và yêu cầu an toàn tuyệt mật của Security.'
+    ],
+    solutions: [
+      'Tích hợp các bước kiểm thử bảo mật tĩnh (SAST) và kiểm thử động (DAST) tự động trực tiếp vào luồng build.',
+      'Tự động quét lỗ hổng thư viện nguồn mở (SCA) và quét malware trong Docker images trước khi đóng gói.',
+      'Thiết lập chính sách an ninh dưới dạng mã (Policy as Code), tự động chặn deploy nếu không đạt chuẩn bảo mật.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Kubernetes Service (vK8s)', slug: 'viettel-kubernetes', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Công ty Chứng khoán VPS',
+      metric: '✓ 100% Quét tự động',
+      result: 'Phát hiện và ngăn chặn thành công 95% lỗ hổng bảo mật nghiêm trọng trước khi deploy, đẩy nhanh tốc độ release lên gấp 3 lần.'
+    }
+  },
+  {
+    id: 'monitoring-ai',
+    name: 'Giám sát & Ứng dụng AI (AIOps)',
+    slug: 'monitoring-ai',
+    segment: 'devops-ai',
+    segmentName: 'Dev, Ops & AI',
+    description: 'Giải pháp giám sát hiệu năng ứng dụng toàn diện (APM) kết hợp trí tuệ nhân tạo (AIOps) tự động phát hiện bất thường và cảnh báo sớm sự cố.',
+    problemHeadline: 'Hàng triệu log và metric đổ về mỗi giây khiến việc tìm kiếm nguyên nhân sự cố như mò kim đáy bể.',
+    painPoints: [
+      'Chỉ phát hiện hệ thống lỗi sau khi người dùng cuối phản hồi tiêu cực hoặc hệ thống đã sập hoàn toàn.',
+      'Mất hàng giờ họp khẩn giữa các đội Dev, Ops, DB để phân định trách nhiệm khi có lỗi không rõ nguyên nhân.',
+      'Cảnh báo giả quá nhiều gây loãng (Alert Fatigue), làm kỹ sư vận hành bỏ qua các sự cố thực sự nghiêm trọng.'
+    ],
+    solutions: [
+      'Thu thập vết giao dịch từ đầu cuối (Tracing end-to-end) xuyên suốt qua hàng trăm dịch vụ Microservices.',
+      'Mô hình học máy AI tự động phân tích và thiết lập ngưỡng hiệu năng động thích ứng theo thời gian thực.',
+      'Tự động gom nhóm các cảnh báo liên quan, phân tích tương quan để chỉ ra chính xác nguyên nhân gốc rễ.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Cloud Server', slug: 'viettel-cloud-server', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Hệ thống tính cước viễn thông Viettel',
+      metric: '⏰ MTTR giảm 80%',
+      result: 'Rút ngắn thời gian trung bình phát hiện và cô lập lỗi từ 45 phút xuống dưới 9 phút thông qua cơ chế tự phân tích của AI.'
+    }
+  },
+  {
+    id: 'hpc',
+    name: 'Đám mây hiệu năng cao (HPC Cloud)',
+    slug: 'hpc',
+    segment: 'devops-ai',
+    segmentName: 'Dev, Ops & AI',
+    description: 'Hạ tầng tính toán hiệu năng cao được trang bị các dòng GPU NVIDIA Tensor Core mạnh mẽ nhất, phục vụ huấn luyện mô hình AI lớn và nghiên cứu khoa học dữ liệu.',
+    problemHeadline: 'Chi phí đầu tư cụm siêu máy tính vật lý quá đắt đỏ và chu kỳ nâng cấp công nghệ phần cứng quá nhanh.',
+    painPoints: [
+      'Huấn luyện mô hình học sâu kéo dài hàng tuần hoặc hàng tháng do thiếu hụt tài nguyên GPU chuyên dụng.',
+      'Nghẽn cổ chai băng thông truyền tải dữ liệu giữa máy chủ và lưu trữ làm giảm hiệu năng xử lý tính toán.',
+      'Phòng máy thông thường không đáp ứng được nguồn điện cực lớn và mật độ tỏa nhiệt khổng lồ của dòng chip AI.'
+    ],
+    solutions: [
+      'Cung cấp máy chủ GPU NVIDIA A100 / H100 chuyên dụng kết nối mạng lưới Infiniband siêu tốc 400 Gbps.',
+      'Tận dụng siêu trung tâm dữ liệu Bình Dương với công nghệ làm mát bằng chất lỏng trực tiếp tiên tiến nhất.',
+      'Tích hợp sẵn các thư viện tối ưu hóa AI hàng đầu như CUDA, cuDNN, PyTorch, TensorFlow hoạt động mượt mà.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Cloud Server', slug: 'viettel-cloud-server', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Viện Nghiên cứu Trí tuệ nhân tạo Viettel',
+      metric: '⚡ Huấn luyện x15 lần',
+      result: 'Rút ngắn thời gian huấn luyện mô hình ngôn ngữ lớn tiếng Việt (LLM) từ 30 ngày xuống còn 48 giờ trên cụm HPC chuyên dụng.'
+    }
+  },
+  {
+    id: 'cdn',
+    name: 'Mạng phân phối nội dung (CDN)',
+    slug: 'cdn',
+    segment: 'connectivity',
+    segmentName: 'Kết nối & Workspace',
+    description: 'Mạng lưới phân phối nội dung phủ sóng rộng khắp cả nước với băng thông cực lớn, giúp tăng tốc website, ứng dụng di động và truyền phát video chất lượng cao.',
+    problemHeadline: 'Website tải chậm, video giật lag khi truy cập tăng vọt khiến khách hàng lập tức rời bỏ dịch vụ.',
+    painPoints: [
+      'Máy chủ gốc bị quá tải nghiêm trọng khi có lượng truy cập đột biến (Mega Sale, livestream sự kiện hot).',
+      'Người dùng ở xa trung tâm dữ liệu gặp độ trễ cao khi tải các tài nguyên hình ảnh, video tĩnh nặng.',
+      'Chi phí băng thông máy chủ gốc tăng phi mã khi truyền phát nội dung trực tuyến quy mô lớn.'
+    ],
+    solutions: [
+      'Hệ thống POP CDN phủ rộng khắp 63 tỉnh thành, đặt trực tiếp tại các điểm nút biên mạng viễn thông Viettel.',
+      'Tự động lưu trữ (cache) và phân phối thông minh nội dung từ điểm biên gần người dùng nhất với độ trễ tối thiểu.',
+      'Tích hợp các công nghệ tối ưu hóa nén ảnh tự động và bảo vệ máy chủ gốc trước các cuộc tấn công DDoS biên.'
+    ],
+    relatedProducts: [
+      { name: 'Cho thuê chỗ đặt máy chủ (Colocation)', slug: 'viettel-colocation', categorySlug: 'data-center' }
+    ],
+    caseStudy: {
+      client: 'Nền tảng truyền hình số TV360',
+      metric: '✓ Chịu tải 10 Triệu CCU',
+      result: 'Truyền phát trực tiếp mượt mà các trận đấu bóng đá đỉnh cao Euro đạt độ phân giải Full HD không gián đoạn cho hàng triệu người xem đồng thời.'
+    }
+  },
+  {
+    id: 'mobile-work',
+    name: 'Làm việc di động (Digital Workplace)',
+    slug: 'mobile-work',
+    segment: 'connectivity',
+    segmentName: 'Kết nối & Workspace',
+    description: 'Giải pháp văn phòng số di động hợp nhất, kết hợp máy tính ảo Cloud PC độ bảo mật cao và bộ công cụ cộng tác trực tuyến Microsoft 365.',
+    problemHeadline: 'Làm việc từ xa làm tăng rủi ro rò rỉ dữ liệu nhạy cảm của doanh nghiệp ra các thiết bị cá nhân.',
+    painPoints: [
+      'Nhân viên sao chép thông tin khách hàng, mã nguồn dự án ra thiết bị cá nhân mà không có sự kiểm soát của IT.',
+      'Khó khăn trong việc cấp phát, quản lý đồng bộ và thu hồi tài nguyên làm việc cho nhân viên thuê ngoài (outsource).',
+      'Hệ thống email nội bộ cũ liên tục bị spam, mã độc và tấn công giả mạo đe dọa an toàn thông tin.'
+    ],
+    solutions: [
+      'Triển khai máy tính ảo Viettel Cloud PC, toàn bộ dữ liệu lưu trữ tập trung tại phòng máy IDC bảo mật vật lý.',
+      'Thiết lập chính sách an ninh chặn chụp màn hình, chặn cắm USB và copy-paste dữ liệu ra ngoài thiết bị ảo.',
+      'Cung cấp bộ công cụ Microsoft 365 chính hãng tích hợp Exchange Email, Teams, OneDrive đồng bộ hoàn hảo.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Cloud Server', slug: 'viettel-cloud-server', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Tập đoàn Bảo hiểm PTI',
+      metric: '🔒 100% An toàn dữ liệu',
+      result: 'Chuyển đổi thành công môi trường làm việc từ xa bảo mật cao cho hơn 2.000 giám định viên và đại lý trên toàn quốc.'
+    }
+  },
+  {
+    id: 'website',
+    name: 'Xây dựng Website doanh nghiệp',
+    slug: 'website',
+    segment: 'connectivity',
+    segmentName: 'Kết nối & Workspace',
+    description: 'Gói giải pháp trọn bộ tối ưu bao gồm Web Hosting tốc độ cao, tên miền quốc tế/Việt Nam và chứng chỉ bảo mật SSL tin cậy.',
+    problemHeadline: 'Doanh nghiệp loay hoay thiết lập website từ con số 0 với chi phí đắt đỏ và thiếu tính ổn định.',
+    painPoints: [
+      'Website hoạt động chập chờn, thường xuyên bị sập do hosting kém chất lượng hoặc thiếu sao lưu tự động.',
+      'Không có chứng chỉ SSL khiến trình duyệt hiện cảnh báo nguy hiểm, làm suy giảm uy tín nghiêm trọng trong mắt khách hàng.',
+      'Tốc độ phản hồi tên miền chậm do hệ thống phân giải DNS không được tối ưu hóa địa lý tại Việt Nam.'
+    ],
+    solutions: [
+      'Cung cấp Web Hosting sử dụng 100% ổ cứng SSD SAS Enterprise tốc độ cao và máy chủ web LiteSpeed siêu tốc.',
+      'Tự động tích hợp và gia hạn chứng chỉ bảo mật SSL miễn phí, bảo vệ thông tin giao dịch trực tuyến.',
+      'Hệ thống Anycast DNS toàn cầu của Viettel giúp giảm thời gian phân giải tên miền xuống dưới 10ms.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Cloud Server', slug: 'viettel-cloud-server', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Chuỗi cửa hàng Mẹ & Bé Con Cưng',
+      metric: '⚡ Tải trang < 1.2s',
+      result: 'Khởi tạo và vận hành mượt mà website giới thiệu sản phẩm mới, chịu tải ổn định hơn 100.000 lượt truy cập mua sắm mỗi ngày.'
+    }
+  },
+  {
+    id: 'fintech',
+    name: 'Tài chính - Ngân hàng (Fintech & Banking)',
+    slug: 'fintech',
+    segment: 'industry',
+    segmentName: 'Giải pháp theo ngành',
+    description: 'Hạ tầng điện toán đám mây chuyên biệt cho ngành tài chính ngân hàng, đáp ứng nghiêm ngặt chứng chỉ PCI DSS Level 1 v4.0 và các quy chuẩn bảo mật tối cao của Ngân hàng Nhà nước.',
+    problemHeadline: 'Áp lực tuân thủ pháp lý khắt khe và rủi ro tấn công mạng liên tục đe dọa các giao dịch số.',
+    painPoints: [
+      'Yêu cầu bảo mật tuyệt đối thông tin thẻ thanh toán và dữ liệu nhạy cảm cá nhân của hàng triệu khách hàng.',
+      'Hệ thống Core Banking cũ cồng kềnh khó mở rộng linh hoạt để tích hợp mượt mà với các dịch vụ số mới.',
+      'Phải đáp ứng thông tư khắt khe về an toàn thông tin hệ thống của Ngân hàng Nhà nước Việt Nam.'
+    ],
+    solutions: [
+      'Xây dựng phân vùng đám mây dùng riêng (Private Cloud) cách ly vật lý hoàn toàn ở cấp độ phần cứng máy chủ.',
+      'Duy trì chứng chỉ bảo mật thanh toán thẻ quốc tế PCI DSS v4.0 Level 1 cao nhất toàn cầu.',
+      'Giám sát an ninh mạng thời gian thực thông qua Trung tâm điều hành SOC chuyên nghiệp liên tục 24/7.'
+    ],
+    relatedProducts: [
+      { name: 'Cho thuê chỗ đặt máy chủ (Colocation)', slug: 'viettel-colocation', categorySlug: 'data-center' }
+    ],
+    caseStudy: {
+      client: 'Ngân hàng Thương mại Cổ phần Quân đội (MB)',
+      metric: '✓ Đạt chuẩn PCI DSS v4.0',
+      result: 'Triển khai phân vùng đám mây an toàn phục vụ ứng dụng ngân hàng số MB Bank với SLAs 99.99%, đáp ứng 100% quy định kiểm toán bảo mật.'
+    }
+  },
+  {
+    id: 'ecommerce',
+    name: 'Thương mại điện tử & Bán lẻ (Retail & E-commerce)',
+    slug: 'ecommerce',
+    segment: 'industry',
+    segmentName: 'Giải pháp theo ngành',
+    description: 'Hạ tầng đám mây co giãn tự động (Auto Scaling) và mạng phân phối nội dung tốc độ cao, giúp các trang thương mại điện tử vượt bão truy cập mùa Mega Sale mượt mà.',
+    problemHeadline: 'Hệ thống nghẽn mạng, sập trang thanh toán đúng thời điểm vàng Mega Sale gây thất thoát hàng tỷ đồng doanh thu.',
+    painPoints: [
+      'Lượng truy cập tăng đột biến gấp 50-100 lần bình thường trong thời gian cực ngắn (Flash Sale).',
+      'Trải nghiệm người dùng bị ảnh hưởng nặng nề do hình ảnh sản phẩm tải chậm, giỏ hàng phản hồi trễ.',
+      'Chi phí hạ tầng bị lãng phí do phải duy trì máy chủ cấu hình cao suốt cả năm chỉ để phục vụ vài ngày sale lớn.'
+    ],
+    solutions: [
+      'Sử dụng cụm Kubernetes (vK8s) tự động co giãn số lượng container (HPA) theo tải truy cập thời gian thực.',
+      'Tối ưu hóa phân phối hình ảnh sản phẩm tĩnh thông qua mạng lưới biên phân phối Viettel CDN.',
+      'Tích hợp bộ nhớ đệm cơ sở dữ liệu tốc độ cao vCAS (Redis managed) giúp giảm tải trực tiếp cho DB gốc.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Kubernetes Service (vK8s)', slug: 'viettel-kubernetes', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Nền tảng thương mại điện tử Voso',
+      metric: '⚡ Phản hồi < 500ms',
+      result: 'Vận hành ổn định chiến dịch sale nông sản toàn quốc với hơn 3 triệu lượt truy cập cùng thời điểm, không xảy ra bất kỳ sự cố nghẽn mạch nào.'
+    }
+  },
+  {
+    id: 'healthtech',
+    name: 'Y tế số (HealthTech & PACS Cloud)',
+    slug: 'healthtech',
+    segment: 'industry',
+    segmentName: 'Giải pháp theo ngành',
+    description: 'Giải pháp lưu trữ hình ảnh y khoa PACS đám mây dung lượng lớn, truyền tải siêu tốc và bảo mật hồ sơ bệnh án điện tử (EHR) theo tiêu chuẩn của Bộ Y tế.',
+    problemHeadline: 'Hạ tầng lưu trữ tại chỗ quá tải do dữ liệu hình ảnh MRI, CT dung lượng lớn tăng lên không ngừng.',
+    painPoints: [
+      'Bác sĩ mất nhiều thời gian chờ đợi tải phim chẩn đoán từ hệ thống lưu trữ cũ lắp đặt tại bệnh viện.',
+      'Nguy cơ mất mát dữ liệu bệnh án cực kỳ quý giá khi gặp sự cố phần cứng hỏng hóc vật lý tại chỗ.',
+      'Khó khăn trong việc liên thông và chia sẻ dữ liệu phim chụp an toàn giữa các bệnh viện để hội chẩn từ xa.'
+    ],
+    solutions: [
+      'Lưu trữ đối tượng Viettel Object Storage không giới hạn dung lượng với chi phí tối ưu hóa vượt trội.',
+      'Đường truyền chuyên dụng tốc độ cao giúp truyền tải phim chụp DICOM sắc nét trong dưới 2 giây.',
+      'Cơ chế tự động sao lưu dữ liệu bảo vệ thảm họa (BaaS) đảm bảo an toàn an ninh dữ liệu y khoa tuyệt đối.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Cloud Server', slug: 'viettel-cloud-server', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Bệnh viện Đa khoa Quốc tế Vinmec',
+      metric: '✓ Truyền phim chụp < 2s',
+      result: 'Số hóa thành công hệ thống lưu trữ hình ảnh PACS đám mây cho toàn chuỗi bệnh viện, giúp bác sĩ hội chẩn từ xa tức thì hiệu quả.'
+    }
+  },
+  {
+    id: 'edtech',
+    name: 'Giáo dục trực tuyến (EdTech & LMS)',
+    slug: 'edtech',
+    segment: 'industry',
+    segmentName: 'Giải pháp theo ngành',
+    description: 'Hạ tầng truyền phát bài giảng Live-class trực tuyến không độ trễ, hệ thống quản lý học tập (LMS) chịu tải đồng thời hàng triệu học sinh.',
+    problemHeadline: 'Lớp học ảo bị giật lag, rớt kết nối khi hàng vạn học sinh đồng thời đăng nhập vào giờ cao điểm học trực tuyến.',
+    painPoints: [
+      'Chi phí băng thông tăng vọt mất kiểm soát khi truyền phát hàng ngàn luồng video học trực tiếp đồng thời.',
+      'Hệ thống thi trắc nghiệm trực tuyến bị sập nghẽn do hàng ngàn truy vấn gửi bài thi tập trung cùng một giây.',
+      'Rủi ro bị sao chép trái phép, đánh cắp bản quyền bài giảng và tài nguyên giáo dục độc quyền của giáo viên.'
+    ],
+    solutions: [
+      'Truyền dẫn video thông qua mạng biên CDN tối ưu hóa cho livestreaming truyền phát chất lượng HD mượt mà.',
+      'Sử dụng máy chủ ảo cấu hình mạnh mẽ, tự động mở rộng tài nguyên tính toán tức thì khi tới giờ học.',
+      'Mã hóa chống tải xuống trái phép video bài giảng bằng giải pháp bảo vệ DRM bản quyền số chuyên nghiệp.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Cloud Server', slug: 'viettel-cloud-server', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Hệ thống học tập trực tuyến K12Online',
+      metric: '✓ Đón 2.5 Triệu Học sinh',
+      result: 'Vận hành thành công nền tảng giáo dục trực tuyến trực quan quy mô quốc gia, hỗ trợ hàng triệu lớp học ảo hoạt động trơn tru.'
+    }
+  },
+  {
+    id: 'digital-gov',
+    name: 'Chính phủ số & Hành chính công',
+    slug: 'digital-gov',
+    segment: 'industry',
+    segmentName: 'Giải pháp theo ngành',
+    description: 'Hạ tầng điện toán đám mây dùng riêng (Sovereign Cloud) biệt lập hoàn toàn, đạt chứng chỉ an toàn thông tin cấp độ 4 của Bộ Thông tin & Truyền thông.',
+    problemHeadline: 'Yêu cầu tuyệt mật thông tin công vụ và chủ quyền dữ liệu quốc gia trước mọi nguy cơ tấn công mạng từ bên ngoài.',
+    painPoints: [
+      'Nguy cơ bị tấn công gián điệp, rò rỉ thông tin hành chính chính phủ nhạy cảm ra ngoài biên giới.',
+      'Hệ thống dịch vụ công bị sập nghẽn do quá tải hồ sơ trực tuyến tập trung, gây bức xúc dư luận.',
+      'Yêu cầu dữ liệu bắt buộc phải được lưu trữ 100% trong nước dưới tầm kiểm soát bảo hộ pháp lý của nhà nước.'
+    ],
+    solutions: [
+      'Xây dựng phân vùng đám mây Sovereign Cloud độc lập vật lý tuyệt đối, vận hành hoàn toàn bởi nhân sự Việt Nam.',
+      'Tuân thủ 100% Luật An ninh mạng, Luật An toàn thông tin mạng và Nghị định 13 bảo vệ dữ liệu cá nhân.',
+      'Trung tâm điều hành SOC chuyên nghiệp trực chiến 24/7 phát hiện và chủ động ngăn chặn mã độc APT.'
+    ],
+    relatedProducts: [
+      { name: 'Cho thuê chỗ đặt máy chủ (Colocation)', slug: 'viettel-colocation', categorySlug: 'data-center' }
+    ],
+    caseStudy: {
+      client: 'Cổng Dịch vụ công Quốc gia',
+      metric: '✓ Đạt An ninh Cấp độ 4',
+      result: 'Đảm bảo hạ tầng vận hành an toàn bảo mật tuyệt đối cho các giao dịch hành chính công trực tuyến của hàng triệu người dân mỗi ngày.'
+    }
+  },
+  {
+    id: 'smart-manufacturing',
+    name: 'Sản xuất thông minh & IoT Logistics',
+    slug: 'smart-manufacturing',
+    segment: 'industry',
+    segmentName: 'Giải pháp theo ngành',
+    description: 'Nền tảng kết nối IoT biên (Edge IoT), lưu trữ dữ liệu chuỗi cảm biến thời gian thực, phục vụ tự động hóa nhà máy và giám sát vận tải thông minh.',
+    problemHeadline: 'Hàng vạn thiết bị cảm biến truyền dữ liệu liên tục gây nghẽn đường truyền và chậm trễ trong việc ra quyết định điều phối.',
+    painPoints: [
+      'Độ trễ truyền tải dữ liệu từ nhà máy lên mây quá cao khiến việc xử lý dừng dây chuyền lỗi bị chậm trễ.',
+      'Khó khăn trong việc kết nối đồng bộ hàng chục ngàn thiết bị IoT sử dụng nhiều giao thức công nghiệp khác nhau.',
+      'Mất mát dữ liệu hành trình xe vận tải do mất kết nối mạng di động ở vùng sâu vùng xa.'
+    ],
+    solutions: [
+      'Triển khai máy chủ biên Edge Compute xử lý dữ liệu tức thì ngay tại nhà máy, giảm độ trễ phản hồi xuống dưới 10ms.',
+      'Cổng kết nối IoT hỗ trợ tự động đồng bộ hóa các giao thức công nghiệp (MQTT, Modbus, CoAP).',
+      'Ứng dụng bản đồ số định vị thời gian thực kết hợp mạng di động băng thông rộng 4G/5G phủ sóng của Viettel.'
+    ],
+    relatedProducts: [
+      { name: 'Viettel Cloud Server', slug: 'viettel-cloud-server', categorySlug: 'compute' }
+    ],
+    caseStudy: {
+      client: 'Nhà máy thông minh Pegatron Hải Phòng',
+      metric: '⚡ Độ trễ < 10ms',
+      result: 'Kết nối thành công hơn 15.000 cảm biến và cánh tay robot tự động hóa lắp ráp linh kiện, nâng cao 25% hiệu suất vận hành.'
+    }
   }
 ];
 
