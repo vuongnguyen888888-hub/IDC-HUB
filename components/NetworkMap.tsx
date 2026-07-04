@@ -99,8 +99,8 @@ export default function NetworkMap({ activeId, onSelectDC }: NetworkMapProps) {
     const map = new maplibregl.Map({
       container: mapContainerRef.current,
       style: 'https://tiles.openfreemap.org/styles/positron', // High premium, minimalist gray theme
-      center: [108.2, 16.0], // Center of Vietnam
-      zoom: 5.2,
+      center: [108.5, 16.2], // Center of Vietnam showing full shape
+      zoom: 4.9,
       minZoom: 3,
       maxZoom: 18,
       attributionControl: false,
@@ -292,8 +292,8 @@ export default function NetworkMap({ activeId, onSelectDC }: NetworkMapProps) {
     // Fly to active location or reset to overview
     if (activeId === 'overview') {
       map.flyTo({
-        center: [108.2, 16.0],
-        zoom: 5.2,
+        center: [108.5, 16.2],
+        zoom: 4.9,
         pitch: 0,
         bearing: 0,
         essential: true,

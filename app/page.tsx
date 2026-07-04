@@ -1305,15 +1305,14 @@ function HomepageContent() {
         >
           
           {/* Desktop view: side-by-side horizontal cards with dynamic flexible widths & Framer Motion layout spring expansion */}
-          <div className="hidden md:flex flex-row gap-4.5 h-[530px] w-full relative">
+          <div className="hidden md:flex flex-row gap-2 h-[600px] w-full relative">
             {INDUSTRIES_DATA.map((item, index) => {
               const isActive = activeIndustry === index;
               const IconComponent = item.bottomIcon;
 
               return (
-                <motion.div
+                <div
                   key={item.id}
-                  layout="position"
                   onMouseEnter={() => setActiveIndustry(index)}
                   onClick={() => setActiveIndustry(index)}
                   className={`relative h-full rounded-2xl overflow-hidden cursor-pointer select-none border transition-all duration-500 min-w-0 group ${
@@ -1321,7 +1320,6 @@ function HomepageContent() {
                       ? "flex-[3.5] border-[#EE0033]/20 shadow-[0_20px_50px_rgba(238,0,51,0.06)]" 
                       : "flex-1 border-gray-200/40 hover:flex-[1.1] hover:border-gray-300/60"
                   }`}
-                  transition={{ type: "spring", stiffness: 180, damping: 25 }}
                 >
                   {/* High quality background image corresponding to the service */}
                   <div 
@@ -1329,8 +1327,8 @@ function HomepageContent() {
                     style={{ backgroundImage: `url('${item.bgPattern}')` }}
                   />
 
-                  {/* Gradient overlays: sophisticated top and bottom dark fade */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/45 to-black/95 pointer-events-none z-[1]" />
+                  {/* Dark gradient overlay covering bottom 2/3 with 60% to 0% opacity from bottom to top */}
+                  <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-[1]" />
 
                   {/* Active glowing accent border overlay */}
                   <div className={`absolute inset-0 border-[1.5px] rounded-2xl pointer-events-none z-[2] transition-opacity duration-500 ${
@@ -1340,37 +1338,42 @@ function HomepageContent() {
                   {/* Main card interface interior with absolute/relative positioning for high control */}
                   <div className="relative z-10 p-8 h-full flex flex-col justify-between items-start w-full">
                     
-                    {isActive ? (
-                      // ACTIVE EXPANDED VIEW LAYOUT (Richly styled, clean & responsive)
-                      <div className="absolute inset-8 flex flex-col justify-between items-start text-left h-[calc(100%-64px)] w-[calc(100%-64px)]">
-                        {/* Top sector-meta row */}
-                        <div className="flex items-center justify-end w-full">
-                          <span className="text-white/30 font-mono font-black text-2xl tracking-tighter">
-                            0{index + 1}
-                          </span>
-                        </div>
+                    {/* ACTIVE EXPANDED VIEW LAYOUT (Richly styled, clean & responsive) */}
+                    <div className={`absolute left-5 right-5 bottom-5 top-5 flex flex-col justify-between items-start text-left h-[calc(100%-40px)] transition-all duration-500 ${
+                      isActive 
+                        ? "opacity-100 translate-x-0 pointer-events-auto" 
+                        : "opacity-0 pointer-events-none"
+                    }`}>
+                      {/* Top sector-meta row */}
+                      <div className="flex items-center justify-end w-full">
+                        <span className="text-white/30 font-mono font-black text-2xl tracking-tighter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                          0{index + 1}
+                        </span>
+                      </div>
 
+                      {/* Grouped bottom content, pulled all the way down with an elegant frosted-glass container */}
+                      <div className="w-full mt-auto bg-white/10 backdrop-blur-lg border border-white/10 rounded-2xl p-6.5 space-y-4 shadow-2xl">
                         {/* Title & Description & Bullets */}
-                        <div className="space-y-4 max-w-2xl mt-4">
-                          <div className="space-y-1">
-                            <h2 className="text-3xl text-white font-extrabold tracking-tight leading-tight">
+                        <div className="space-y-2 max-w-2xl">
+                          <div className="space-y-0.5">
+                            <h2 className="text-2xl md:text-3xl text-white font-extrabold tracking-tight leading-tight">
                               {item.title}
                             </h2>
                           </div>
 
                           {/* Dynamic Paragraph narrative */}
-                          <p className="text-sm font-normal text-white/85 leading-relaxed max-w-xl">
+                          <p className="text-xs md:text-sm font-normal text-white/90 leading-relaxed max-w-xl">
                             {item.desc}
                           </p>
 
                           {/* Bullet points styled as list items with custom checks */}
-                          <div className="space-y-3 pt-3 max-w-xl">
+                          <div className="space-y-2 pt-1 max-w-xl">
                             {item.bullets.slice(0, 3).map((bullet, idx) => (
-                              <div key={idx} className="flex items-start gap-3">
-                                <span className="w-5 h-5 rounded-full bg-[#EE0033]/20 border border-[#EE0033]/40 flex items-center justify-center shrink-0 mt-0.5">
-                                  <Check className="w-3 h-3 text-[#FF3366] stroke-[4]" />
+                              <div key={idx} className="flex items-start gap-2.5">
+                                <span className="w-4 h-4 rounded-full bg-[#EE0033]/20 border border-[#EE0033]/45 flex items-center justify-center shrink-0 mt-0.5">
+                                  <Check className="w-2.5 h-2.5 text-[#FF3366] stroke-[4]" />
                                 </span>
-                                <span className="text-[13px] font-medium text-white/95 leading-normal">
+                                <span className="text-[12px] md:text-[13px] font-medium text-white/90 leading-normal">
                                   {bullet}
                                 </span>
                               </div>
@@ -1379,50 +1382,54 @@ function HomepageContent() {
                         </div>
 
                         {/* Red capsule button positioned at bottom left of active card */}
-                        <div className="pt-6 mt-auto flex justify-between items-center w-full">
+                        <div className="pt-1 flex justify-between items-center w-full">
                           <Link 
                             href={`/solutions/${item.slug}`}
-                            className="inline-flex items-center gap-2.5 px-6.5 py-3 rounded-full bg-[#EE0033] hover:bg-[#D0002D] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#EE0033]/15 transition-all duration-300 transform active:scale-95 cursor-pointer animate-fade-in"
+                            className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#EE0033] hover:bg-[#D0002D] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#EE0033]/20 transition-all duration-300 transform active:scale-95 cursor-pointer"
                           >
-                            <span>Tìm hiểu chi tiết</span>
+                            <span>Tìm hiểu thêm</span>
                             <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-[#EE0033]">
-                              <ArrowRight className="w-3.5 h-3.5 stroke-[3]" />
+                              <ArrowRight className="w-3 h-3 stroke-[3]" />
                             </div>
                           </Link>
                         </div>
                       </div>
-                    ) : (
-                      // INACTIVE COLLAPSED VIEW LAYOUT (Sophisticated vertical presentation)
-                      <div className="absolute inset-0 p-8 flex flex-col justify-between items-center text-center h-full w-full">
-                        {/* Top: Circular Index count */}
-                        <span className="text-white/30 font-mono font-bold text-base bg-white/5 w-8 h-8 rounded-full border border-white/5 flex items-center justify-center">
-                          0{index + 1}
-                        </span>
+                    </div>
 
-                        {/* Middle: rotated vertical title for high end visual design */}
-                        <div className="absolute inset-y-24 flex items-center justify-center pointer-events-none w-full">
-                          <div className="rotate-90 origin-center whitespace-nowrap text-white font-black text-sm uppercase tracking-[0.25em] opacity-45 group-hover:opacity-100 transition-all duration-500 leading-none">
-                            {item.title}
-                          </div>
-                        </div>
+                    {/* INACTIVE COLLAPSED VIEW LAYOUT (Sophisticated vertical presentation) */}
+                    <div className={`absolute inset-0 p-8 flex flex-col justify-between items-center text-center h-full w-full transition-all duration-500 ${
+                      isActive 
+                        ? "opacity-0 scale-95 pointer-events-none" 
+                        : "opacity-100 scale-100 pointer-events-auto"
+                    }`}>
+                      {/* Top: Domain-specific Icon in circled red/white-outline */}
+                      <div className="w-13 h-13 rounded-full border border-white/20 flex items-center justify-center text-white/95 bg-black/40 backdrop-blur-md group-hover:scale-110 group-hover:border-[#EE0033] group-hover:shadow-[0_0_20px_rgba(238,0,51,0.25)] transition-all duration-500">
+                        <IconComponent className="w-5.5 h-5.5 text-white group-hover:text-[#EE0033] transition-colors stroke-[1.8]" />
+                      </div>
 
-                        {/* Bottom: Domain-specific Icon in circled red/white-outline at bottom center */}
-                        <div className="mt-auto w-full flex justify-center z-10">
-                          <div className="w-13 h-13 rounded-full border border-white/15 flex items-center justify-center text-white/95 bg-black/50 backdrop-blur-md group-hover:scale-110 group-hover:border-[#EE0033] group-hover:shadow-[0_0_20px_rgba(238,0,51,0.25)] transition-all duration-500">
-                            <IconComponent className="w-5.5 h-5.5 text-white group-hover:text-[#EE0033] transition-colors stroke-[1.8]" />
-                          </div>
+                      {/* Middle: rotated vertical title for high end visual design */}
+                      <div className="absolute inset-y-24 flex items-center justify-center pointer-events-none w-full">
+                        <div className="rotate-90 origin-center whitespace-nowrap text-white font-black text-sm uppercase tracking-[0.25em] opacity-45 group-hover:opacity-100 transition-all duration-500 leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                          {item.title}
                         </div>
                       </div>
-                    )}
+
+                      {/* Bottom: Circular Index count */}
+                      <div className="mt-auto w-full flex justify-center z-10">
+                        <span className="text-white/40 font-mono font-bold text-base bg-black/30 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                          0{index + 1}
+                        </span>
+                      </div>
+                    </div>
 
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>
 
           {/* Mobile view: Stacked collapsible accordion blocks for tactile usability with Framer Motion layout transitions */}
-          <div className="flex md:hidden flex-col gap-4 w-full">
+          <div className="flex md:hidden flex-col gap-2 w-full">
             {INDUSTRIES_DATA.map((item, index) => {
               const isActive = activeIndustry === index;
               const IconComponent = item.bottomIcon;
@@ -1445,21 +1452,21 @@ function HomepageContent() {
                     style={{ backgroundImage: `url('${item.bgPattern}')` }}
                   />
 
-                  {/* Gradient overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/50 to-black/90 pointer-events-none z-[1]" />
+                  {/* Dark gradient overlay covering bottom 2/3 with 60% to 0% opacity from bottom to top */}
+                  <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-[1]" />
 
                   {/* Inner relative content */}
                   <div className="relative z-10 p-6 flex flex-col justify-between items-start w-full">
                     
                     <div className="w-full flex justify-between items-center gap-2">
                       <div className="flex items-center gap-3">
-                        <span className="text-[#EE0033] font-mono font-black text-sm">0{index + 1}</span>
-                        <h2 className="text-base text-white font-extrabold leading-tight tracking-tight">
+                        <span className="text-[#EE0033] font-mono font-black text-sm bg-white/90 px-2 py-0.5 rounded shadow-sm">0{index + 1}</span>
+                        <h2 className="text-base text-white font-extrabold leading-tight tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                           {item.title}
                         </h2>
                       </div>
                       <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all ${
-                        isActive ? "border-white/20 bg-white/10 text-white" : "border-white/10 text-white/40"
+                        isActive ? "border-[#EE0033] bg-[#EE0033] text-white" : "border-white/25 bg-black/30 text-white"
                       }`}>
                         <ArrowRight className="w-4 h-4" />
                       </div>
@@ -1467,7 +1474,7 @@ function HomepageContent() {
 
                     {isActive && (
                       <div className="w-full space-y-4 animate-fade-in mt-4">
-                        <p className="text-[12.5px] text-white/90 leading-relaxed bg-black/40 backdrop-blur-md p-4 rounded-xl border border-white/5 shadow-inner">
+                        <p className="text-[12.5px] text-white/95 leading-relaxed bg-white/12 backdrop-blur-lg p-4 rounded-xl border border-white/10 shadow-inner">
                           {item.desc}
                         </p>
                         
@@ -1475,15 +1482,15 @@ function HomepageContent() {
                         <div className="flex items-center justify-between pt-2 border-t border-white/10">
                           <Link 
                             href={`/solutions/${item.slug}`}
-                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#EE0033] hover:bg-[#D0002D] text-white text-xs font-bold uppercase tracking-wider"
+                            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#EE0033] hover:bg-[#D0002D] text-white text-xs font-bold uppercase tracking-wider"
                           >
                             <span>Tìm hiểu</span>
-                            <ArrowRight className="w-3.5 h-3.5 text-white" />
+                            <ArrowRight className="w-3 h-3 text-white" />
                           </Link>
                           
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 bg-black/40 px-2.5 py-1 rounded-full border border-white/10">
                             <IconComponent className="w-4 h-4 text-[#EE0033]" />
-                            <span className="text-[10px] font-mono text-white/55 uppercase tracking-widest font-bold">Standard Cloud</span>
+                            <span className="text-[10px] font-mono text-white uppercase tracking-widest font-bold">Standard Cloud</span>
                           </div>
                         </div>
                       </div>
@@ -1501,15 +1508,15 @@ function HomepageContent() {
       </section>
 
       {/* SECTION: NETWORK OF DATA CENTERS (MẠNG LƯỚI TRUNG TÂM DỮ LIỆU) */}
-      <section id="datacenter-network-section" className="bg-white py-20 relative overflow-hidden">
+      <section id="datacenter-network-section" className="bg-[#FAF9F9] py-24 relative overflow-hidden">
         <div className="ali-container relative z-10">
           
           {/* Section Header */}
-          <div className="text-left space-y-2.5 max-w-3xl mb-12">
-            <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">
+          <div className="text-left space-y-3 max-w-3xl mb-14">
+            <span className="text-[#EE0033] font-black text-[10px] uppercase tracking-[0.18em] block bg-[#EE0033]/8 px-3.5 py-1.5 rounded-full w-max leading-none">
               HẠ TẦNG SỐ KHẮT KHE NHẤT
             </span>
-            <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
+            <h2 className="text-3xl md:text-[42px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
               Hệ thống Trung tâm Dữ liệu chuẩn quốc tế toàn quốc
             </h2>
             <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
@@ -1517,87 +1524,83 @@ function HomepageContent() {
             </p>
           </div>
 
-          {/* Interactive Bento Split Panel */}
-          <div className="grid grid-cols-1 lg:grid-cols-10 gap-8 items-stretch mb-8">
+          {/* Interactive Bento Split Panel - Unified in 1 Block */}
+          <div className="grid grid-cols-1 lg:grid-cols-10 border border-gray-200/50 shadow-[0_24px_65px_rgba(0,0,0,0.04)] rounded-[2rem] overflow-hidden bg-white items-stretch mb-10 transition-all duration-300">
             
-            {/* Left: Beautiful Image Showcase / Map Toggle Panel */}
-            <div className="lg:col-span-4 relative h-[520px] lg:h-[560px] rounded-3xl overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.07)] border border-gray-100 flex flex-col bg-slate-50 group">
+            {/* Left: Beautiful Image Showcase / Map Toggle Panel - Unified borderless design */}
+            <div className="lg:col-span-5 relative h-[450px] sm:h-[520px] lg:h-[560px] flex flex-col bg-slate-50 group">
               
               {/* Card Header with Glass Toggle buttons */}
               <div className="absolute top-6 left-6 right-6 z-30 flex items-center justify-between pointer-events-auto">
                 {/* Active DC regional Tag */}
-                <span className="px-3 py-1 bg-[#EE0033] text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg leading-none transition-all">
+                <span className="px-3 py-1.5 bg-gray-950/90 text-white text-[10px] font-black uppercase tracking-[0.12em] rounded-lg shadow-md leading-none transition-all">
                   {DATACENTER_VIEWS[activeDCIndex].tag}
                 </span>
 
                 {/* Switcher Button */}
-                {DATACENTER_VIEWS[activeDCIndex].id === 'overview' ? (
-                  <div className="flex bg-white/80 backdrop-blur-md p-1 rounded-full border border-gray-250/30 shadow-md">
-                    <button
-                      className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all bg-[#EE0033] text-white cursor-default"
-                    >
-                      Bản đồ
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex bg-white/80 backdrop-blur-md p-1 rounded-full border border-gray-250/30 shadow-md">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setDcViewMode('image');
-                      }}
-                      className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer ${
-                        dcViewMode === 'image'
-                          ? 'bg-[#EE0033] text-white'
-                          : 'text-gray-500 hover:text-gray-900'
-                      }`}
-                    >
-                      Hình ảnh
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setDcViewMode('map');
-                      }}
-                      className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer ${
-                        dcViewMode === 'map'
-                          ? 'bg-[#EE0033] text-white'
-                          : 'text-gray-500 hover:text-gray-900'
-                      }`}
-                    >
-                      Bản đồ
-                    </button>
-                  </div>
-                )}
+                <div className="flex bg-white/95 backdrop-blur-md p-1 rounded-full border border-gray-200/45 shadow-md">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDcViewMode('image');
+                    }}
+                    className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                      dcViewMode === 'image'
+                        ? 'bg-[#EE0033] text-white shadow-sm'
+                        : 'text-gray-400 hover:text-gray-800'
+                    }`}
+                  >
+                    Hình ảnh
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDcViewMode('map');
+                    }}
+                    className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                      dcViewMode === 'map'
+                        ? 'bg-[#EE0033] text-white shadow-sm'
+                        : 'text-gray-400 hover:text-gray-800'
+                    }`}
+                  >
+                    Bản đồ
+                  </button>
+                </div>
               </div>
 
               {/* Card Body content */}
               <div className="relative w-full h-full flex-grow flex items-center justify-center">
-                {dcViewMode === 'image' && DATACENTER_VIEWS[activeDCIndex].id !== 'overview' ? (
+                {dcViewMode === 'image' ? (
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={DATACENTER_VIEWS[activeDCIndex].id}
-                      initial={{ opacity: 0, scale: 1.02 }}
+                      initial={{ opacity: 0, scale: 1.01 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.98 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
+                      exit={{ opacity: 0, scale: 0.99 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="absolute inset-0 w-full h-full"
                     >
                       <img 
                         src={DATACENTER_VIEWS[activeDCIndex].image} 
                         alt={DATACENTER_VIEWS[activeDCIndex].name} 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.03]"
                         referrerPolicy="no-referrer"
                       />
                       {/* Dark overlay for text readability */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent pointer-events-none" />
                       
-                      {/* Small Bottom Title Overlay for Image Card */}
-                      <div className="absolute bottom-6 left-6 right-6 text-left pointer-events-none">
-                        <span className="text-[10px] font-mono font-bold tracking-widest text-white/60 block mb-0.5">VIETTEL IDC CORE FACILITY</span>
-                        <h4 className="text-lg font-extrabold text-white leading-tight tracking-tight shadow-sm">
-                          {DATACENTER_VIEWS[activeDCIndex].name}
-                        </h4>
+                      {/* Beautiful glassmorphic blurred overlay layer floating at the bottom of the image */}
+                      <div className="absolute left-5 right-5 bottom-5 bg-white/10 backdrop-blur-lg border border-white/15 rounded-2xl px-6 py-4 flex items-center justify-between z-10 shadow-lg">
+                        <div className="text-left">
+                          <span className="text-[10px] font-mono font-bold tracking-[0.15em] text-[#EE0033] block mb-0.5">VIETTEL IDC CORE FACILITY</span>
+                          <h4 className="text-lg md:text-xl font-extrabold text-white leading-tight tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                            {DATACENTER_VIEWS[activeDCIndex].name}
+                          </h4>
+                        </div>
+                        <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur text-[8.5px] font-mono font-bold text-white uppercase tracking-widest">
+                          <span className="w-1 h-1 rounded-full bg-[#EE0033]" />
+                          <span>Tier III Standard</span>
+                        </div>
                       </div>
                     </motion.div>
                   </AnimatePresence>
@@ -1608,6 +1611,7 @@ function HomepageContent() {
                       const idx = DATACENTER_VIEWS.findIndex((view) => view.id === id);
                       if (idx !== -1) {
                         setActiveDCIndex(idx);
+                        setDcViewMode('map');
                         const matchingDC = DATA_CENTERS.find((dc) => dc.id === id);
                         if (matchingDC) {
                           setSelectedDCData(matchingDC);
@@ -1620,36 +1624,36 @@ function HomepageContent() {
             </div>
 
             {/* Right: Premium Spec & Control Card */}
-            <div className="lg:col-span-6 bg-[#FAF9F9]/90 border border-gray-200/50 rounded-3xl p-6 lg:p-8 flex flex-col justify-between h-[520px] lg:h-[560px] shadow-[0_12px_40px_rgba(0,0,0,0.02)] relative overflow-hidden">
+            <div className="lg:col-span-5 bg-transparent p-6 sm:p-8 lg:p-10 flex flex-col justify-between h-[520px] lg:h-[560px] relative overflow-hidden">
               <div className="space-y-4">
                 
                 {/* Active DC Header with Uptime badge */}
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <span className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest block mb-1">DATA CENTER PROFILE</span>
-                    <h3 className="text-2xl lg:text-3xl font-extrabold text-gray-950 font-sans tracking-tight leading-tight">
+                    <span className="text-[10px] font-extrabold text-gray-400 uppercase tracking-[0.15em] block mb-1">DATA CENTER PROFILE</span>
+                    <h3 className="text-2xl lg:text-[28px] font-extrabold text-gray-950 font-sans tracking-tight leading-none">
                       {DATACENTER_VIEWS[activeDCIndex].name}
                     </h3>
                   </div>
                   {/* Status badge */}
-                  <div className="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 border border-green-200 rounded-full text-[9.5px] font-extrabold text-green-700 uppercase tracking-wider shrink-0 leading-none">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200/50 rounded-full text-[9px] font-extrabold text-emerald-700 uppercase tracking-widest shrink-0 leading-none shadow-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     <span>READY</span>
                   </div>
                 </div>
                 
-                <p className="text-xs lg:text-sm text-gray-600 leading-relaxed font-normal min-h-[32px]">
+                <p className="text-xs lg:text-sm text-gray-500 leading-relaxed font-normal min-h-[44px] font-sans">
                   {DATACENTER_VIEWS[activeDCIndex].desc}
                 </p>
                 
                 {/* Exquisite Certificates row (moved up near standard specifications with soft red styled badges) */}
-                <div className="border-t border-gray-200/60 pt-2.5 space-y-1.5">
-                  <span className="text-[9.5px] font-black text-gray-400 uppercase tracking-wider block">CHỨNG CHỈ SỞ HỮU</span>
+                <div className="border-t border-gray-150/40 pt-4 space-y-2">
+                  <span className="text-[9px] font-extrabold text-gray-400 uppercase tracking-wider block">CHỨNG CHỈ SỞ HỮU</span>
                   <div className="flex flex-wrap gap-1.5">
                     {DATACENTER_VIEWS[activeDCIndex].subText.split(' · ').map((cert, certIdx) => (
                       <span 
                         key={certIdx} 
-                        className="bg-red-50/90 border border-red-200 hover:bg-red-100 hover:border-red-300 rounded-lg px-2.5 py-1 text-[11px] lg:text-[13px] font-mono font-black text-red-600 shadow-[0_1px_3px_rgba(238,0,51,0.04)] transition-all duration-200 cursor-default"
+                        className="bg-[#EE0033]/5 border border-[#EE0033]/12 hover:bg-[#EE0033]/8 rounded-lg px-2.5 py-1 text-[11px] lg:text-[12px] font-mono font-bold text-[#EE0033] shadow-[0_1px_2px_rgba(238,0,51,0.01)] transition-all duration-200 cursor-default"
                       >
                         {cert}
                       </span>
@@ -1657,10 +1661,10 @@ function HomepageContent() {
                   </div>
                 </div>
                 
-                <div className="border-t border-gray-200/60 pt-4 space-y-3">
-                  <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-wider">Thông số kỹ thuật tiêu chuẩn</h4>
+                <div className="border-t border-gray-150/40 pt-4 space-y-3">
+                  <h4 className="text-[9px] font-extrabold text-gray-400 uppercase tracking-wider">Thông số kỹ thuật tiêu chuẩn</h4>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 sm:gap-x-16 gap-y-2.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 lg:gap-x-12 gap-y-2">
                     {DATACENTER_VIEWS[activeDCIndex].metrics.map((metric, index) => {
                       const isArea = metric.label.includes('Quy mô') || metric.label.includes('diện tích');
                       const isPower = metric.label.includes('nguồn') || metric.label.includes('suất nguồn');
@@ -1680,13 +1684,13 @@ function HomepageContent() {
                         isStd ? FileCheck : Clock;
 
                       return (
-                        <div key={index} className="flex items-center justify-between py-2 border-b border-gray-100 hover:border-gray-250 transition-all duration-200 group/item">
-                          <div className="flex items-center gap-2 pr-3">
-                            <MetricIcon className="w-3.5 h-3.5 text-gray-400 group-hover/item:text-[#EE0033] transition-colors shrink-0" />
-                            <span className="text-[11px] font-semibold text-gray-500 leading-tight block">{metric.label}</span>
+                        <div key={index} className="flex items-center justify-between py-1.5 border-b border-gray-100/70 hover:border-[#EE0033]/20 transition-all duration-300 group/item">
+                          <div className="flex items-center gap-2 pr-2">
+                            <MetricIcon className="w-3.5 h-3.5 text-gray-400 group-hover/item:text-[#EE0033] group-hover/item:scale-105 transition-all duration-300 shrink-0" />
+                            <span className="text-xs font-medium text-gray-500 group-hover/item:text-gray-800 transition-colors duration-300 block">{metric.label}</span>
                           </div>
                           <div className="text-right shrink-0">
-                            <span className="text-xs lg:text-[13px] font-extrabold text-gray-950 font-sans tracking-tight block">
+                            <span className="text-xs lg:text-[13px] font-bold text-gray-900 font-sans tracking-tight block">
                               {metric.value}
                             </span>
                           </div>
@@ -1698,10 +1702,10 @@ function HomepageContent() {
               </div>
 
               {/* Specs Detailed Trigger Button Footer */}
-              <div className="pt-4 mt-6 border-t border-gray-200/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="pt-4 mt-6 border-t border-gray-150/40 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="flex items-center gap-1.5 text-gray-400 text-left">
-                  <Shield className="w-3.5 h-3.5 text-green-500 stroke-[2.5]" />
-                  <span className="text-[9.5px] font-extrabold uppercase tracking-widest text-slate-400">Vận hành chuẩn quốc tế</span>
+                  <Shield className="w-3.5 h-3.5 text-emerald-500 stroke-[2.5]" />
+                  <span className="text-[9.5px] font-black uppercase tracking-widest text-slate-400">Vận hành chuẩn quốc tế</span>
                 </div>
                 
                 {/* Button to open specs modal for active item, styled like service card "Xem chi tiết" */}
@@ -1713,7 +1717,7 @@ function HomepageContent() {
                       setShowDCModal(true);
                     }
                   }}
-                  className="group inline-flex items-center gap-1.5 text-xs font-bold text-[#EE0033] hover:text-[#D0002D] cursor-pointer transition-all duration-300 select-none py-1.5 px-3 rounded-lg hover:bg-red-50/50 shrink-0 self-start sm:self-auto"
+                  className="group inline-flex items-center gap-2 text-xs font-bold text-white bg-[#EE0033] hover:bg-[#D0002D] cursor-pointer transition-all duration-300 select-none py-2 px-5 rounded-xl shadow-[0_4px_14px_rgba(238,0,51,0.15)] hover:shadow-[0_6px_20px_rgba(238,0,51,0.25)] hover:scale-[1.02] active:scale-98 shrink-0 self-start sm:self-auto"
                 >
                   <span>Xem chi tiết</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
