@@ -485,9 +485,9 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                 <Image 
                   src="https://res.cloudinary.com/dpyizq1m2/image/upload/v1782053913/logo-IDC_2_up2gqp.svg" 
                   alt="Viettel IDC" 
-                  width={128}
-                  height={32}
-                  className="h-8 w-auto object-contain"
+                  width={152}
+                  height={38}
+                  className="h-[38px] w-auto object-contain"
                   referrerPolicy="no-referrer"
                 />
               </Link>
@@ -530,9 +530,9 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                               duration: 0.15
                             }
                           }}
-                          className="inline-flex text-[#EE0033] ml-0 flex-shrink-0 cursor-pointer"
+                          className="inline-flex text-[#EE0033] ml-0.5 flex-shrink-0 cursor-pointer"
                         >
-                          <Gift className="w-4 h-4" />
+                          <Gift className="w-[19px] h-[19px]" />
                         </motion.span>
                       )}
                     </span>

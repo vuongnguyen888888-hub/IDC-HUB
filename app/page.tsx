@@ -4,12 +4,23 @@ import React, { useState, useEffect, Suspense, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useMarket } from '../hooks/useMarket';
+import dynamic from 'next/dynamic';
+
+const NetworkMap = dynamic(() => import('../components/NetworkMap'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex flex-col items-center justify-center bg-slate-50 text-gray-400 gap-2 p-6 text-center">
+      <div className="w-6 h-6 border-2 border-[#EE0033] border-t-transparent rounded-full animate-spin"></div>
+      <span className="text-[10px] font-black text-gray-400 font-mono">ĐANG KHỞI TẠO BẢN ĐỒ...</span>
+    </div>
+  )
+});
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowRight, Search, Cpu, Database, HardDrive, Layers, Globe, Shield, 
   Activity, Briefcase, HelpCircle, Mail, ExternalLink, Lock, CheckCircle2, ChevronRight, HelpCircle as HelpIcon, Sparkles,
   Cloud, Server, Network, Settings, FileCheck, GitBranch, RefreshCw, ChevronLeft, ShoppingBag, Heart, GraduationCap, Building2, Check,
-  ChevronDown, ArrowLeft, MapPin, User, Phone
+  ChevronDown, ArrowLeft, MapPin, User, Phone, Home, Zap, Clock, Wind
 } from 'lucide-react';
 
 import Navbar from '../components/Navbar';
@@ -210,7 +221,7 @@ const INDUSTRIES_DATA = [
 const DATA_CENTERS = [
   {
     id: 'overview',
-    name: 'Mạng lưới Toàn quốc',
+    name: 'Hệ thống TTDL',
     tag: 'NATIONWIDE CLOUD MESH',
     desc: 'Viettel IDC hiện sở hữu hệ thống phòng máy trung tâm dữ liệu lớn nhất Việt Nam, được chuẩn hóa đồng bộ theo tiêu chuẩn cao cấp quốc tế Rated 3 - TIA 942.',
     pue: '1.40 (Trung bình)',
@@ -228,98 +239,174 @@ const DATA_CENTERS = [
     }
   },
   {
-    id: 'hn',
-    name: 'TTDL Hòa Lạc III',
+    id: 'hl1',
+    name: 'TTDL Hòa Lạc 1',
     tag: 'RATED-III STANDARD',
-    desc: 'Được thiết kế siêu tối ưu hiệu năng với PUE 1.4, diện tích 6,550 m2 đạt tiêu chuẩn Rated III cao cấp cùng khả năng kiểm soát carbon báo cáo ISO 14064, kiểm soát rủi ro TVRA và bảo mật SOC 2 hoàn hảo.',
-    pue: '1.40',
-    area: '6,550 m²',
-    racks: '1,600 Racks',
-    standards: ['Rated III', 'ISO 14064', 'TVRA', 'SOC 2 Type II', 'ISO 5001'],
+    desc: 'Data Center tại Hòa Lạc, hỗ trợ colocation linh hoạt, vận hành với hiệu suất năng lượng tối ưu, hạ tầng nguồn dự phòng và kết nối trung lập cho doanh nghiệp.',
+    pue: '1.4',
+    area: '6,000 m²',
+    racks: '8kW/rack',
+    standards: ['ISO 9001', 'ISO 20000-1', 'ISO 22301', 'ISO 27001', 'PCI DSS'],
+    x: 188,
+    y: 125,
+    city: 'Hà Nội',
+    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80',
+    detailSpecs: {
+      power: 'Công suất nguồn 3.3MW với hạ tầng nguồn dự phòng tối ưu',
+      cooling: 'Hệ thống làm mát hiện đại đạt chỉ số PUE 1.4',
+      security: 'Hệ thống bảo vệ nghiêm ngặt cùng chứng chỉ bảo mật quốc tế',
+    }
+  },
+  {
+    id: 'hl2',
+    name: 'TTDL Hòa Lạc 2',
+    tag: 'RATED-III STANDARD',
+    desc: 'Data Center Hòa Lạc 2 được thiết kế cho nhu cầu colocation và hạ tầng CNTT doanh nghiệp, với hệ thống nguồn ổn định, kết nối linh hoạt và tiêu chuẩn vận hành quốc tế.',
+    pue: '1.5',
+    area: '2,500 m²',
+    racks: '4.5kW/rack',
+    standards: ['ISO 9001', 'ISO 20000-1', 'ISO 22301', 'ISO 27001', 'PCI DSS'],
+    x: 188,
+    y: 125,
+    city: 'Hà Nội',
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80',
+    detailSpecs: {
+      power: 'Công suất nguồn 2.4MW đảm bảo vận hành an toàn liên tục',
+      cooling: 'Giải pháp làm mát chính xác, PUE đạt mức 1.5 ổn định',
+      security: 'Chứng nhận bảo mật chuẩn quốc tế vận hành nghiêm ngặt',
+    }
+  },
+  {
+    id: 'hl3',
+    name: 'TTDL Hòa Lạc 3',
+    tag: 'RATED-III STANDARD',
+    desc: 'Data Center thế hệ mới tại Hòa Lạc, tối ưu cho cloud, colocation và hệ thống CNTT trọng yếu với công suất lớn, hiệu quả năng lượng cao và hệ sinh thái kết nối trung lập.',
+    pue: '1.4',
+    area: '6,500 m²',
+    racks: '4–5kW/rack',
+    standards: ['TVRA', 'SOC 2', 'ISO 14064', 'ISO 27001', 'PCI DSS'],
     x: 188,
     y: 130,
     city: 'Hà Nội',
     image: 'https://res.cloudinary.com/dpyizq1m2/image/upload/v1782201714/banner2_eiuoqr.png',
     detailSpecs: {
-      power: 'Công suất nguồn 2N+1 UPS dự phòng liên tục',
-      cooling: 'In-Row Cooling chính xác cao tiết kiệm năng lượng',
-      security: 'Kiểm soát ra vào sinh trắc học 6 lớp bảo mật tuyệt mật',
+      power: 'Tổng công suất nguồn cực lớn lên tới 30MW',
+      cooling: 'Vận hành tối ưu năng lượng với PUE 1.4 chuẩn xanh',
+      security: 'Đáp ứng đánh giá rủi ro TVRA và tiêu chuẩn bảo mật SOC 2',
+    }
+  },
+  {
+    id: 'pv',
+    name: 'TTDL Pháp Vân',
+    tag: 'URBAN INTERCONNECTION',
+    desc: 'Data Center tại Pháp Vân, phù hợp cho colocation và hạ tầng CNTT doanh nghiệp với diện tích lớn, kết nối đa nhà mạng, vận hành 24/7 và hệ thống dự phòng an toàn.',
+    pue: '1.5',
+    area: '9,500 m²',
+    racks: '3kW/rack',
+    standards: ['ISO 9001', 'ISO 20000-1', 'ISO 22301', 'ISO 27001', 'PCI DSS'],
+    x: 195,
+    y: 138,
+    city: 'Hà Nội',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80',
+    detailSpecs: {
+      power: 'Công suất nguồn 2.9MW kết hợp nguồn dự phòng tin cậy',
+      cooling: 'Giải pháp điều hòa tối ưu hóa nhiệt độ, PUE 1.5',
+      security: 'Hệ thống giám sát đa lớp vận hành ổn định 24/7/365',
     }
   },
   {
     id: 'dn',
     name: 'TTDL Đà Nẵng',
     tag: 'REGIONAL GREEN NODE',
-    desc: 'Bảo bối hạ tầng kỹ thuật đắc thủy miền Trung Việt Nam, thiết kế kháng chấn bão nhiệt đới cấp độ siêu quy chuẩn và kết nối trực tiếp đến các nhà mạng cáp quốc tế tại cáp quang biển.',
+    desc: 'Bảo bối hạ tầng kỹ thuật đắc thủy miền Trung Việt Nam, thiết kế kháng chấn bão nhiệt đới cấp độ siêu quy chuẩn và kết nối trực tiếp đến các nhà mạng cáp quang biển.',
     pue: '1.45',
     area: '3,200 m²',
-    racks: '800 Racks',
-    standards: ['Rated III', 'ISO 27001', 'PCI-DSS v4.0', 'SOC 1'],
+    racks: '3-4kW/rack',
+    standards: ['ISO 9001', 'ISO 27001', 'PCI DSS', 'SOC 1', 'SOC 2 Type II'],
     x: 244,
     y: 285,
     city: 'Đà Nẵng',
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1581092160607-ee22530dd78a?auto=format&fit=crop&w=600&q=80',
     detailSpecs: {
-      power: 'Cấp điện kép song lập từ 2 trạm biến áp trung thế',
-      cooling: 'Chilled Water làm lạnh chìm thông minh thích ứng khí hậu',
-      security: 'Camera giám sát góc quét AI thời gian thực trực SOC 24/7',
+      power: 'Công suất nguồn 2.5MW từ đường điện kép song hành',
+      cooling: 'Hệ thống Chilled Water điều hòa không khí tối ưu',
+      security: 'An ninh 4 lớp bảo mật và camera kiểm soát trực SOC 24/7',
+    }
+  },
+  {
+    id: 'hht1',
+    name: 'TTDL Hoàng Hoa Thám 1',
+    tag: 'METROPOLITAN CLOUD NODE',
+    desc: 'Trọng điểm hạ tầng thông tin nội đô tại TP. Hồ Chí Minh, phân khu 1 sở hữu vị trí kết nối trực tiếp và độ trễ siêu thấp đến các trung tâm giao dịch lớn.',
+    pue: '1.44',
+    area: '2,800 m²',
+    racks: '4–5kW/rack',
+    standards: ['TVRA', 'SOC 2', 'ISO 14064', 'ISO 27001', 'PCI DSS'],
+    x: 212,
+    y: 442,
+    city: 'TP. HCM',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
+    detailSpecs: {
+      power: 'Hệ thống điện an toàn cao UPS 2N kết hợp máy phát điện dự phòng độc lập',
+      cooling: 'Kiểm soát nhiệt độ chính xác với hiệu năng PUE 1.44',
+      security: 'Bảo mật đa lớp sinh trắc học và quản lý truy cập điện tử tập trung',
+    }
+  },
+  {
+    id: 'hht2',
+    name: 'TTDL Hoàng Hoa Thám 2',
+    tag: 'METROPOLITAN CLOUD NODE',
+    desc: 'Phân khu 2 của cụm TTDL Hoàng Hoa Thám, tăng cường hạ tầng điện lưới kép và mở rộng thêm không gian tủ rack cho doanh nghiệp vừa và lớn.',
+    pue: '1.43',
+    area: '2,500 m²',
+    racks: '3.5kW/rack',
+    standards: ['ISO 9001', 'ISO 20000-1', 'ISO 22301', 'ISO 27001', 'PCI DSS'],
+    x: 213,
+    y: 443,
+    city: 'TP. HCM',
+    image: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=600&q=80',
+    detailSpecs: {
+      power: 'Công suất nguồn 1.5MW với trạm điện trung thế nội khu dự phòng N+1',
+      cooling: 'Hệ thống điều hòa tối ưu hơi nước giảm tiêu thụ điện',
+      security: 'Zone kiểm soát cửa từ đa tầng và camera AI giám sát liên tục',
+    }
+  },
+  {
+    id: 'hht3',
+    name: 'TTDL Hoàng Hoa Thám 3',
+    tag: 'METROPOLITAN CLOUD NODE',
+    desc: 'Mảnh ghép công nghệ hoàn hảo trong lòng TP. HCM, TTDL Hoàng Hoa Thám 3 tiên phong áp dụng hệ thống pin mặt trời phụ trợ kết hợp giải pháp Green DC.',
+    pue: '1.42',
+    area: '3,000 m²',
+    racks: '4.5kW/rack',
+    standards: ['TVRA', 'SOC 2', 'ISO 14064', 'ISO 27001', 'PCI DSS'],
+    x: 214,
+    y: 444,
+    city: 'TP. HCM',
+    image: 'https://images.unsplash.com/photo-1551703599-6b3dbb57b235?auto=format&fit=crop&w=600&q=80',
+    detailSpecs: {
+      power: 'Nguồn điện xanh phụ trợ từ pin mặt trời áp mái công suất cao',
+      cooling: 'Tường làm mát hấp thụ nhiệt giảm chỉ số PUE tối ưu',
+      security: 'Bảo mật sinh trắc học vân tay và võng mạc độ an toàn cao nhất',
     }
   },
   {
     id: 'bd',
     name: 'TTDL Bình Dương',
     tag: 'HYPERSCALE TECH HUB',
-    desc: 'Tổ hợp siêu trung tâm dữ liệu thế hệ mới phía Nam với quy mô hàng chục nghìn mét vuông, cung cấp hạ tầng kết nối vượt trội kết hợp các giải pháp làm mát thông minh hàng đầu khu vực.',
-    pue: '1.42',
+    desc: 'Data Center quy mô lớn tại Bình Dương, được thiết kế cho colocation, hạ tầng cloud và hệ thống doanh nghiệp với công suất cao, không gian mở rộng và kết nối đa tuyến.',
+    pue: '6.5MW (Nguồn)',
     area: '10,000 m²',
-    racks: '2,400 Racks',
-    standards: ['Rated III', 'Tier IV Ready', 'ISO 14001', 'ISO 20000'],
+    racks: '3.5kW/rack',
+    standards: ['ISO 9001', 'ISO 20000-1', 'ISO 22301', 'ISO 27001', 'PCI DSS'],
     x: 210,
     y: 445,
     city: 'Bình Dương (HCM)',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80',
     detailSpecs: {
-      power: 'Hệ thống điện dự phòng độc lập, máy phát điện khởi động < 10 giây',
-      cooling: 'Giải pháp làm mát bằng chất lỏng trực tiếp cho dòng HPC chip AI',
-      security: 'Zone cách ly vật lý chuẩn quân sự tuần tra nghiêm mật liên tục',
-    }
-  },
-  {
-    id: 'hl',
-    name: 'TTDL Hòa Lạc I & II',
-    tag: 'SECURITY ZONE 6',
-    desc: 'Tọa lạc tại Khu Công nghệ cao Hòa Lạc với hệ thống an ninh 6 lớp an toàn tuyệt mật, trực SOC liên tục 24/7/365, đảm bảo SLAs 99.99%.',
-    pue: '1.43',
-    area: '5,000 m²',
-    racks: '1,200 Racks',
-    standards: ['Rated III', 'ISO 27001', 'ISO 9001', 'ISO 20000'],
-    x: 188,
-    y: 125,
-    city: 'Hà Nội',
-    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80',
-    detailSpecs: {
-      power: 'Nguồn điện song hành N+1 cung cấp năng lượng tủ rack không gián đoạn',
-      cooling: 'Giải pháp làm mát điều hòa chính xác Chilled Water tiên tiến toàn cụm',
-      security: 'Hệ thống an ninh vật lý vòng ngoài 6 lớp kết hợp nhận dạng thông minh',
-    }
-  },
-  {
-    id: 'vp',
-    name: 'TTDL Bình Dương',
-    tag: 'HIGH AVAILABILITY NODE',
-    desc: 'Siêu trung tâm dữ liệu hiện đại phục vụ hạ tầng đám mây dự phòng cấp cao vùng kinh tế trọng điểm phía Nam, sẵn sàng đáp ứng mọi nhu cầu công nghệ mới.',
-    pue: '1.43',
-    area: '4,500 m²',
-    racks: '1,000 Racks',
-    standards: ['Rated III', 'ISO 27001', 'ISO 14001'],
-    x: 215,
-    y: 452,
-    city: 'Bình Dương',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
-    detailSpecs: {
-      power: 'Hệ thống lưu điện UPS 2N bảo vệ liên tục nguồn năng lượng tủ rack',
-      cooling: 'Giải pháp thông gió tự nhiên thông minh kết hợp điều hòa luồng gió',
-      security: 'Hệ thống camera an ninh giám sát trung tâm BMS kiểm soát chặt chẽ 24/7',
+      power: 'Công suất nguồn 6.5MW with tải IT lớn lên tới 4MW',
+      cooling: 'Hệ thống Chilled Water làm mát hiệu năng tối ưu',
+      security: 'Bảo mật vật lý đa lớp tiêu chuẩn trung tâm dữ liệu thế hệ mới',
     }
   }
 ];
@@ -327,87 +414,203 @@ const DATA_CENTERS = [
 const DATACENTER_VIEWS = [
   {
     id: 'overview',
-    name: 'Mạng lưới Toàn quốc',
+    name: 'Hệ thống TTDL',
     tag: 'TỔNG QUAN HỆ THỐNG',
     desc: 'Mạng lưới hạ tầng điện toán đám mây thế hệ mới của Viettel IDC, phân bổ chiến lược tại Bắc - Trung - Nam, đáp ứng tiêu chuẩn khắt khe nhất toàn cầu.',
     image: 'https://res.cloudinary.com/dpyizq1m2/image/upload/v1782201373/TTDL-2_jp8san.png',
     type: 'overview',
     thumbnail: 'https://res.cloudinary.com/dpyizq1m2/image/upload/v1782201373/TTDL-2_jp8san.png',
     metrics: [
-      { value: '09', unit: 'DC', desc: 'Đạt chuẩn quốc tế Rated 3 - TIA 942' },
-      { value: '57.250m2', unit: '', desc: 'Diện tích mặt sàn phòng máy' },
-      { value: '350 MW', unit: '', desc: 'Tổng công suất' }
-    ]
+      { label: 'Quy mô facility', value: '57,250 m²' },
+      { label: 'Công suất nguồn', value: '350 MW' },
+      { label: 'Hiệu suất năng lượng', value: 'PUE 1.40' },
+      { label: 'Mật độ công suất rack', value: '10,000+ Racks' },
+      { label: 'Dự phòng nguồn & làm mát', value: 'N+1 / 2N / N+2' },
+      { label: 'Kết nối', value: 'Carrier & Cloud Neutral' },
+      { label: 'Tiêu chuẩn Data Center', value: 'Rated III – TIA-942/C' },
+      { label: 'An toàn & vận hành', value: '24/7 - FM200 - VESDA' }
+    ],
+    subText: 'ISO 9001 · ISO 27001 · ISO 27017 · PCI DSS · SOC 2 Type II'
   },
   {
-    id: 'hn',
-    name: 'TTDL Hòa Lạc III',
-    tag: 'TTDL HÒA LẠC III',
-    desc: 'Được thiết kế siêu tối ưu hiệu năng với PUE 1.4, diện tích 6,550 m2 đạt tiêu chuẩn Rated III cao cấp cùng khả năng kiểm soát carbon báo cáo ISO 14064, kiểm soát rủi ro TVRA và bảo mật SOC 2 hoàn hảo.',
+    id: 'hl1',
+    name: 'TTDL Hòa Lạc 1',
+    tag: 'TTDL HÒA LẠC 1',
+    desc: 'Data Center tại Hòa Lạc, hỗ trợ colocation linh hoạt, vận hành với hiệu suất năng lượng tối ưu, hạ tầng nguồn dự phòng và kết nối trung lập cho doanh nghiệp.',
+    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80',
+    type: 'dc',
+    thumbnail: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=300&q=80',
+    metrics: [
+      { label: 'Quy mô facility', value: '6,000 m²' },
+      { label: 'Công suất nguồn', value: '3.3MW' },
+      { label: 'Hiệu suất năng lượng', value: 'PUE 1.4' },
+      { label: 'Mật độ công suất rack', value: '8kW/rack' },
+      { label: 'Dự phòng nguồn & làm mát', value: 'N+1 / 2N' },
+      { label: 'Kết nối', value: 'Carrier & Cloud Neutral' },
+      { label: 'Tiêu chuẩn Data Center', value: 'Rated III – TIA-942/C' },
+      { label: 'An toàn & vận hành', value: '24/7 - FM200' }
+    ],
+    subText: 'ISO 9001 · ISO 20000-1 · ISO 22301 · ISO 27001 · ISO 27017 · ISO 27018 · PCI DSS'
+  },
+  {
+    id: 'hl2',
+    name: 'TTDL Hòa Lạc 2',
+    tag: 'TTDL HÒA LẠC 2',
+    desc: 'Data Center Hòa Lạc 2 được thiết kế cho nhu cầu colocation và hạ tầng CNTT doanh nghiệp, với hệ thống nguồn ổn định, kết nối linh hoạt và tiêu chuẩn vận hành quốc tế.',
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80',
+    type: 'dc',
+    thumbnail: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=300&q=80',
+    metrics: [
+      { label: 'Quy mô facility', value: '2,500 m²' },
+      { label: 'Công suất nguồn', value: '2.4MW' },
+      { label: 'Hiệu suất năng lượng', value: 'PUE 1.5' },
+      { label: 'Mật độ công suất rack', value: '4.5kW/rack' },
+      { label: 'Dự phòng nguồn & làm mát', value: 'N+1 / 2N' },
+      { label: 'Kết nối', value: 'Carrier & Cloud Neutral' },
+      { label: 'Tiêu chuẩn Data Center', value: 'Rated III – TIA-942/C' },
+      { label: 'An toàn & vận hành', value: '24/7 - FM200' }
+    ],
+    subText: 'ISO 9001 · ISO 20000-1 · ISO 22301 · ISO 27001 · ISO 27017 · ISO 27018 · PCI DSS'
+  },
+  {
+    id: 'hl3',
+    name: 'TTDL Hòa Lạc 3',
+    tag: 'TTDL HÒA LẠC 3',
+    desc: 'Data Center thế hệ mới tại Hòa Lạc, được thiết kế cho colocation, cloud và hệ thống CNTT trọng yếu với công suất lớn, hiệu quả năng lượng tối ưu, kiến trúc dự phòng cao và hệ sinh thái kết nối trung lập.',
     image: 'https://res.cloudinary.com/dpyizq1m2/image/upload/v1782201714/banner2_eiuoqr.png',
     type: 'dc',
     thumbnail: 'https://res.cloudinary.com/dpyizq1m2/image/upload/v1782201714/banner2_eiuoqr.png',
     metrics: [
-      { value: '1.600', unit: 'RACKS', desc: 'Quy mô tủ rack tiêu chuẩn quốc tế' },
-      { value: '1.40', unit: 'PUE', desc: 'Hiệu năng sử dụng điện năng tối ưu' },
-      { value: 'RATED-III', unit: 'STANDARD', desc: 'Chứng chỉ khắt khe của quốc tế' }
-    ]
+      { label: 'Quy mô facility', value: '6,500 m²' },
+      { label: 'Công suất nguồn', value: '30MW' },
+      { label: 'Hiệu suất năng lượng', value: 'PUE 1.4' },
+      { label: 'Mật độ công suất rack', value: '4–5kW/rack' },
+      { label: 'Dự phòng nguồn & làm mát', value: 'N+1 / 2N / N+2' },
+      { label: 'Kết nối', value: 'Carrier & Cloud Neutral' },
+      { label: 'Tiêu chuẩn Data Center', value: 'Rated III – TIA-942/C' },
+      { label: 'An toàn & vận hành', value: '24/7 - FM200 - VESDA' }
+    ],
+    subText: 'ISO 27001 · ISO 27017 · ISO 27018 · PCI DSS · SOC 2 · TVRA · ISO 14064'
+  },
+  {
+    id: 'pv',
+    name: 'TTDL Pháp Vân',
+    tag: 'TTDL PHÁP VÂN',
+    desc: 'Data Center tại Pháp Vân, phù hợp cho colocation và hạ tầng CNTT doanh nghiệp với diện tích lớn, kết nối đa nhà mạng, vận hành 24/7 và hệ thống dự phòng an toàn.',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80',
+    type: 'dc',
+    thumbnail: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=300&q=80',
+    metrics: [
+      { label: 'Quy mô facility', value: '9,500 m²' },
+      { label: 'Công suất nguồn', value: '2.9MW' },
+      { label: 'Hiệu suất năng lượng', value: 'PUE 1.5' },
+      { label: 'Mật độ công suất rack', value: '3kW/rack' },
+      { label: 'Dự phòng nguồn & làm mát', value: 'N+1 / 2N' },
+      { label: 'Kết nối', value: 'Carrier & Cloud Neutral' },
+      { label: 'Tiêu chuẩn Data Center', value: 'Rated III – TIA-942/C' },
+      { label: 'An toàn & vận hành', value: '24/7 - FM200' }
+    ],
+    subText: 'ISO 9001 · ISO 20000-1 · ISO 22301 · ISO 27001 · ISO 27017 · ISO 27018 · PCI DSS'
   },
   {
     id: 'dn',
     name: 'TTDL Đà Nẵng',
     tag: 'TTDL ĐÀ NẴNG',
-    desc: 'Bảo bối hạ tầng kỹ thuật đắc thủy miền Trung Việt Nam, thiết kế kháng chấn bão nhiệt đới cấp độ siêu quy chuẩn và kết nối trực tiếp đến các nhà mạng cáp quốc tế tại cáp quang biển.',
+    desc: 'Bảo bối hạ tầng kỹ thuật đắc thủy miền Trung Việt Nam, thiết kế kháng chấn bão nhiệt đới cấp độ siêu quy chuẩn và kết nối trực tiếp đến các nhà mạng cáp quang biển.',
     image: 'https://images.unsplash.com/photo-1581092160607-ee22530dd78a?auto=format&fit=crop&w=1200&q=80',
     type: 'dc',
     thumbnail: 'https://images.unsplash.com/photo-1581092160607-ee22530dd78a?auto=format&fit=crop&w=300&q=80',
     metrics: [
-      { value: '800', unit: 'RACKS', desc: 'Quy mô phục vụ vùng kinh tế trọng điểm miền Trung' },
-      { value: '1.45', unit: 'PUE', desc: 'Hệ thống Chilled Water làm mát xanh' },
-      { value: 'RATED-III', unit: 'TIA 942', desc: 'Khả năng vận hành liên tục không gián đoạn' }
-    ]
+      { label: 'Quy mô facility', value: '3,200 m²' },
+      { label: 'Công suất nguồn', value: '2.5MW' },
+      { label: 'Hiệu suất năng lượng', value: 'PUE 1.45' },
+      { label: 'Mật độ công suất rack', value: '3-4kW/rack' },
+      { label: 'Dự phòng nguồn & làm mát', value: 'N+1 / 2N' },
+      { label: 'Kết nối', value: 'Carrier & Cloud Neutral' },
+      { label: 'Tiêu chuẩn Data Center', value: 'Rated III – TIA-942/C' },
+      { label: 'An toàn & vận hành', value: '24/7 - FM200' }
+    ],
+    subText: 'ISO 9001 · ISO 27001 · PCI DSS · SOC 1 · SOC 2 Type II'
+  },
+  {
+    id: 'hht1',
+    name: 'TTDL Hoàng Hoa Thám 1',
+    tag: 'TTDL HOÀNG HOA THÁM 1',
+    desc: 'Trọng điểm hạ tầng thông tin nội đô tại TP. Hồ Chí Minh, phân khu 1 sở hữu vị trí kết nối trực tiếp và độ trễ siêu thấp đến các trung tâm giao dịch lớn.',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+    type: 'dc',
+    thumbnail: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80',
+    metrics: [
+      { label: 'Quy mô facility', value: '2,800 m²' },
+      { label: 'Công suất nguồn', value: '1.2MW' },
+      { label: 'Hiệu suất năng lượng', value: 'PUE 1.48' },
+      { label: 'Mật độ công suất rack', value: '4–5kW/rack' },
+      { label: 'Dự phòng nguồn & làm mát', value: 'N+1 / 2N' },
+      { label: 'Kết nối', value: 'Carrier & Cloud Neutral' },
+      { label: 'Tiêu chuẩn Data Center', value: 'Rated III – TIA-942/C' },
+      { label: 'An toàn & vận hành', value: '24/7 - FM200' }
+    ],
+    subText: 'TVRA · SOC 2 · ISO 14064 · ISO 27001 · ISO 27017 · ISO 27018 · PCI DSS'
+  },
+  {
+    id: 'hht2',
+    name: 'TTDL Hoàng Hoa Thám 2',
+    tag: 'TTDL HOÀNG HOA THÁM 2',
+    desc: 'Phân khu 2 của cụm TTDL Hoàng Hoa Thám, tăng cường hạ tầng điện lưới kép và mở rộng thêm không gian tủ rack cho doanh nghiệp vừa và lớn.',
+    image: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=1200&q=80',
+    type: 'dc',
+    thumbnail: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=300&q=80',
+    metrics: [
+      { label: 'Quy mô facility', value: '2,500 m²' },
+      { label: 'Công suất nguồn', value: '1.5MW' },
+      { label: 'Hiệu suất năng lượng', value: 'PUE 1.43' },
+      { label: 'Mật độ công suất rack', value: '3.5kW/rack' },
+      { label: 'Dự phòng nguồn & làm mát', value: 'N+1 / 2N' },
+      { label: 'Kết nối', value: 'Carrier & Cloud Neutral' },
+      { label: 'Tiêu chuẩn Data Center', value: 'Rated III – TIA-942/C' },
+      { label: 'An toàn & vận hành', value: '24/7 - FM200' }
+    ],
+    subText: 'ISO 9001 · ISO 20000-1 · ISO 22301 · ISO 27001 · ISO 27017 · ISO 27018 · PCI DSS'
+  },
+  {
+    id: 'hht3',
+    name: 'TTDL Hoàng Hoa Thám 3',
+    tag: 'TTDL HOÀNG HOA THÁM 3',
+    desc: 'Mảnh ghép công nghệ hoàn hảo trong lòng TP. HCM, TTDL Hoàng Hoa Thám 3 tiên phong áp dụng hệ thống pin mặt trời phụ trợ kết hợp giải pháp Green DC.',
+    image: 'https://images.unsplash.com/photo-1551703599-6b3dbb57b235?auto=format&fit=crop&w=1200&q=80',
+    type: 'dc',
+    thumbnail: 'https://images.unsplash.com/photo-1551703599-6b3dbb57b235?auto=format&fit=crop&w=300&q=80',
+    metrics: [
+      { label: 'Quy mô facility', value: '3,000 m²' },
+      { label: 'Công suất nguồn', value: '1.8MW' },
+      { label: 'Hiệu suất năng lượng', value: 'PUE 1.42' },
+      { label: 'Mật độ công suất rack', value: '4.5kW/rack' },
+      { label: 'Dự phòng nguồn & làm mát', value: 'N+1 / 2N / N+2' },
+      { label: 'Kết nối', value: 'Carrier & Cloud Neutral' },
+      { label: 'Tiêu chuẩn Data Center', value: 'Rated III – TIA-942/C' },
+      { label: 'An toàn & vận hành', value: '24/7 - FM200 - VESDA' }
+    ],
+    subText: 'TVRA · SOC 2 · ISO 14064 · ISO 27001 · ISO 27017 · ISO 27018 · PCI DSS'
   },
   {
     id: 'bd',
     name: 'TTDL Bình Dương',
     tag: 'TTDL BÌNH DƯƠNG',
-    desc: 'Tổ hợp siêu trung tâm dữ liệu thế hệ mới phía Nam với quy mô hàng chục nghìn mét vuông, cung cấp hạ tầng kết nối vượt trội kết hợp các giải pháp làm mát thông minh hàng đầu khu vực.',
+    desc: 'Data Center quy mô lớn tại Bình Dương, được thiết kế cho colocation, hạ tầng cloud và hệ thống doanh nghiệp với công suất cao, không gian mở rộng và kết nối đa tuyến.',
     image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80',
     type: 'dc',
     thumbnail: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=300&q=80',
     metrics: [
-      { value: '2.400', unit: 'RACKS', desc: 'Hạ tầng kết nối mật độ siêu cao' },
-      { value: '1.42', unit: 'PUE', desc: 'Giải pháp làm mát thông minh bằng chất lỏng' },
-      { value: 'TIER-IV', unit: 'READY', desc: 'Chuẩn độc lập an toàn bảo mật cao nhất' }
-    ]
-  },
-  {
-    id: 'hl',
-    name: 'TTDL Hòa Lạc I & II',
-    tag: 'TTDL HÒA LẠC I & II',
-    desc: 'Tọa lạc tại Khu Công nghệ cao Hòa Lạc với hệ thống an ninh 6 lớp an toàn tuyệt mật, trực SOC liên tục 24/7/365, đảm bảo SLAs 99.99%.',
-    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80',
-    type: 'dc',
-    thumbnail: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=300&q=80',
-    metrics: [
-      { value: '1.200', unit: 'RACKS', desc: 'Dung lượng phòng máy và dự phòng cấp cao' },
-      { value: '1.43', unit: 'PUE', desc: 'Kiểm soát vi khí hậu khu vực liên tục' },
-      { value: 'RATED-III', unit: 'TIA 942', desc: 'Trung tâm dữ liệu lịch sử uy tín hàng đầu' }
-    ]
-  },
-  {
-    id: 'vp',
-    name: 'TTDL Bình Dương',
-    tag: 'TTDL BÌNH DƯƠNG',
-    desc: 'TTDL mới nhất tại miền Nam, đáp ứng các tiêu chuẩn cao cấp, hỗ trợ hạ tầng cho các nhu cầu công nghệ mới.',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
-    type: 'dc',
-    thumbnail: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80',
-    metrics: [
-      { value: '1.000', unit: 'RACKS', desc: 'Dung lượng phòng máy và dự phòng cấp cao' },
-      { value: '1.43', unit: 'PUE', desc: 'Kiểm soát vi khí hậu khu vực liên tục' },
-      { value: 'RATED-III', unit: 'TIA 942', desc: 'Trung tâm dữ liệu lịch sử uy tín hàng đầu' }
-    ]
+      { label: 'Quy mô facility', value: '10,000 m²' },
+      { label: 'Công suất nguồn', value: '6.5MW' },
+      { label: 'Hiệu suất năng lượng', value: 'PUE 1.40' },
+      { label: 'Mật độ công suất rack', value: '3.5kW/rack' },
+      { label: 'Dự phòng nguồn & làm mát', value: 'N+1 / 2N / N+2' },
+      { label: 'Kết nối', value: 'Carrier & Cloud Neutral' },
+      { label: 'Tiêu chuẩn Data Center', value: 'Rated III – TIA-942/C' },
+      { label: 'An toàn & vận hành', value: '24/7 - FM200 - VESDA' }
+    ],
+    subText: 'ISO 9001 · ISO 20000-1 · ISO 22301 · ISO 27001 · ISO 27017 · ISO 27018 · PCI DSS'
   }
 ];
 
@@ -721,6 +924,7 @@ function HomepageContent() {
   const [activeDCIndex, setActiveDCIndex] = useState(0);
   const [showDCModal, setShowDCModal] = useState(false);
   const [selectedDCData, setSelectedDCData] = useState<any>(null);
+  const [dcViewMode, setDcViewMode] = useState<'image' | 'map'>('image');
 
   const nextSlide = () => {
     setActiveIndustry((prev) => (prev + 1) % INDUSTRIES_DATA.length);
@@ -1230,8 +1434,8 @@ function HomepageContent() {
                   onClick={() => setActiveIndustry(index)}
                   className={`relative rounded-2xl overflow-hidden cursor-pointer select-none border transition-all duration-500 ${
                     isActive 
-                      ? "h-[340px] border-[#EE0033]/30 shadow-lg" 
-                      : "h-[85px] border-gray-200/40"
+                      ? "border-[#EE0033]/30 shadow-lg" 
+                      : "border-gray-200/40"
                   }`}
                   transition={{ type: "spring", stiffness: 200, damping: 25 }}
                 >
@@ -1244,13 +1448,8 @@ function HomepageContent() {
                   {/* Gradient overlays */}
                   <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/50 to-black/90 pointer-events-none z-[1]" />
 
-                  {/* Active border overlay */}
-                  <div className={`absolute inset-0 border-[1.5px] rounded-2xl pointer-events-none z-[2] transition-opacity duration-500 ${
-                    isActive ? "border-[#EE0033]/30 opacity-100" : "border-transparent opacity-0"
-                  }`} />
-
                   {/* Inner relative content */}
-                  <div className="relative z-10 p-6 h-full flex flex-col justify-between items-start w-full">
+                  <div className="relative z-10 p-6 flex flex-col justify-between items-start w-full">
                     
                     <div className="w-full flex justify-between items-center gap-2">
                       <div className="flex items-center gap-3">
@@ -1267,7 +1466,7 @@ function HomepageContent() {
                     </div>
 
                     {isActive && (
-                      <div className="w-full space-y-4 animate-fade-in mt-2 flex-grow flex flex-col justify-end">
+                      <div className="w-full space-y-4 animate-fade-in mt-4">
                         <p className="text-[12.5px] text-white/90 leading-relaxed bg-black/40 backdrop-blur-md p-4 rounded-xl border border-white/5 shadow-inner">
                           {item.desc}
                         </p>
@@ -1319,63 +1518,193 @@ function HomepageContent() {
           </div>
 
           {/* Interactive Bento Split Panel */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-10 gap-8 items-stretch mb-8">
             
-            {/* Left: Beautiful Image Showcase */}
-            <div className="lg:col-span-7 relative h-[380px] lg:h-auto rounded-3xl overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.07)] group">
-              <img 
-                src={DATACENTER_VIEWS[activeDCIndex].image} 
-                alt={DATACENTER_VIEWS[activeDCIndex].name} 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                referrerPolicy="no-referrer"
-              />
-              {/* Premium Border Overlay to prevent the scaled image from covering the border on hover */}
-              <div className="absolute inset-0 rounded-3xl border border-gray-100/50 pointer-events-none z-20" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent pointer-events-none" />
+            {/* Left: Beautiful Image Showcase / Map Toggle Panel */}
+            <div className="lg:col-span-4 relative h-[520px] lg:h-[560px] rounded-3xl overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.07)] border border-gray-100 flex flex-col bg-slate-50 group">
               
-              {/* Floating Tag */}
-              <div className="absolute top-6 left-6 z-10">
-                <span className="px-3.5 py-1.5 bg-[#EE0033] text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg leading-none">
+              {/* Card Header with Glass Toggle buttons */}
+              <div className="absolute top-6 left-6 right-6 z-30 flex items-center justify-between pointer-events-auto">
+                {/* Active DC regional Tag */}
+                <span className="px-3 py-1 bg-[#EE0033] text-white text-[10px] font-black uppercase tracking-widest rounded-lg shadow-lg leading-none transition-all">
                   {DATACENTER_VIEWS[activeDCIndex].tag}
                 </span>
+
+                {/* Switcher Button */}
+                {DATACENTER_VIEWS[activeDCIndex].id === 'overview' ? (
+                  <div className="flex bg-white/80 backdrop-blur-md p-1 rounded-full border border-gray-250/30 shadow-md">
+                    <button
+                      className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all bg-[#EE0033] text-white cursor-default"
+                    >
+                      Bản đồ
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex bg-white/80 backdrop-blur-md p-1 rounded-full border border-gray-250/30 shadow-md">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDcViewMode('image');
+                      }}
+                      className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer ${
+                        dcViewMode === 'image'
+                          ? 'bg-[#EE0033] text-white'
+                          : 'text-gray-500 hover:text-gray-900'
+                      }`}
+                    >
+                      Hình ảnh
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDcViewMode('map');
+                      }}
+                      className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer ${
+                        dcViewMode === 'map'
+                          ? 'bg-[#EE0033] text-white'
+                          : 'text-gray-500 hover:text-gray-900'
+                      }`}
+                    >
+                      Bản đồ
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Card Body content */}
+              <div className="relative w-full h-full flex-grow flex items-center justify-center">
+                {dcViewMode === 'image' && DATACENTER_VIEWS[activeDCIndex].id !== 'overview' ? (
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={DATACENTER_VIEWS[activeDCIndex].id}
+                      initial={{ opacity: 0, scale: 1.02 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.35, ease: "easeInOut" }}
+                      className="absolute inset-0 w-full h-full"
+                    >
+                      <img 
+                        src={DATACENTER_VIEWS[activeDCIndex].image} 
+                        alt={DATACENTER_VIEWS[activeDCIndex].name} 
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        referrerPolicy="no-referrer"
+                      />
+                      {/* Dark overlay for text readability */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent pointer-events-none" />
+                      
+                      {/* Small Bottom Title Overlay for Image Card */}
+                      <div className="absolute bottom-6 left-6 right-6 text-left pointer-events-none">
+                        <span className="text-[10px] font-mono font-bold tracking-widest text-white/60 block mb-0.5">VIETTEL IDC CORE FACILITY</span>
+                        <h4 className="text-lg font-extrabold text-white leading-tight tracking-tight shadow-sm">
+                          {DATACENTER_VIEWS[activeDCIndex].name}
+                        </h4>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                ) : (
+                  <NetworkMap
+                    activeId={DATACENTER_VIEWS[activeDCIndex].id}
+                    onSelectDC={(id) => {
+                      const idx = DATACENTER_VIEWS.findIndex((view) => view.id === id);
+                      if (idx !== -1) {
+                        setActiveDCIndex(idx);
+                        const matchingDC = DATA_CENTERS.find((dc) => dc.id === id);
+                        if (matchingDC) {
+                          setSelectedDCData(matchingDC);
+                        }
+                      }
+                    }}
+                  />
+                )}
               </div>
             </div>
 
             {/* Right: Premium Spec & Control Card */}
-            <div className="lg:col-span-5 bg-[#FAF9F9]/90 border border-gray-200/50 rounded-3xl p-8 lg:p-10 flex flex-col justify-between shadow-[0_12px_40px_rgba(0,0,0,0.02)]">
-              <div className="space-y-6">
-                <div>
-                  <span className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest block mb-1">DATA CENTER PROFILE</span>
-                  <h3 className="text-2xl lg:text-3xl font-extrabold text-gray-950 font-sans tracking-tight leading-tight">
-                    {DATACENTER_VIEWS[activeDCIndex].name}
-                  </h3>
+            <div className="lg:col-span-6 bg-[#FAF9F9]/90 border border-gray-200/50 rounded-3xl p-6 lg:p-8 flex flex-col justify-between h-[520px] lg:h-[560px] shadow-[0_12px_40px_rgba(0,0,0,0.02)] relative overflow-hidden">
+              <div className="space-y-4">
+                
+                {/* Active DC Header with Uptime badge */}
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <span className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest block mb-1">DATA CENTER PROFILE</span>
+                    <h3 className="text-2xl lg:text-3xl font-extrabold text-gray-950 font-sans tracking-tight leading-tight">
+                      {DATACENTER_VIEWS[activeDCIndex].name}
+                    </h3>
+                  </div>
+                  {/* Status badge */}
+                  <div className="inline-flex items-center gap-1 px-2.5 py-1 bg-green-50 border border-green-200 rounded-full text-[9.5px] font-extrabold text-green-700 uppercase tracking-wider shrink-0 leading-none">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                    <span>READY</span>
+                  </div>
                 </div>
                 
-                <p className="text-xs lg:text-sm text-gray-600 leading-relaxed font-normal">
+                <p className="text-xs lg:text-sm text-gray-600 leading-relaxed font-normal min-h-[32px]">
                   {DATACENTER_VIEWS[activeDCIndex].desc}
                 </p>
                 
-                <div className="border-t border-gray-200/60 pt-6 space-y-4">
+                {/* Exquisite Certificates row (moved up near standard specifications with soft red styled badges) */}
+                <div className="border-t border-gray-200/60 pt-2.5 space-y-1.5">
+                  <span className="text-[9.5px] font-black text-gray-400 uppercase tracking-wider block">CHỨNG CHỈ SỞ HỮU</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {DATACENTER_VIEWS[activeDCIndex].subText.split(' · ').map((cert, certIdx) => (
+                      <span 
+                        key={certIdx} 
+                        className="bg-red-50/90 border border-red-200 hover:bg-red-100 hover:border-red-300 rounded-lg px-2.5 py-1 text-[11px] lg:text-[13px] font-mono font-black text-red-600 shadow-[0_1px_3px_rgba(238,0,51,0.04)] transition-all duration-200 cursor-default"
+                      >
+                        {cert}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="border-t border-gray-200/60 pt-4 space-y-3">
                   <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-wider">Thông số kỹ thuật tiêu chuẩn</h4>
                   
-                  <div className="grid grid-cols-1 gap-2.5">
-                    {DATACENTER_VIEWS[activeDCIndex].metrics.map((metric, index) => (
-                      <div key={index} className="flex items-center justify-between p-3.5 bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.01)] transition-all duration-200 group/item">
-                        <div className="text-left pr-4">
-                          <span className="text-xs font-semibold text-gray-600 leading-snug">{metric.desc}</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 sm:gap-x-16 gap-y-2.5">
+                    {DATACENTER_VIEWS[activeDCIndex].metrics.map((metric, index) => {
+                      const isArea = metric.label.includes('Quy mô') || metric.label.includes('diện tích');
+                      const isPower = metric.label.includes('nguồn') || metric.label.includes('suất nguồn');
+                      const isPue = metric.label.includes('năng lượng') || metric.label.includes('PUE');
+                      const isRacks = metric.label.includes('rack') || metric.label.includes('Racks') || metric.label.includes('Mật độ');
+                      const isBackup = metric.label.includes('Dự phòng');
+                      const isConn = metric.label.includes('Kết nối');
+                      const isStd = metric.label.includes('Tiêu chuẩn');
+                      
+                      const MetricIcon = 
+                        isArea ? Home :
+                        isPower ? Zap : 
+                        isPue ? Activity :
+                        isRacks ? Layers :
+                        isBackup ? Shield :
+                        isConn ? Network :
+                        isStd ? FileCheck : Clock;
+
+                      return (
+                        <div key={index} className="flex items-center justify-between py-2 border-b border-gray-100 hover:border-gray-250 transition-all duration-200 group/item">
+                          <div className="flex items-center gap-2 pr-3">
+                            <MetricIcon className="w-3.5 h-3.5 text-gray-400 group-hover/item:text-[#EE0033] transition-colors shrink-0" />
+                            <span className="text-[11px] font-semibold text-gray-500 leading-tight block">{metric.label}</span>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <span className="text-xs lg:text-[13px] font-extrabold text-gray-950 font-sans tracking-tight block">
+                              {metric.value}
+                            </span>
+                          </div>
                         </div>
-                        <div className="text-right shrink-0">
-                          <span className="text-base lg:text-lg font-black text-gray-950 font-sans tracking-tight">
-                            {metric.value} <span className="text-[10px] font-bold text-gray-400 uppercase">{metric.unit}</span>
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-gray-200/60 flex items-center justify-between">
+              {/* Specs Detailed Trigger Button Footer */}
+              <div className="pt-4 mt-6 border-t border-gray-200/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="flex items-center gap-1.5 text-gray-400 text-left">
+                  <Shield className="w-3.5 h-3.5 text-green-500 stroke-[2.5]" />
+                  <span className="text-[9.5px] font-extrabold uppercase tracking-widest text-slate-400">Vận hành chuẩn quốc tế</span>
+                </div>
+                
+                {/* Button to open specs modal for active item, styled like service card "Xem chi tiết" */}
                 <button
                   onClick={() => {
                     const matchingDC = DATA_CENTERS.find(dc => dc.id === DATACENTER_VIEWS[activeDCIndex].id);
@@ -1384,22 +1713,18 @@ function HomepageContent() {
                       setShowDCModal(true);
                     }
                   }}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#EE0033] hover:bg-[#D0002D] text-white font-extrabold text-[11px] uppercase tracking-wider rounded-full shadow-[0_4px_14px_rgba(238,0,51,0.2)] hover:shadow-[0_6px_20px_rgba(238,0,51,0.3)] transition-all duration-200 cursor-pointer"
+                  className="group inline-flex items-center gap-1.5 text-xs font-bold text-[#EE0033] hover:text-[#D0002D] cursor-pointer transition-all duration-300 select-none py-1.5 px-3 rounded-lg hover:bg-red-50/50 shrink-0 self-start sm:self-auto"
                 >
-                  <span>Xem hồ sơ chi tiết</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>Xem chi tiết</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
-                
-                <span className="text-[10px] font-mono font-bold tracking-widest text-gray-400 uppercase">
-                  0{activeDCIndex + 1} / 0{DATACENTER_VIEWS.length}
-                </span>
               </div>
             </div>
 
           </div>
 
-          {/* Slider Row of the 6 preview thumbnails with glassmorphic labels */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4 mt-4 w-full animate-fadeIn">
+          {/* Slider Row of the 10 preview thumbnails with glassmorphic labels (Mobile swipeable tray + Desktop grid) */}
+          <div className="flex overflow-x-auto pb-4 gap-3 w-full scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent md:grid md:grid-cols-5 lg:grid-cols-10 md:overflow-visible md:pb-0 mt-4 animate-fadeIn">
             {DATACENTER_VIEWS.map((view, index) => {
               const isActive = activeDCIndex === index;
               return (
@@ -1413,7 +1738,7 @@ function HomepageContent() {
                       setSelectedDCData(matchingDC);
                     }
                   }}
-                  className={`group relative overflow-hidden aspect-[16/10.5] w-full rounded-2xl cursor-pointer transition-all duration-300 ${
+                  className={`group relative overflow-hidden aspect-[16/10.5] shrink-0 w-[140px] sm:w-auto rounded-2xl cursor-pointer transition-all duration-300 ${
                     isActive 
                       ? 'ring-2 ring-[#EE0033] ring-offset-2 shadow-[0_8px_25px_rgba(238,0,51,0.2)] scale-[1.02]' 
                       : 'border border-gray-200/60 hover:border-gray-400/80 hover:shadow-sm'
@@ -1428,8 +1753,8 @@ function HomepageContent() {
                   <div className="absolute inset-0 bg-neutral-950/20 group-hover:bg-neutral-950/10 transition-colors duration-300" />
                   
                   {/* Glassmorphic Bar for Name */}
-                  <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-md px-3 py-2 flex items-center justify-between">
-                    <span className="text-[9.5px] md:text-[10.5px] font-bold text-white truncate max-w-[85%]">
+                  <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-md px-1.5 sm:px-2.5 py-2 flex items-center justify-between">
+                    <span className="text-[8.5px] sm:text-[9.5px] font-bold text-white truncate max-w-[85%]">
                       {view.name.replace("Trung tâm Dữ liệu", "TTDL").replace("TTDL ", "")}
                     </span>
                     <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${isActive ? 'bg-[#EE0033] animate-pulse' : 'bg-white/40'}`} />
@@ -1442,35 +1767,28 @@ function HomepageContent() {
           {/* Slide Navigation Pagination and Detailed Modal trigger aligned bottom */}
           <div className="hidden sm:flex items-center justify-between mt-6">
             
-            {/* Left Action Button to open fully detailed specs if specific center selected */}
-            {activeDCIndex > 0 ? (
-              <button
-                id="btn-active-spec-trigger"
-                onClick={() => {
-                  const matchingDC = DATA_CENTERS.find(dc => dc.id === DATACENTER_VIEWS[activeDCIndex].id);
-                  if (matchingDC) {
-                    setSelectedDCData(matchingDC);
-                    setShowDCModal(true);
-                  }
-                }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#EE0033] hover:bg-[#D0002D] active:scale-95 text-white font-extrabold tracking-wider rounded-full text-xs transition-all uppercase outline-none cursor-pointer shadow-md"
-              >
-                <span>Xem Chi Tiết {DATACENTER_VIEWS[activeDCIndex].name}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            ) : (
-              <div />
-            )}
+            {/* Left Status indicator */}
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-[10.5px] font-mono font-bold text-gray-400 uppercase tracking-wider">
+                Hệ thống vận hành an toàn 24/7/365
+              </span>
+            </div>
 
             {/* Right Pagination Controllers */}
             <div className="flex items-center gap-3">
               <span className="text-[11px] font-mono font-black tracking-widest text-gray-400 uppercase mr-1">
-                0{activeDCIndex + 1} / 0{DATACENTER_VIEWS.length} VIEWS
+                {activeDCIndex + 1 < 10 ? `0${activeDCIndex + 1}` : activeDCIndex + 1} / {DATACENTER_VIEWS.length < 10 ? `0${DATACENTER_VIEWS.length}` : DATACENTER_VIEWS.length} VIEWS
               </span>
               
               <button
                 id="btn-view-prev"
-                onClick={() => setActiveDCIndex((prev) => (prev - 1 + DATACENTER_VIEWS.length) % DATACENTER_VIEWS.length)}
+                onClick={() => {
+                  const nextIndex = (activeDCIndex - 1 + DATACENTER_VIEWS.length) % DATACENTER_VIEWS.length;
+                  setActiveDCIndex(nextIndex);
+                  const matchingDC = DATA_CENTERS.find(dc => dc.id === DATACENTER_VIEWS[nextIndex].id);
+                  if (matchingDC) setSelectedDCData(matchingDC);
+                }}
                 className="w-10 h-10 rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-700 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 transition-all outline-none cursor-pointer shadow-sm"
                 aria-label="Previous view"
               >
@@ -1479,7 +1797,12 @@ function HomepageContent() {
 
               <button
                 id="btn-view-next"
-                onClick={() => setActiveDCIndex((prev) => (prev + 1) % DATACENTER_VIEWS.length)}
+                onClick={() => {
+                  const nextIndex = (activeDCIndex + 1) % DATACENTER_VIEWS.length;
+                  setActiveDCIndex(nextIndex);
+                  const matchingDC = DATA_CENTERS.find(dc => dc.id === DATACENTER_VIEWS[nextIndex].id);
+                  if (matchingDC) setSelectedDCData(matchingDC);
+                }}
                 className="w-10 h-10 rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-700 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 transition-all outline-none cursor-pointer shadow-sm"
                 aria-label="Next view"
               >
