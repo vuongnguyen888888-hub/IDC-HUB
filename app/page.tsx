@@ -1323,7 +1323,7 @@ function HomepageContent() {
                 >
                   {/* High quality background image corresponding to the service */}
                   <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-[2000ms] ease-out scale-100 group-hover:scale-105"
+                    className="absolute inset-0 bg-cover bg-center scale-100"
                     style={{ backgroundImage: `url('${item.bgPattern}')` }}
                   />
 
@@ -1339,9 +1339,9 @@ function HomepageContent() {
                   <div className="relative z-10 p-8 h-full flex flex-col justify-between items-start w-full">
                     
                     {/* ACTIVE EXPANDED VIEW LAYOUT (Richly styled, clean & responsive) */}
-                    <div className={`absolute left-5 right-5 bottom-5 top-5 flex flex-col justify-between items-start text-left h-[calc(100%-40px)] transition-all duration-500 ${
+                    <div className={`absolute left-5 right-5 bottom-5 top-5 flex flex-col justify-between items-start text-left h-[calc(100%-40px)] ${
                       isActive 
-                        ? "opacity-100 translate-x-0 pointer-events-auto" 
+                        ? "opacity-100 pointer-events-auto" 
                         : "opacity-0 pointer-events-none"
                     }`}>
                       {/* Top sector-meta row */}
@@ -1397,19 +1397,19 @@ function HomepageContent() {
                     </div>
 
                     {/* INACTIVE COLLAPSED VIEW LAYOUT (Sophisticated vertical presentation) */}
-                    <div className={`absolute inset-0 p-8 flex flex-col justify-between items-center text-center h-full w-full transition-all duration-500 ${
+                    <div className={`absolute inset-0 p-8 flex flex-col justify-between items-center text-center h-full w-full ${
                       isActive 
-                        ? "opacity-0 scale-95 pointer-events-none" 
-                        : "opacity-100 scale-100 pointer-events-auto"
+                        ? "opacity-0 pointer-events-none" 
+                        : "opacity-100 pointer-events-auto"
                     }`}>
                       {/* Top: Domain-specific Icon in circled red/white-outline */}
-                      <div className="w-13 h-13 rounded-full border border-white/20 flex items-center justify-center text-white/95 bg-black/40 backdrop-blur-md group-hover:scale-110 group-hover:border-[#EE0033] group-hover:shadow-[0_0_20px_rgba(238,0,51,0.25)] transition-all duration-500">
-                        <IconComponent className="w-5.5 h-5.5 text-white group-hover:text-[#EE0033] transition-colors stroke-[1.8]" />
+                      <div className="w-13 h-13 rounded-full border border-white/20 flex items-center justify-center text-white/95 bg-black/40 backdrop-blur-md transition-all">
+                        <IconComponent className="w-5.5 h-5.5 text-white stroke-[1.8]" />
                       </div>
 
                       {/* Middle: rotated vertical title for high end visual design */}
                       <div className="absolute inset-y-24 flex items-center justify-center pointer-events-none w-full">
-                        <div className="rotate-90 origin-center whitespace-nowrap text-white font-black text-sm uppercase tracking-[0.25em] opacity-45 group-hover:opacity-100 transition-all duration-500 leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                        <div className="rotate-90 origin-center whitespace-nowrap text-white font-black text-sm uppercase tracking-[0.25em] opacity-45 leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
                           {item.title}
                         </div>
                       </div>
