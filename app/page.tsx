@@ -122,7 +122,7 @@ const INDUSTRIES_DATA = [
     title: "Tài chính-ngân hàng",
     title_en: "Finance & Banking",
     subtitle: "Thiết kế tối ưu theo đặc thù từng kịch bản vận hành",
-    desc: "Hạ tầng tính toán tối ưu, bảo mật đa phòng vệ được may đo chuẩn xác để giải quyết triệt để bài toán khó nhất của riêng ngành bạn.",
+    desc: "Hạ tầng tính toán tối ưu, bảo mật đa phòng vệ được may đo chuẩn xác để giải quyết triệt độ bài toán khó nhất của riêng ngành bạn.",
     desc_en: "Tận dụng giải pháp hạ tầng điện toán đám mây cấp độ cao để đảm bảo tuyệt mật quy trình giao dịch số và nâng cao độ an toàn dữ liệu khách hàng.",
     bullets: [
       "Hạ tầng Cloud an toàn phục vụ giao dịch lớn",
@@ -130,7 +130,7 @@ const INDUSTRIES_DATA = [
       "Tuân thủ Thông tư 09/2020/TT-NHNN của Ngân hàng Nhà nước"
     ],
     bgGradient: "from-black/90 via-black/60 to-transparent",
-    bgPattern: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+    bgPattern: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1200&auto=format&fit=crop",
     overlayColor: "rgba(13, 18, 34, 0.82)",
     stories: ["BIDV Card", "VietinBank Cloud"],
     products: ["Sovereign Cloud", "High-Perf DB"],
@@ -150,7 +150,7 @@ const INDUSTRIES_DATA = [
       "Hệ thống Auto-scaling thông minh tự tăng giảm tài nguyên chuẩn xác"
     ],
     bgGradient: "from-black/90 via-black/60 to-transparent",
-    bgPattern: "https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=1200&auto=format&fit=crop",
+    bgPattern: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
     overlayColor: "rgba(16, 17, 26, 0.82)",
     stories: ["MyViettel Sale", "Voso E-Store"],
     products: ["Auto Scaling K8s", "Viettel Premium CDN"],
@@ -170,7 +170,7 @@ const INDUSTRIES_DATA = [
       "Kiến trúc Cloud biệt lập, tuân thủ chặt chẽ tiêu chuẩn của Bộ Y tế"
     ],
     bgGradient: "from-black/90 via-black/60 to-transparent",
-    bgPattern: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?q=80&w=1200&auto=format&fit=crop",
+    bgPattern: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200&auto=format&fit=crop",
     overlayColor: "rgba(2, 31, 24, 0.85)",
     stories: ["National EHR DB", "Smart Hospital"],
     products: ["Dedicated Cloud", "Secure Storage"],
@@ -190,7 +190,7 @@ const INDUSTRIES_DATA = [
       "Sức tải băng thông cực rộng, đón nhận hàng triệu học sinh cùng lúc"
     ],
     bgGradient: "from-black/90 via-black/60 to-transparent",
-    bgPattern: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=1200&auto=format&fit=crop",
+    bgPattern: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
     overlayColor: "rgba(17, 14, 32, 0.85)",
     stories: ["Viettel Study", "K12 Online National"],
     products: ["Live-Stream CDN", "High-Bandwidth VM"],
@@ -210,7 +210,7 @@ const INDUSTRIES_DATA = [
       "Hạ tầng Cloud cách ly vật lý hoàn toàn tùy chọn tuyệt mật an toàn"
     ],
     bgGradient: "from-black/90 via-black/60 to-transparent",
-    bgPattern: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+    bgPattern: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop",
     overlayColor: "rgba(8, 13, 25, 0.85)",
     stories: ["National Identity", "Command Command SOC"],
     products: ["Sovereign Private", "SOC Cyber Security"],
@@ -716,61 +716,61 @@ const CERTIFICATIONS_DATA = [
   {
     title: "Tiêu chuẩn Data Center",
     tag: "ANSI/TIA-942 R3",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/TIA_logo.svg/320px-TIA_logo.svg.png",
     desc: "Đạt chuẩn quốc tế cao nhất về thiết kế, vận hành hạ tầng trung tâm dữ liệu dự phòng kép bảo mật."
   },
   {
     title: "An toàn thông tin",
     tag: "ISO 27001",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/ISO_Logotype.svg/320px-ISO_Logotype.svg.png",
     desc: "Hệ thống quản lý bảo mật thông tin toàn diện và nghiêm ngặt nhất thế giới."
   },
   {
     title: "Bảo mật thanh toán",
     tag: "PCI-DSS",
-    image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/PCI-DSS-logo.png/320px-PCI-DSS-logo.png",
     desc: "Đảm bảo an toàn dữ liệu và tuân thủ tuyệt đối cho các giao dịch tài chính, thanh toán số."
   },
   {
     title: "Quản lý năng lượng",
     tag: "ISO 50001",
-    image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/ISO_Logotype.svg/320px-ISO_Logotype.svg.png",
     desc: "Hệ thống quản lý năng lượng xanh tối ưu, giảm thiểu tối đa khí thải các-bon ra môi trường."
   },
   {
     title: "Quản lý chất lượng",
     tag: "ISO 9001",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Logo_ISO_9001.png/320px-Logo_ISO_9001.png",
     desc: "Kiểm soát quy trình cung cấp dịch vụ xuất sắc, đảm bảo sự hài lòng tuyệt đối của khách hàng."
   },
   {
     title: "Dịch vụ CNTT",
     tag: "ISO 20000",
-    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/ISO_Logotype.svg/320px-ISO_Logotype.svg.png",
     desc: "Tiêu chuẩn quản lý chất lượng dịch vụ CNTT chuẩn xác và nâng cao chất lượng liên tục."
   },
   {
     title: "Bảo mật đám mây",
     tag: "ISO 27017",
-    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/ISO_Logotype.svg/320px-ISO_Logotype.svg.png",
     desc: "Xác thực bảo mật hạ tầng Cloud và phòng tránh mọi nguy cơ mất an toàn thông tin đám mây."
   },
   {
     title: "Bảo vệ thông tin cá nhân",
     tag: "ISO 27018",
-    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/ISO_Logotype.svg/320px-ISO_Logotype.svg.png",
     desc: "Hành lang pháp lý chuẩn hóa bảo mật thông tin cá nhân trên môi trường public cloud."
   },
   {
     title: "Kinh doanh liên tục",
     tag: "ISO 22301",
-    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/ISO_Logotype.svg/320px-ISO_Logotype.svg.png",
     desc: "Khôi phục thảm họa, đảm bảo hoạt động kinh doanh diễn ra xuyên suốt không gián đoạn."
   },
   {
     title: "Bảo mật y tế",
     tag: "HIPAA COMPLIANT",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/HIPAA_Compliance_Logo.svg/320px-HIPAA_Compliance_Logo.svg.png",
     desc: "Tiêu chuẩn khắt khe về bảo vệ thông tin sức khỏe và hồ sơ bệnh án điện tử số hóa."
   }
 ];
@@ -779,61 +779,61 @@ const AWARDS_DATA = [
   {
     title: "Nhà cung cấp dịch vụ Cloud",
     tag: "FROST & SULLIVAN",
-    image: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Frost_and_Sullivan_logo.svg/320px-Frost_and_Sullivan_logo.svg.png",
     desc: "Được vinh danh là Nhà cung cấp dịch vụ Đám mây xuất sắc nhất năm tại Việt Nam."
   },
   {
     title: "Doanh nghiệp Chuyển đổi số",
     tag: "VIETNAM DIGITAL AWARDS",
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/National_Emblem_of_Vietnam.svg/320px-National_Emblem_of_Vietnam.svg.png",
     desc: "Được ghi nhận là đơn vị tiên phong kiến tạo các nền tảng chuyển đổi số quốc gia."
   },
   {
     title: "Dịch vụ Cloud xuất sắc",
     tag: "SAO KHUÊ 2023",
-    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/National_Emblem_of_Vietnam.svg/320px-National_Emblem_of_Vietnam.svg.png",
     desc: "Sản phẩm Viettel Cloud Server xuất sắc đạt điểm tuyệt đối từ hội đồng bình chọn."
   },
   {
     title: "Giải Kinh doanh quốc tế",
     tag: "STEVIE AWARDS",
-    image: "https://images.unsplash.com/photo-1567427018141-0584cfcbf1b8?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Stevie_Awards_Logo.svg/320px-Stevie_Awards_Logo.svg.png",
     desc: "Đạt giải vàng Stevie Awards cho hệ thống hạ tầng trung tâm dữ liệu hiện đại Hòa Lạc III."
   },
   {
     title: "DN Công nghệ số xuất sắc",
     tag: "BỘ THÔNG TIN & TRUYỀN THÔNG",
-    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/National_Emblem_of_Vietnam.svg/320px-National_Emblem_of_Vietnam.svg.png",
     desc: "Bằng khen đơn vị có thành tích xuất sắc đóng góp vào sự phát triển công nghệ nước nhà."
   },
   {
     title: "Top 10 Doanh nghiệp CNTT",
     tag: "VINASA",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/National_Emblem_of_Vietnam.svg/320px-National_Emblem_of_Vietnam.svg.png",
     desc: "Liên tiếp lọt top doanh nghiệp cung cấp hạ tầng số và đám mây lớn nhất Việt Nam."
   },
   {
     title: "Đối tác Đám mây Sáng tạo",
     tag: "QUALCOMM ACCELERATE",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Qualcomm_logo.svg/320px-Qualcomm_logo.svg.png",
     desc: "Giải thưởng hợp tác quốc tế đột phá về tăng tốc trí tuệ nhân tạo trên đám mây."
   },
   {
     title: "Thương hiệu Quốc gia VN",
     tag: "HỘI ĐỒNG THƯƠNG HIỆU",
-    image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/National_Emblem_of_Vietnam.svg/320px-National_Emblem_of_Vietnam.svg.png",
     desc: "Thương hiệu quốc gia duy nhất trong lĩnh vực Trung tâm dữ liệu và Điện toán đám mây."
   },
   {
     title: "Sản phẩm Công nghệ xanh",
     tag: "VIETNAM GREEN IT",
-    image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Logo_ISO_9001.png/320px-Logo_ISO_9001.png",
     desc: "Chứng nhận nỗ lực tối ưu năng lượng và bảo vệ môi trường của các TTDL thế hệ mới."
   },
   {
     title: "An ninh thông tin xuất sắc",
     tag: "CYBER SECURITY AWARD",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=300&q=80",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/PCI-DSS-logo.png/320px-PCI-DSS-logo.png",
     desc: "Nhà cung cấp giải pháp bảo mật đám mây và phòng chống tấn công DDoS tốt nhất."
   }
 ];
@@ -1120,7 +1120,7 @@ function HomepageContent() {
                 <Link 
                   key={cat.id}
                   href={`/services/${cat.slug}`}
-                  className="bg-white rounded-2xl p-6 md:p-8 flex flex-col justify-between border border-gray-200/80 hover:border-[#EE0033] hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
+                  className="bg-white rounded-2xl p-6 md:p-8 flex flex-col justify-between border border-gray-200/80 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
                 >
                   <div className="space-y-6">
                     {/* Icon container styled exactly like mockup */}
@@ -1217,10 +1217,10 @@ function HomepageContent() {
                 <Link 
                   key={index}
                   href={`/solutions/${sol.slug}`}
-                  className="min-w-[280px] sm:min-w-[325px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)] flex-shrink-0 snap-start bg-white rounded-2xl p-8 flex flex-col justify-between h-[420px] relative overflow-hidden hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer transform-gpu"
+                  className="min-w-[280px] sm:min-w-[325px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)] flex-shrink-0 snap-start bg-white rounded-2xl p-8 flex flex-col justify-between h-[420px] relative overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer transform-gpu"
                 >
                   {/* Premium Border Overlay to prevent the scaled image from covering the border on hover */}
-                  <div className="absolute inset-0 rounded-2xl border border-gray-200/80 group-hover:border-[#EE0033] transition-colors duration-300 pointer-events-none z-20" />
+                  <div className="absolute inset-0 rounded-2xl border border-gray-200/80 group-hover:border-gray-300 transition-colors duration-300 pointer-events-none z-20" />
 
                   {/* Real design background image from Cloudinary */}
                   <div 
@@ -1317,7 +1317,7 @@ function HomepageContent() {
                   onClick={() => setActiveIndustry(index)}
                   className={`relative h-full rounded-2xl overflow-hidden cursor-pointer select-none border transition-all duration-500 min-w-0 group ${
                     isActive 
-                      ? "flex-[3.5] border-[#EE0033]/20 shadow-[0_20px_50px_rgba(238,0,51,0.06)]" 
+                      ? "flex-[3.5] border-transparent shadow-[0_20px_50px_rgba(0,0,0,0.08)]" 
                       : "flex-1 border-gray-200/40 hover:flex-[1.1] hover:border-gray-300/60"
                   }`}
                 >
@@ -1332,14 +1332,14 @@ function HomepageContent() {
 
                   {/* Active glowing accent border overlay */}
                   <div className={`absolute inset-0 border-[1.5px] rounded-2xl pointer-events-none z-[2] transition-opacity duration-500 ${
-                    isActive ? "border-[#EE0033]/45 opacity-100" : "border-transparent opacity-0"
+                    isActive ? "border-white/30 opacity-100" : "border-transparent opacity-0"
                   }`} />
 
                   {/* Main card interface interior with absolute/relative positioning for high control */}
                   <div className="relative z-10 p-8 h-full flex flex-col justify-between items-start w-full">
                     
                     {/* ACTIVE EXPANDED VIEW LAYOUT (Richly styled, clean & responsive) */}
-                    <div className={`absolute left-5 right-5 bottom-5 top-5 flex flex-col justify-between items-start text-left h-[calc(100%-40px)] ${
+                    <div className={`absolute left-6 bottom-6 top-6 flex flex-col justify-between items-start text-left h-[calc(100%-48px)] w-[320px] lg:w-[450px] xl:w-[480px] ${
                       isActive 
                         ? "opacity-100 pointer-events-auto" 
                         : "opacity-0 pointer-events-none"
@@ -1441,7 +1441,7 @@ function HomepageContent() {
                   onClick={() => setActiveIndustry(index)}
                   className={`relative rounded-2xl overflow-hidden cursor-pointer select-none border transition-all duration-500 ${
                     isActive 
-                      ? "border-[#EE0033]/30 shadow-lg" 
+                      ? "border-white/30 shadow-lg" 
                       : "border-gray-200/40"
                   }`}
                   transition={{ type: "spring", stiffness: 200, damping: 25 }}
@@ -1873,7 +1873,7 @@ function HomepageContent() {
               {(activeCertTab === 'cert' ? CERTIFICATIONS_DATA : AWARDS_DATA).map((item, i) => (
                 <div 
                   key={i} 
-                  className="bg-white p-5 rounded-2xl border border-gray-200/80 flex flex-col h-full hover:border-[#EE0033] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
+                  className="bg-white p-5 rounded-2xl border border-gray-200/80 flex flex-col h-full hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
                 >
                   {/* Top Row: Image & Tag */}
                   <div className="flex items-start justify-between gap-4 mb-4">
@@ -1959,7 +1959,7 @@ function HomepageContent() {
                 {[...PARTNERS, ...PARTNERS].map((partner, index) => (
                   <div 
                     key={`${partner.id}-${index}`} 
-                    className="bg-white border border-gray-100 p-5 rounded-2xl flex flex-col items-center justify-center gap-3 hover:border-[#EE0033] hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer text-center h-[140px] w-[160px] md:w-[180px] flex-shrink-0"
+                    className="bg-white border border-gray-100 p-5 rounded-2xl flex flex-col items-center justify-center gap-3 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer text-center h-[140px] w-[160px] md:w-[180px] flex-shrink-0"
                     title={`${partner.name} - ${partner.role}`}
                   >
                     {/* Brand Logo Container */}

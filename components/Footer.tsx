@@ -4,9 +4,11 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Phone, Mail, MapPin, ArrowUpRight, ShieldCheck, Globe } from 'lucide-react';
+import { useMarket } from '@/hooks/useMarket';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { getLocalizedPath } = useMarket();
 
   return (
     <footer className="bg-neutral-950 border-t border-neutral-800 text-neutral-400 pt-16 pb-8 font-sans">
@@ -17,7 +19,7 @@ export default function Footer() {
           {/* Column 1: Brand presentation & contact details */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center space-x-3">
-              <Link href="/">
+              <Link href={getLocalizedPath('/')}>
                 <Image 
                   src="https://res.cloudinary.com/dpyizq1m2/image/upload/v1782053913/logo-IDC_2_up2gqp.svg" 
                   alt="Viettel IDC" 
@@ -105,12 +107,12 @@ export default function Footer() {
             <h4 className="text-xs font-black tracking-widest text-white uppercase border-b border-neutral-800 pb-2">Tài nguyên & Hỗ trợ</h4>
             <ul className="space-y-2.5 text-xs font-medium">
               {[
-                { name: 'Tài liệu kỹ thuật (Docs)', href: '/contact' },
-                { name: 'Sơ đồ trang web', href: '/contact' },
-                { name: 'Hỏi đáp kỹ thuật (FAQs)', href: '/contact' },
-                { name: 'Gửi yêu cầu hỗ trợ', href: '/contact' },
-                { name: 'Chính sách bảo mật', href: '/contact' },
-                { name: 'Điều khoản sử dụng', href: '/contact' }
+                { name: 'Tài liệu kỹ thuật (Docs)', href: getLocalizedPath('/contact') },
+                { name: 'Sơ đồ trang web', href: getLocalizedPath('/contact') },
+                { name: 'Hỏi đáp kỹ thuật (FAQs)', href: getLocalizedPath('/contact') },
+                { name: 'Gửi yêu cầu hỗ trợ', href: getLocalizedPath('/contact') },
+                { name: 'Chính sách bảo mật', href: getLocalizedPath('/contact') },
+                { name: 'Điều khoản sử dụng', href: getLocalizedPath('/contact') }
               ].map((item, idx) => (
                 <li key={idx}>
                   <Link href={item.href} className="hover:text-white transition-colors block">

@@ -562,7 +562,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
               <a href="https://console.viettelidc.com.vn" target="_blank" rel="noreferrer" className="border border-[#D0D0D0] bg-white text-[#344054] h-[36px] px-3.5 rounded-[8px] text-[14px] font-medium hover:bg-gray-50 flex items-center justify-center transition-all whitespace-nowrap flex-shrink-0">
                 Console
               </a>
-              <Link href="/contact" className="bg-[#EE0033] text-white h-[36px] px-4 rounded-[8px] text-[14px] font-semibold hover:bg-[#FF302D] flex items-center justify-center transition-all whitespace-nowrap flex-shrink-0">
+              <Link href={getLocalizedPath('/contact')} className="bg-[#EE0033] text-white h-[36px] px-4 rounded-[8px] text-[14px] font-semibold hover:bg-[#FF302D] flex items-center justify-center transition-all whitespace-nowrap flex-shrink-0">
                 Đăng ký tài khoản
               </Link>
             </div>
@@ -693,7 +693,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                               {content}
                             </a>
                           ) : (
-                            <Link key={idx} href={link.href} onClick={() => setIsSearchFocused(false)}>
+                            <Link key={idx} href={getLocalizedPath(link.href)} onClick={() => setIsSearchFocused(false)}>
                               {content}
                             </Link>
                           );
@@ -722,7 +722,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                             return (
                               <Link
                                 key={item.name}
-                                href={path}
+                                href={getLocalizedPath(path)}
                                 onClick={() => {
                                   setIsSearchFocused(false);
                                   setNavSearchQuery('');
@@ -761,7 +761,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                             return (
                               <Link
                                 key={item.name}
-                                href={item.href}
+                                href={getLocalizedPath(item.href)}
                                 onClick={() => {
                                   setIsSearchFocused(false);
                                   setNavSearchQuery('');
@@ -806,7 +806,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
               {/* Sidebar */}
               <div className="w-[220px] flex-shrink-0 pr-6 border-r border-[#EBEBEB]">
                 <Link 
-                  href={activeCategoryA === 'Dịch vụ nổi bật' ? '/services' : `/services/${getCategorySlug(activeCategoryA)}`} 
+                  href={getLocalizedPath(activeCategoryA === 'Dịch vụ nổi bật' ? '/services' : `/services/${getCategorySlug(activeCategoryA)}`)} 
                   onClick={() => setActiveMenu(null)} 
                   className="text-[14px] font-bold text-[#1A1A1A] hover:text-[#EE0033] flex items-center gap-1.5 mb-4 transition-colors"
                 >
@@ -870,7 +870,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                               {items.map(item => (
                                 <Link
                                   key={item.name}
-                                  href={getProductRoute(item, activeCategoryA)}
+                                  href={getLocalizedPath(getProductRoute(item, activeCategoryA))}
                                   onClick={() => setActiveMenu(null)}
                                   className="flex items-start gap-3.5 p-2.5 rounded-[8px] hover:bg-gray-50 transition-all group text-left"
                                 >
@@ -899,7 +899,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                       filteredServices.map(item => (
                         <Link
                           key={item.name}
-                          href={getProductRoute(item, activeCategoryA)}
+                          href={getLocalizedPath(getProductRoute(item, activeCategoryA))}
                           onClick={() => setActiveMenu(null)}
                           className="flex items-start gap-3.5 p-2.5 rounded-[8px] hover:bg-gray-50 transition-all group text-left"
                         >
@@ -926,12 +926,12 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
               {/* Right Promos */}
               <div className="w-[240px] flex-shrink-0 pl-6 border-l border-[#EBEBEB] flex flex-col gap-2.5">
-                <a href="/pricing" onClick={() => setActiveMenu(null)} className="rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5" style={{ background: 'linear-gradient(140deg, #1A1A1A 0%, #EE0033 100%)' }}>
+                <Link href={getLocalizedPath('/pricing')} onClick={() => setActiveMenu(null)} className="rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5" style={{ background: 'linear-gradient(140deg, #1A1A1A 0%, #EE0033 100%)' }}>
                   <Zap className="w-[22px] h-[22px] text-white mb-2" />
                   <h4 className="text-[14px] font-bold text-white">Khuyến mãi tháng 6</h4>
                   <p className="text-[11.5px] text-white/80 mt-1 leading-relaxed">Giảm 30% Cloud Server cho mọi khách hàng mới trong tháng này.</p>
                   <span className="text-[12px] font-semibold text-[#FFB3C1] mt-3.5 flex items-center gap-1">Xem ngay →</span>
-                </a>
+                </Link>
 
                 <a href="https://docs.viettelidc.com.vn" target="_blank" rel="noreferrer" className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
                   <BookOpen className="w-[22px] h-[22px] text-[#EE0033] mb-2" />
@@ -979,7 +979,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                   {(solutionsList[activeCategoryB] || []).map(sol => (
                     <Link
                       key={sol.name}
-                      href={sol.href}
+                      href={getLocalizedPath(sol.href)}
                       onClick={() => setActiveMenu(null)}
                       className="flex items-start gap-4 p-3 rounded-[8px] hover:bg-gray-50 transition-all group"
                     >
@@ -996,14 +996,14 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
               </div>
 
               <div className="w-[240px] flex-shrink-0 pl-6 border-l border-[#EBEBEB] flex flex-col gap-2.5">
-                <Link href="/pricing" onClick={() => setActiveMenu(null)} className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
+                <Link href={getLocalizedPath('/pricing')} onClick={() => setActiveMenu(null)} className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
                   <TrendingUp className="w-[22px] h-[22px] text-[#EE0033] mb-2" />
                   <h4 className="text-[14px] font-bold text-gray-950">ROI Calculator</h4>
                   <p className="text-[11.5px] text-gray-750 mt-1 leading-relaxed">Tính toán mức tài chính và tối ưu CAPEX/OPEX khi chuyển đổi lên Cloud.</p>
                   <span className="text-[12px] font-bold text-[#EE0033] mt-3.5 flex items-center gap-1">Tính ngay →</span>
                 </Link>
 
-                <Link href="/contact" onClick={() => setActiveMenu(null)} className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
+                <Link href={getLocalizedPath('/contact')} onClick={() => setActiveMenu(null)} className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
                   <Users className="w-[22px] h-[22px] text-[#EE0033] mb-2" />
                   <h4 className="text-[14px] font-bold text-gray-950">Tư vấn miễn phí</h4>
                   <p className="text-[11.5px] text-gray-750 mt-1 leading-relaxed">Chuyên viên tư vấn Viettel IDC thiết kế kiến trúc hạ tầng chuyên biệt.</p>
@@ -1052,7 +1052,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                       ].map(pItem => (
                         <Link
                           key={pItem.name}
-                          href={pItem.path}
+                          href={getLocalizedPath(pItem.path)}
                           onClick={() => setActiveMenu(null)}
                           className="flex items-start gap-3 p-2 rounded-[8px] hover:bg-gray-50 transition-all group"
                         >
@@ -1080,7 +1080,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                   {/* Nút xem tất cả dịch vụ */}
                   <div className="flex justify-start pl-1">
                     <Link
-                      href="/pricing"
+                      href={getLocalizedPath('/pricing')}
                       onClick={() => setActiveMenu(null)}
                       className="inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[#EE0033] hover:text-[#FF302D] hover:underline"
                     >
@@ -1100,7 +1100,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                     <div className="space-y-3.5">
                       {/* Công cụ tính giá */}
                       <Link 
-                        href="/pricing/calculator" 
+                        href={getLocalizedPath('/pricing/calculator')} 
                         onClick={() => setActiveMenu(null)} 
                         className="flex items-start gap-3.5 p-4 bg-white border border-gray-100 hover:border-[#EE0033] hover:shadow-[0_8px_16px_rgba(238,0,51,0.04)] rounded-[12px] transition-all group text-left block"
                       >
@@ -1119,7 +1119,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
                       {/* Liên hệ báo giá */}
                       <Link 
-                        href="/contact" 
+                        href={getLocalizedPath('/contact')} 
                         onClick={() => setActiveMenu(null)} 
                         className="flex items-start gap-3.5 p-4 bg-white border border-gray-100 hover:border-[#EE0033] hover:shadow-[0_8px_16px_rgba(238,0,51,0.04)] rounded-[12px] transition-all group text-left block"
                       >
@@ -1161,7 +1161,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                     { title: 'Tin sự kiện', desc: 'Hội thảo trực tuyến, triển lãm công nghệ', icon: Calendar },
                     { title: 'Tin công nghệ', desc: 'Xu hướng đám mây, AI và hạ tầng số', icon: Cpu }
                   ].map(news => (
-                    <Link key={news.title} href="/services" onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
+                    <Link key={news.title} href={getLocalizedPath('/resources')} onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
                       <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
                         <news.icon className="w-4 h-4" />
                       </div>
@@ -1178,7 +1178,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
               <div className="px-4 border-r border-[#EBEBEB] text-left">
                 <div className="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-4">TRI THỨC CHUYÊN SÂU</div>
                 <div className="space-y-4">
-                  <Link href="/services" onClick={() => setActiveMenu(null)} className="flex items-start gap-3.5 group p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
+                  <Link href={getLocalizedPath('/resources')} onClick={() => setActiveMenu(null)} className="flex items-start gap-3.5 group p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
                     <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
                       <Award className="w-4 h-4" />
                     </div>
@@ -1188,7 +1188,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                     </div>
                   </Link>
 
-                  <Link href="/services" onClick={() => setActiveMenu(null)} className="flex items-start gap-3.5 group p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
+                  <Link href={getLocalizedPath('/resources')} onClick={() => setActiveMenu(null)} className="flex items-start gap-3.5 group p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
                     <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
                       <Newspaper className="w-4 h-4" />
                     </div>
@@ -1198,7 +1198,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                     </div>
                   </Link>
 
-                  <Link href="/services" onClick={() => setActiveMenu(null)} className="flex items-start gap-3.5 group p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
+                  <Link href={getLocalizedPath('/resources')} onClick={() => setActiveMenu(null)} className="flex items-start gap-3.5 group p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
                     <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
                       <FileText className="w-4 h-4" />
                     </div>
@@ -1242,7 +1242,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
               </button>
 
               <div className="w-[220px] flex-shrink-0 pr-6 border-r border-[#EBEBEB]">
-                <Link href="/partners" onClick={() => setActiveMenu(null)} className="text-[14px] font-bold text-[#1A1A1A] hover:text-[#EE0033] flex items-center gap-1.5 mb-4 transition-colors">
+                <Link href={getLocalizedPath('/partners')} onClick={() => setActiveMenu(null)} className="text-[14px] font-bold text-[#1A1A1A] hover:text-[#EE0033] flex items-center gap-1.5 mb-4 transition-colors">
                   <span>Xem tất cả đối tác</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
@@ -1274,7 +1274,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                         { title: 'Đăng ký trở thành đại lý', desc: 'Trở thành đại lý phân phối hạ tầng số, Cloud và Colocation chuẩn Tier III.', icon: UserPlus },
                         { title: 'Đăng ký chương trình affiliate', desc: 'Tiếp thị liên kết mây, chia sẻ liên kết nhận hoa hồng trực tuyến nhanh chóng.', icon: DollarSign }
                       ].map(item => (
-                        <Link key={item.title} href="/partners" onClick={() => setActiveMenu(null)} className="flex items-start gap-4 p-3 rounded-[8px] hover:bg-gray-50 transition-all group">
+                        <Link key={item.title} href={getLocalizedPath('/partners')} onClick={() => setActiveMenu(null)} className="flex items-start gap-4 p-3 rounded-[8px] hover:bg-gray-50 transition-all group">
                           <div className="w-8 h-8 rounded-full bg-[#FAF5F6] text-[#EE0033] flex items-center justify-center flex-shrink-0 group-hover:bg-[#EE0033] group-hover:text-white transition-colors duration-150">
                             <item.icon className="w-4 h-4" />
                           </div>
@@ -1298,7 +1298,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                       <div>
                         <p className="text-[13px] text-gray-700 leading-relaxed font-medium">
                           Viettel IDC chính thức triển khai chương trình Viettel IDC Pinnacle Alliance - mô hình hợp tác chiến lược dành cho các nhà cung cấp dịch vụ đám mây (CSPs), các nhà tích hợp hệ thống (SI), nhà cung cấp dịch vụ quản lý (MSP), nhà phát triển phần mềm (ISV), các đơn vị cung cấp hạ tầng tại khu vực và quốc tế.{' '}
-                          <Link href="/partners" onClick={() => setActiveMenu(null)} className="text-[#EE0033] font-bold hover:underline">
+                          <Link href={getLocalizedPath('/partners')} onClick={() => setActiveMenu(null)} className="text-[#EE0033] font-bold hover:underline">
                             xem thêm.
                           </Link>
                         </p>
@@ -1318,7 +1318,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                         <h4 className="text-[14px] font-bold text-gray-950">Hợp tác chiến lược Viettel IDC & Qualcomm</h4>
                         <p className="text-[13px] text-gray-700 mt-1 leading-relaxed font-medium">
                           Hợp tác chiến lược triển khai hạ tầng edge computing và AI tại Việt Nam. Nâng cao năng lực cạnh tranh quốc gia cực kỳ bứt phá, phát triển hệ sinh thái AI Edge, camera thông minh, các giải pháp đô thị thông minh và hạ tầng điện toán đám mây biên cao cấp.{' '}
-                          <Link href="/partners" onClick={() => setActiveMenu(null)} className="text-[#EE0033] font-bold hover:underline mt-1.5 block">Xem chi tiết đặc biệt →</Link>
+                          <Link href={getLocalizedPath('/partners')} onClick={() => setActiveMenu(null)} className="text-[#EE0033] font-bold hover:underline mt-1.5 block">Xem chi tiết đặc biệt →</Link>
                         </p>
                       </div>
                     </div>
@@ -1327,7 +1327,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
               </div>
 
               <div className="w-[240px] flex-shrink-0 pl-6 border-l border-[#EBEBEB] flex flex-col gap-2.5">
-                <Link href="/partners" onClick={() => setActiveMenu(null)} className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
+                <Link href={getLocalizedPath('/partners')} onClick={() => setActiveMenu(null)} className="bg-[#FAF5F6] border border-[#FCD9D8] rounded-[12px] p-[18px] text-left transition-transform hover:-translate-y-0.5">
                   <BookOpen className="w-[22px] h-[22px] text-[#EE0033] mb-2" />
                   <h4 className="text-[14px] font-bold text-gray-950">Tài nguyên hỗ trợ bán hàng</h4>
                   <p className="text-[11.5px] text-gray-700 mt-1 leading-relaxed">Sales kits, brochures, tài liệu kỹ thuật mây chuyên sâu hỗ trợ thuyết trình dự án.</p>
@@ -1362,7 +1362,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                     { label: 'Hạ tầng Data center', desc: 'Mạng lưới phòng máy an toàn tại HN, Đà Nẵng, TP.HCM', icon: MapPin },
                     { label: 'Trách nhiệm xã hội (CSR)', desc: 'Chiến dịch đầu tư hỗ trợ phát triển tài năng trẻ Việt', icon: Heart }
                   ].map(item => (
-                    <Link key={item.label} href="/contact" onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
+                    <Link key={item.label} href={getLocalizedPath('/about')} onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
                       <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors duration-150">
                         <item.icon className="w-4 h-4" />
                       </div>
@@ -1384,7 +1384,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                     { label: 'Thông cáo báo chí', desc: 'Báo cáo tuyên ngôn hoạt động chính thức từ hội đồng', icon: Newspaper },
                     { label: 'Cơ hội Tuyển dụng', desc: 'Gia nhập cụm kỹ sư hạ tầng hàng đầu xây mây nội địa', icon: Users }
                   ].map(item => (
-                    <Link key={item.label} href="/contact" onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
+                    <Link key={item.label} href={getLocalizedPath('/about')} onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
                       <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors duration-150">
                         <item.icon className="w-4 h-4" />
                       </div>
@@ -1420,12 +1420,12 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
                   <div className="h-px bg-red-100 my-4" />
 
-                  <Link href="/contact" onClick={() => setActiveMenu(null)} className="w-full text-center py-2 bg-[#EE0033] hover:bg-[#FF302D] text-white flex items-center justify-center font-bold text-[13px] rounded-[8px] transition-colors">
+                  <Link href={getLocalizedPath('/contact')} onClick={() => setActiveMenu(null)} className="w-full text-center py-2 bg-[#EE0033] hover:bg-[#FF302D] text-white flex items-center justify-center font-bold text-[13px] rounded-[8px] transition-colors">
                     Đặt lịch tư vấn trực tiếp
                   </Link>
 
                   <div className="mt-3.5 text-center">
-                    <Link href="/contact" onClick={() => setActiveMenu(null)} className="text-[11.5px] text-gray-400 hover:text-[#EE0033] hover:underline">hoặc để lại thông tin liên hệ ngay →</Link>
+                    <Link href={getLocalizedPath('/contact')} onClick={() => setActiveMenu(null)} className="text-[11.5px] text-gray-400 hover:text-[#EE0033] hover:underline">hoặc để lại thông tin liên hệ ngay →</Link>
                   </div>
                 </div>
               </div>
@@ -1450,7 +1450,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                     { label: 'Ưu đãi chuyển đổi hạ tầng', desc: 'Miễn phí chuyển vùng từ các nhà cung cấp khác về Viettel IDC', icon: Zap },
                     { label: 'Đồng hành cùng Start-up', desc: 'Gói hỗ trợ hạ tầng mây lên tới 50.000.000đ cho DN mới thành lập', icon: Award }
                   ].map(item => (
-                    <Link key={item.label} href="/contact" onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
+                    <Link key={item.label} href={getLocalizedPath('/promotions')} onClick={() => setActiveMenu(null)} className="group flex gap-3.5 text-left p-1 rounded-[6px] hover:bg-gray-50/50 transition-all">
                       <div className="w-7 h-7 rounded bg-[#FAF5F6] text-[#EE0033] group-hover:bg-[#EE0033] group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors duration-150">
                         <item.icon className="w-4 h-4" />
                       </div>
@@ -1471,7 +1471,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
                 <div className="h-px bg-gray-100 my-4" />
                 <div className="pl-1">
-                  <Link href="/contact" onClick={() => setActiveMenu(null)} className="inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[#EE0033] hover:text-[#FF302D] hover:underline">
+                  <Link href={getLocalizedPath('/promotions')} onClick={() => setActiveMenu(null)} className="inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[#EE0033] hover:text-[#FF302D] hover:underline">
                     <span>Xem tất cả chương trình khuyến mại</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
@@ -1515,7 +1515,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
                   <div className="h-px bg-red-100 my-4" />
 
-                  <Link href="/contact" onClick={() => setActiveMenu(null)} className="w-full text-center py-2 bg-[#EE0033] hover:bg-[#FF302D] text-white flex items-center justify-center font-bold text-[13px] rounded-[8px] transition-colors">
+                  <Link href={getLocalizedPath('/promotions')} onClick={() => setActiveMenu(null)} className="w-full text-center py-2 bg-[#EE0033] hover:bg-[#FF302D] text-white flex items-center justify-center font-bold text-[13px] rounded-[8px] transition-colors">
                     Đăng ký nhận quà ngay
                   </Link>
 
@@ -1552,22 +1552,22 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
 
                 <div className="space-y-3">
                   <div className="text-[11px] font-extrabold text-gray-400 tracking-wider uppercase">ĐỀ MỤC CHÍNH</div>
-                  <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
+                  <Link href={getLocalizedPath('/services')} onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
                     Dịch vụ đám mây (Cloud)
                   </Link>
-                  <Link href="/solutions" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
+                  <Link href={getLocalizedPath('/solutions')} onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
                     Giải pháp nghiệp vụ
                   </Link>
-                  <Link href="/pricing" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
+                  <Link href={getLocalizedPath('/pricing')} onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
                     Bảng giá tổng quan
                   </Link>
-                  <Link href="/partners" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
+                  <Link href={getLocalizedPath('/partners')} onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
                     Hệ thống Đại lý / Đối tác
                   </Link>
-                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
+                  <Link href={getLocalizedPath('/contact')} onClick={() => setMobileMenuOpen(false)} className="block py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px]">
                     Yêu cầu cuộc gọi tư vấn
                   </Link>
-                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px] flex items-center gap-1.5">
+                  <Link href={getLocalizedPath('/contact')} onClick={() => setMobileMenuOpen(false)} className="py-1 text-gray-800 hover:text-[#EE0033] font-semibold text-[14px] flex items-center gap-1.5">
                     <span>Chương trình Khuyến mại</span>
                     <span className="bg-[#EE0033] text-white text-[8px] font-bold px-1 rounded-full flex items-center justify-center min-w-[14px] h-[14px]">
                       4
@@ -1581,7 +1581,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                   📖 Tài liệu kỹ thuật ↗
                 </a>
                 
-                <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block w-full py-2 bg-[#EE0033] text-[12.5px] font-bold text-center rounded-lg text-white">
+                <Link href={getLocalizedPath('/contact')} onClick={() => setMobileMenuOpen(false)} className="block w-full py-2 bg-[#EE0033] text-[12.5px] font-bold text-center rounded-lg text-white">
                   Đăng ký nhận tư vấn miễn phí
                 </Link>
               </div>
