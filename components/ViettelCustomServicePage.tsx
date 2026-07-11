@@ -877,11 +877,10 @@ export default function ViettelCustomServicePage({ slug }: ViettelCustomServiceP
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
-                whileHover={{ y: -5 }}
-                className={`bg-white rounded-3xl overflow-hidden flex flex-col justify-between transition-all duration-300 relative p-6 border ${
+                className={`bg-white rounded-2xl overflow-hidden flex flex-col justify-between transition-shadow duration-300 relative p-6 border ${
                   plan.featured 
-                    ? 'border-2 border-[#EE0033]/70 shadow-[0_16px_36px_rgba(238,0,51,0.08)] scale-[1.02] md:scale-[1.03] z-10' 
-                    : 'border-gray-200 hover:border-[#EE0033]/40 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]'
+                    ? 'border-gray-200 shadow-none hover:shadow-lg z-10' 
+                    : 'border-gray-200 hover:border-[#EE0033]/40 shadow-none hover:shadow-lg'
                 }`}
               >
                 <div>
@@ -929,11 +928,7 @@ export default function ViettelCustomServicePage({ slug }: ViettelCustomServiceP
                 <div className="space-y-3 pt-4 border-t border-gray-100 px-1">
                   <a 
                     href="/contact" 
-                    className={`w-full block py-3 text-center font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300 ${
-                      plan.featured
-                        ? 'bg-[#EE0033] hover:bg-[#FF1A4E] text-white shadow-[0_4px_14px_rgba(238,0,51,0.25)]'
-                        : 'border border-[#EE0033] hover:bg-[#EE0033] text-[#EE0033] hover:text-white bg-transparent'
-                    }`}
+                    className="w-full block py-3 text-center font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300 bg-[#EE0033] hover:bg-[#FF1A4E] text-white shadow-[0_4px_14px_rgba(238,0,51,0.25)] hover:shadow-[0_6px_20px_rgba(238,0,51,0.35)] hover:-translate-y-0.5"
                   >
                     Đăng ký ngay
                   </a>

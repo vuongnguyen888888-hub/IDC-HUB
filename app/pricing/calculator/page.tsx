@@ -245,13 +245,13 @@ function PricingCalculatorPageContent() {
                   href="https://console.viettelidc.com.vn"
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex-1 py-2.5 bg-[#EE0033] hover:bg-[#FF302D] text-white rounded text-center text-xs font-bold uppercase transition-all-200 shadow-md"
+                  className="flex-1 py-2.5 bg-[#EE0033] hover:bg-[#FF302D] text-white rounded-[8px] text-center text-xs font-bold uppercase transition-all-200 shadow-md"
                 >
                   Khởi chạy VM
                 </a>
                 <button 
                   onClick={() => window.print()}
-                  className="px-3 py-2 bg-white/10 border border-white/15 hover:bg-white/20 text-white rounded transition-all-200"
+                  className="px-3 py-2 bg-white/10 border border-white/15 hover:bg-white/20 text-white rounded-[8px] transition-all-200"
                   title="In báo giá dự toán"
                 >
                   <Printer className="w-4 h-4" />

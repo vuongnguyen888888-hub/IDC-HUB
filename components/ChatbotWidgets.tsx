@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Sparkles, Headset, Send, X, Paperclip, Phone, Bot, User, Check, AlertCircle, RefreshCw, Smile, ArrowRight, CornerDownLeft
@@ -272,9 +273,11 @@ export default function ChatbotWidgets() {
               <div id="consultant-chat-header" className="bg-[#1A1A1A] p-5 text-white relative border-b border-white/10">
                 <div className="flex items-center space-x-3.5">
                   <div className="relative">
-                    <img 
+                    <Image 
                       src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&h=150&q=80"
                       alt="Consultant Nguyen Minh Thu"
+                      width={44}
+                      height={44}
                       className="w-11 h-11 rounded-2xl object-cover border-2 border-[#EE0033]/80"
                       referrerPolicy="no-referrer"
                     />
@@ -345,9 +348,11 @@ export default function ChatbotWidgets() {
                         {msg.sender === 'bot' ? (
                           <Sparkles className="w-3.5 h-3.5" />
                         ) : (
-                          <img 
+                          <Image 
                             src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&h=150&q=80"
                             alt="avatar"
+                            width={28}
+                            height={28}
                             className="w-full h-full object-cover rounded-lg"
                             referrerPolicy="no-referrer"
                           />

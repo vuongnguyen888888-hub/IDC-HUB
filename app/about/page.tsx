@@ -741,7 +741,7 @@ export default function AboutPage() {
           </div>
           <Link 
             href={getLocalizedPath('/contact')} 
-            className="bg-[#EE0033] hover:bg-[#FF1A4E] text-white px-6 py-3 rounded-full font-bold text-xs md:text-sm flex items-center gap-2 whitespace-nowrap shadow-sm transition-all duration-300 self-start lg:self-center cursor-pointer"
+            className="bg-[#EE0033] hover:bg-[#FF1A4E] text-white px-6 py-3 rounded-[8px] font-bold text-xs md:text-sm flex items-center gap-2 whitespace-nowrap shadow-sm transition-all duration-300 self-start lg:self-center cursor-pointer"
           >
             <span>{isGlobal ? 'Apply Now &rarr;' : 'Gửi hồ sơ Ứng tuyển ngay &rarr;'}</span>
           </Link>

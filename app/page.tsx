@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useMarket } from '../hooks/useMarket';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
 const NetworkMap = dynamic(() => import('../components/NetworkMap'), {
@@ -20,7 +21,8 @@ import {
   ArrowRight, Search, Cpu, Database, HardDrive, Layers, Globe, Shield, 
   Activity, Briefcase, HelpCircle, Mail, ExternalLink, Lock, CheckCircle2, ChevronRight, HelpCircle as HelpIcon, Sparkles,
   Cloud, Server, Network, Settings, FileCheck, GitBranch, RefreshCw, ChevronLeft, ShoppingBag, Heart, GraduationCap, Building2, Check,
-  ChevronDown, ArrowLeft, MapPin, User, Phone, Home, Zap, Clock, Wind
+  ChevronDown, ArrowLeft, MapPin, User, Phone, Home, Zap, Clock, Wind, Landmark, HeartPulse, Wallet,
+  Award, ShieldCheck, Leaf
 } from 'lucide-react';
 
 import Navbar from '../components/Navbar';
@@ -134,7 +136,7 @@ const INDUSTRIES_DATA = [
     overlayColor: "rgba(13, 18, 34, 0.82)",
     stories: ["BIDV Card", "VietinBank Cloud"],
     products: ["Sovereign Cloud", "High-Perf DB"],
-    bottomIcon: Shield,
+    bottomIcon: Wallet,
   },
   {
     id: "ecommerce",
@@ -174,7 +176,7 @@ const INDUSTRIES_DATA = [
     overlayColor: "rgba(2, 31, 24, 0.85)",
     stories: ["National EHR DB", "Smart Hospital"],
     products: ["Dedicated Cloud", "Secure Storage"],
-    bottomIcon: Heart,
+    bottomIcon: HeartPulse,
   },
   {
     id: "education",
@@ -214,7 +216,7 @@ const INDUSTRIES_DATA = [
     overlayColor: "rgba(8, 13, 25, 0.85)",
     stories: ["National Identity", "Command Command SOC"],
     products: ["Sovereign Private", "SOC Cyber Security"],
-    bottomIcon: Building2,
+    bottomIcon: Landmark,
   }
 ];
 
@@ -231,7 +233,7 @@ const DATA_CENTERS = [
     x: 188,
     y: 130,
     city: 'Toàn quốc',
-    image: 'https://res.cloudinary.com/dpyizq1m2/image/upload/v1782201373/TTDL-2_jp8san.png',
+    image: 'https://res.cloudinary.com/dpyizq1m2/image/upload/v1783680776/dc4_htko3y.jpg',
     detailSpecs: {
       power: 'Hạ tầng nguồn điện song hành quốc gia kết hợp hệ thống điện dự phòng độc lập UPS 2N+1',
       cooling: 'Công nghệ làm lạnh Chilled Water tuần hoàn thông minh, tối ưu hóa chỉ số PUE hàng đầu Đông Nam Á',
@@ -417,9 +419,9 @@ const DATACENTER_VIEWS = [
     name: 'Hệ thống TTDL',
     tag: 'TỔNG QUAN HỆ THỐNG',
     desc: 'Mạng lưới hạ tầng điện toán đám mây thế hệ mới của Viettel IDC, phân bổ chiến lược tại Bắc - Trung - Nam, đáp ứng tiêu chuẩn khắt khe nhất toàn cầu.',
-    image: 'https://res.cloudinary.com/dpyizq1m2/image/upload/v1782201373/TTDL-2_jp8san.png',
+    image: 'https://res.cloudinary.com/dpyizq1m2/image/upload/v1783680776/dc4_htko3y.jpg',
     type: 'overview',
-    thumbnail: 'https://res.cloudinary.com/dpyizq1m2/image/upload/v1782201373/TTDL-2_jp8san.png',
+    thumbnail: 'https://res.cloudinary.com/dpyizq1m2/image/upload/v1783680776/dc4_htko3y.jpg',
     metrics: [
       { label: 'Quy mô facility', value: '57,250 m²' },
       { label: 'Công suất nguồn', value: '350 MW' },
@@ -785,13 +787,13 @@ const AWARDS_DATA = [
   {
     title: "Doanh nghiệp Chuyển đổi số",
     tag: "VIETNAM DIGITAL AWARDS",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/National_Emblem_of_Vietnam.svg/320px-National_Emblem_of_Vietnam.svg.png",
+    image: "https://vdca.org.vn/wp-content/uploads/2021/04/vda.png",
     desc: "Được ghi nhận là đơn vị tiên phong kiến tạo các nền tảng chuyển đổi số quốc gia."
   },
   {
     title: "Dịch vụ Cloud xuất sắc",
     tag: "SAO KHUÊ 2023",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/National_Emblem_of_Vietnam.svg/320px-National_Emblem_of_Vietnam.svg.png",
+    image: "https://vinasa.org.vn/wp-content/uploads/2020/04/Logo-Sao-Khue.png",
     desc: "Sản phẩm Viettel Cloud Server xuất sắc đạt điểm tuyệt đối từ hội đồng bình chọn."
   },
   {
@@ -809,7 +811,7 @@ const AWARDS_DATA = [
   {
     title: "Top 10 Doanh nghiệp CNTT",
     tag: "VINASA",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/National_Emblem_of_Vietnam.svg/320px-National_Emblem_of_Vietnam.svg.png",
+    image: "https://vinasa.org.vn/wp-content/uploads/2020/03/Logo-Vinasa.png",
     desc: "Liên tiếp lọt top doanh nghiệp cung cấp hạ tầng số và đám mây lớn nhất Việt Nam."
   },
   {
@@ -821,22 +823,363 @@ const AWARDS_DATA = [
   {
     title: "Thương hiệu Quốc gia VN",
     tag: "HỘI ĐỒNG THƯƠNG HIỆU",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/National_Emblem_of_Vietnam.svg/320px-National_Emblem_of_Vietnam.svg.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Vietnam_Value_Logo.svg/320px-Vietnam_Value_Logo.svg.png",
     desc: "Thương hiệu quốc gia duy nhất trong lĩnh vực Trung tâm dữ liệu và Điện toán đám mây."
   },
   {
     title: "Sản phẩm Công nghệ xanh",
     tag: "VIETNAM GREEN IT",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Logo_ISO_9001.png/320px-Logo_ISO_9001.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Leaf_icon_1.svg/320px-Leaf_icon_1.svg.png",
     desc: "Chứng nhận nỗ lực tối ưu năng lượng và bảo vệ môi trường của các TTDL thế hệ mới."
   },
   {
     title: "An ninh thông tin xuất sắc",
     tag: "CYBER SECURITY AWARD",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/PCI-DSS-logo.png/320px-PCI-DSS-logo.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Open-source-security-logo.svg/320px-Open-source-security-logo.svg.png",
     desc: "Nhà cung cấp giải pháp bảo mật đám mây và phòng chống tấn công DDoS tốt nhất."
   }
 ];
+
+function SafeCertImage({ src, alt, tag }: { src: string; alt: string; tag: string }) {
+  const normTag = tag.toUpperCase().trim();
+
+  // 1. ISO 27001
+  if (normTag === "ISO 27001") {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#F0F5FF"/>
+          <circle cx="24" cy="24" r="18" stroke="#1E3A8A" strokeWidth="2.5"/>
+          <rect x="11" y="19" width="26" height="7" rx="1.5" fill="#1E3A8A"/>
+          <text x="24" y="24.5" fill="#FFFFFF" fontSize="5.5" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">ISO</text>
+          <text x="24" y="34.5" fill="#1E3A8A" fontSize="6" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">27001</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 2. ISO 9001
+  if (normTag === "ISO 9001") {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#EFF6FF"/>
+          <circle cx="24" cy="24" r="18" stroke="#00529B" strokeWidth="2.5"/>
+          <rect x="11" y="19" width="26" height="7" rx="1.5" fill="#00529B"/>
+          <text x="24" y="24.5" fill="#FFFFFF" fontSize="5.5" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">ISO</text>
+          <text x="24" y="34.5" fill="#00529B" fontSize="6" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">9001</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 3. ISO 50001
+  if (normTag === "ISO 50001") {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#F0FDF4"/>
+          <circle cx="24" cy="24" r="18" stroke="#15803D" strokeWidth="2.5"/>
+          <rect x="11" y="19" width="26" height="7" rx="1.5" fill="#15803D"/>
+          <text x="24" y="24.5" fill="#FFFFFF" fontSize="5.5" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">ISO</text>
+          <text x="24" y="34.5" fill="#15803D" fontSize="6" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">50001</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 4. ISO 20000
+  if (normTag === "ISO 20000") {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#F8FAFC"/>
+          <circle cx="24" cy="24" r="18" stroke="#334155" strokeWidth="2.5"/>
+          <rect x="11" y="19" width="26" height="7" rx="1.5" fill="#334155"/>
+          <text x="24" y="24.5" fill="#FFFFFF" fontSize="5.5" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">ISO</text>
+          <text x="24" y="34.5" fill="#334155" fontSize="6" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">20000</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 5. ISO 27017
+  if (normTag === "ISO 27017") {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#ECFDF5"/>
+          <circle cx="24" cy="24" r="18" stroke="#047857" strokeWidth="2.5"/>
+          <rect x="11" y="19" width="26" height="7" rx="1.5" fill="#047857"/>
+          <text x="24" y="24.5" fill="#FFFFFF" fontSize="5.5" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">ISO</text>
+          <text x="24" y="34.5" fill="#047857" fontSize="6" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">27017</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 6. ISO 27018
+  if (normTag === "ISO 27018") {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#FAF5FF"/>
+          <circle cx="24" cy="24" r="18" stroke="#6D28D9" strokeWidth="2.5"/>
+          <rect x="11" y="19" width="26" height="7" rx="1.5" fill="#6D28D9"/>
+          <text x="24" y="24.5" fill="#FFFFFF" fontSize="5.5" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">ISO</text>
+          <text x="24" y="34.5" fill="#6D28D9" fontSize="6" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">27018</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 7. ISO 22301
+  if (normTag === "ISO 22301") {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#FFFBEB"/>
+          <circle cx="24" cy="24" r="18" stroke="#B45309" strokeWidth="2.5"/>
+          <rect x="11" y="19" width="26" height="7" rx="1.5" fill="#B45309"/>
+          <text x="24" y="24.5" fill="#FFFFFF" fontSize="5.5" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">ISO</text>
+          <text x="24" y="34.5" fill="#B45309" fontSize="6" fontWeight="900" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="middle">22301</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 8. ANSI/TIA-942 R3
+  if (normTag.includes("TIA-942") || normTag.includes("TIA 942")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#F0F9FF"/>
+          <path d="M12 14h24v4H12zM12 22h24v4H12zM12 30h24v4H12z" fill="#0284C7"/>
+          <circle cx="16" cy="16" r="1" fill="#FFFFFF"/>
+          <circle cx="16" cy="24" r="1" fill="#FFFFFF"/>
+          <circle cx="16" cy="32" r="1" fill="#FFFFFF"/>
+          <text x="32" y="17" fill="#FFFFFF" fontSize="3.5" fontWeight="bold" fontFamily="sans-serif" textAnchor="end">942</text>
+          <text x="32" y="25" fill="#FFFFFF" fontSize="3.5" fontWeight="bold" fontFamily="sans-serif" textAnchor="end">TIA</text>
+          <text x="32" y="33" fill="#FFFFFF" fontSize="3.5" fontWeight="bold" fontFamily="sans-serif" textAnchor="end">R3</text>
+          <rect x="6" y="38" width="36" height="6" rx="1" fill="#0369A1"/>
+          <text x="24" y="42.5" fill="#FFFFFF" fontSize="3.5" fontWeight="black" fontFamily="sans-serif" textAnchor="middle">ANSI/TIA-942</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 9. PCI-DSS
+  if (normTag.includes("PCI")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#FEF2F2"/>
+          <rect x="8" y="20" width="32" height="20" rx="3" fill="#0F172A"/>
+          <path d="M16 20v-6a8 8 0 1116 0v6" stroke="#475569" strokeWidth="3" fill="none"/>
+          <circle cx="24" cy="28" r="2.5" fill="#EF4444"/>
+          <rect x="22.5" y="29" width="3" height="6" rx="1" fill="#EF4444"/>
+          <text x="24" y="39" fill="#FFFFFF" fontSize="5" fontWeight="black" fontFamily="sans-serif" textAnchor="middle">PCI-DSS</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 10. HIPAA COMPLIANT
+  if (normTag.includes("HIPAA")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#F0FDF4"/>
+          <path d="M24 6L10 11v13c0 8.2 6 15.8 14 18.6 8-2.8 14-10.4 14-18.6V11L24 6z" fill="#059669"/>
+          <path d="M24 14v16M16 22h16" stroke="#FFFFFF" strokeWidth="4.5" strokeLinecap="round"/>
+          <text x="24" y="42" fill="#064E3B" fontSize="4.5" fontWeight="black" fontFamily="sans-serif" textAnchor="middle">HIPAA</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // --- AWARDS ---
+
+  // 11. FROST & SULLIVAN
+  if (normTag.includes("FROST") || normTag.includes("SULLIVAN")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#FFFBEB"/>
+          <circle cx="24" cy="22" r="14" stroke="#D97706" strokeWidth="1.5" strokeDasharray="2 2"/>
+          <path d="M24 10l3.5 7.5 8 1-6 5.5 1.5 8-7-4.5-7 4.5 1.5-8-6-5.5 8-1 3.5-7.5z" fill="#D97706"/>
+          <text x="24" y="43" fill="#78350F" fontSize="4.5" fontWeight="black" fontFamily="sans-serif" textAnchor="middle">FROST</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 12. VIETNAM DIGITAL AWARDS
+  if (normTag.includes("DIGITAL") || normTag.includes("VDA")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#FAF5FF"/>
+          <path d="M24 6l14 24H10L24 6z" fill="#6D28D9"/>
+          <path d="M24 12l9 15H15l9-15z" fill="#A78BFA"/>
+          <circle cx="24" cy="21" r="3.5" fill="#FFFFFF"/>
+          <text x="24" y="42" fill="#581C87" fontSize="5.5" fontWeight="black" fontFamily="sans-serif" textAnchor="middle">VDA</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 13. SAO KHUÊ
+  if (normTag.includes("SAO KHUÊ") || normTag.includes("SAO KHUE")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#FFFDF0"/>
+          <path d="M24 5l4.5 10 10.5 1.5-7.5 7 2 10.5-9.5-5-9.5 5 2-10.5-7.5-7 10.5-1.5L24 5z" fill="url(#goldGradient)"/>
+          <circle cx="24" cy="22" r="4" fill="#EE0033"/>
+          <text x="24" y="43" fill="#EE0033" fontSize="5" fontWeight="black" fontFamily="sans-serif" textAnchor="middle">SAO KHUÊ</text>
+          <defs>
+            <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#FBBF24"/>
+              <stop offset="100%" stopColor="#D97706"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    );
+  }
+
+  // 14. STEVIE AWARDS
+  if (normTag.includes("STEVIE")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#FFFBEB"/>
+          <path d="M24 15a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM24 18c-3 0-5.5 2.5-5.5 5.5v7h11v-7c0-3-2.5-5.5-5.5-5.5z" fill="#D97706"/>
+          <path d="M15 19s4-3 9-3 9 3 9 3M24 30.5v8h-5v2h10v-2h-5v-8" stroke="#D97706" strokeWidth="2" strokeLinecap="round"/>
+          <text x="24" y="45" fill="#78350F" fontSize="5" fontWeight="black" fontFamily="sans-serif" textAnchor="middle">STEVIE</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 15. BỘ THÔNG TIN & TRUYỀN THÔNG (Vietnam National Emblem / Red star)
+  if (normTag.includes("THÔNG TIN") || normTag.includes("BỘ") || normTag.includes("NATIONAL EMBLEM")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#FEF2F2"/>
+          <circle cx="24" cy="24" r="17" fill="#EE0033"/>
+          <path d="M24 11l3.5 8.5h9l-7 5.5 2.5 9-8-6-8 6 2.5-9-7-5.5h9L24 11z" fill="#FBBF24"/>
+        </svg>
+      </div>
+    );
+  }
+
+  // 16. VINASA
+  if (normTag.includes("VINASA")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#F0F9FF"/>
+          <circle cx="24" cy="22" r="14" stroke="#0284C7" strokeWidth="2"/>
+          <path d="M16 22h16M24 14v16" stroke="#0284C7" strokeWidth="1.5"/>
+          <circle cx="24" cy="22" r="4.5" fill="#0284C7"/>
+          <text x="24" y="43" fill="#0C4A6E" fontSize="5" fontWeight="black" fontFamily="sans-serif" textAnchor="middle">VINASA</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 17. QUALCOMM ACCELERATE
+  if (normTag.includes("QUALCOMM")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#F0F9FF"/>
+          <circle cx="24" cy="20" r="11" stroke="#0284C7" strokeWidth="3.5"/>
+          <path d="M28 24l8 8" stroke="#0284C7" strokeWidth="4.5" strokeLinecap="round"/>
+          <text x="24" y="44" fill="#0C4A6E" fontSize="4.5" fontWeight="black" fontFamily="sans-serif" textAnchor="middle">QUALCOMM</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 18. HỘI ĐỒNG THƯƠNG HIỆU (Vietnam Value Logo)
+  if (normTag.includes("HỘI ĐỒNG") || normTag.includes("THƯƠNG HIỆU") || normTag.includes("VALUE")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#ECFDF5"/>
+          <path d="M11 15l13 22 13-22h-6l-7 11-7-11H11z" fill="#10B981"/>
+          <path d="M17 9l7 11 7-11h-4l-3 5-3-5h-4z" fill="#059669"/>
+          <text x="24" y="44" fill="#064E3B" fontSize="4.5" fontWeight="black" fontFamily="sans-serif" textAnchor="middle">VIETNAM VALUE</text>
+        </svg>
+      </div>
+    );
+  }
+
+  // 19. VIETNAM GREEN IT
+  if (normTag.includes("GREEN") || normTag.includes("LEAF") || normTag.includes("GREEN IT")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#F0FDF4"/>
+          <path d="M24 38c7.7 0 14-6.3 14-14 0-11-14-20-14-20S10 13 10 24c0 7.7 6.3 14 14 14z" fill="#22C55E"/>
+          <path d="M24 12v26M24 20c4 0 6 2 6 4M24 26c-4 0-6 2-6 4" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round"/>
+        </svg>
+      </div>
+    );
+  }
+
+  // 20. CYBER SECURITY AWARD
+  if (normTag.includes("SECURITY") || normTag.includes("CYBER")) {
+    return (
+      <div className="w-full h-full bg-white flex items-center justify-center p-0.5">
+        <svg viewBox="0 0 48 48" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#F8FAFC"/>
+          <path d="M24 6L10 11v13c0 8.2 6 15.8 14 18.6 8-2.8 14-10.4 14-18.6V11L24 6z" fill="#334155"/>
+          <circle cx="24" cy="22" r="5" fill="#06B6D4"/>
+          <path d="M21 22v4h6v-4" stroke="#FFFFFF" strokeWidth="1.5" fill="none"/>
+        </svg>
+      </div>
+    );
+  }
+
+  // Default fallback if some other tag is parsed
+  return (
+    <div className={`w-full h-full flex flex-col items-center justify-center p-1.5 bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200 rounded-xl shadow-inner text-center`}>
+      <Award className="w-5 h-5 mb-0.5 text-gray-500" />
+      <span className="text-[9px] font-black tracking-tighter leading-none uppercase truncate max-w-full px-0.5 text-gray-700">
+        {tag}
+      </span>
+    </div>
+  );
+}
+
+function SafePartnerImage({ src, alt, logoText, logoBg }: { src: string; alt: string; logoText: string; logoBg: string }) {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError || !src) {
+    return (
+      <div className={`px-3 py-1.5 rounded-lg text-xs font-black tracking-wider shadow-sm select-none border border-current/10 ${logoBg}`}>
+        {logoText}
+      </div>
+    );
+  }
+
+  return (
+    <Image 
+      src={src} 
+      alt={alt}
+      width={120}
+      height={40}
+      onError={() => setHasError(true)}
+      className="max-w-[85%] max-h-[85%] object-contain grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+      referrerPolicy="no-referrer"
+    />
+  );
+}
 
 function HomepageContent() {
   const searchParams = useSearchParams();
@@ -920,7 +1263,7 @@ function HomepageContent() {
     }, 7000); // Cycle every 7 seconds
     return () => clearInterval(timer);
   }, [isHoveringIndustry]);
-  const [showAllServices, setShowAllServices] = useState(false);
+  const [activeServicePage, setActiveServicePage] = useState(0);
   const [activeDCIndex, setActiveDCIndex] = useState(0);
   const [showDCModal, setShowDCModal] = useState(false);
   const [selectedDCData, setSelectedDCData] = useState<any>(null);
@@ -1011,11 +1354,11 @@ function HomepageContent() {
             <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-start space-y-3 sm:space-y-0 sm:space-x-4">
               <Link 
                 href={getLocalizedPath('/contact')} 
-                className="group relative inline-flex items-center justify-center gap-2 px-7 py-3 bg-[#EE0033] text-white font-bold text-sm tracking-wider rounded-full shadow-[0_4px_14px_rgba(238,0,51,0.4)] transition-all duration-300 hover:bg-[#FF1A4E] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-[0_6px_20px_rgba(238,0,51,0.5)] focus:outline-none focus:ring-2 focus:ring-[#EE0033]/50 focus:ring-offset-2 focus:ring-offset-[#1A1A1A]"
+                className="group relative inline-flex items-center justify-center gap-2 px-7 py-3 bg-[#EE0033] text-white font-bold text-sm tracking-wider rounded-[8px] shadow-[0_4px_14px_rgba(238,0,51,0.4)] transition-all duration-300 hover:bg-[#FF1A4E] hover:-translate-y-0.5 active:translate-y-0 hover:shadow-[0_6px_20px_rgba(238,0,51,0.5)] focus:outline-none focus:ring-2 focus:ring-[#EE0033]/50 focus:ring-offset-2 focus:ring-offset-[#1A1A1A]"
               >
                 <span>{isGlobal ? 'Get Started' : 'Xem thêm'}</span>
-                <span className="w-3.5 h-3.5 rounded-full border border-white/60 flex items-center justify-center text-[8px] font-bold group-hover:border-white group-hover:scale-110 transition-all duration-300">
-                  ○
+                <span className="inline-flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
+                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                 </span>
               </Link>
             </div>
@@ -1047,10 +1390,12 @@ function HomepageContent() {
                     className="flex items-center grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300 group cursor-pointer"
                     title={logo.name}
                   >
-                    <img 
+                    <Image 
                       src={logo.src} 
                       alt={logo.name} 
-                      className="h-7 md:h-8 max-w-[130px] object-contain transition-transform duration-300 group-hover:scale-105"
+                      width={130}
+                      height={32}
+                      className="h-7 md:h-8 max-w-[130px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                       referrerPolicy="no-referrer"
                     />
                   </div>
@@ -1065,10 +1410,12 @@ function HomepageContent() {
                     className="flex items-center grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300 group cursor-pointer"
                     title={logo.name}
                   >
-                    <img 
+                    <Image 
                       src={logo.src} 
                       alt={logo.name} 
-                      className="h-7 md:h-8 max-w-[130px] object-contain transition-transform duration-300 group-hover:scale-105"
+                      width={130}
+                      height={32}
+                      className="h-7 md:h-8 max-w-[130px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                       referrerPolicy="no-referrer"
                     />
                   </div>
@@ -1083,12 +1430,12 @@ function HomepageContent() {
       <section className="py-16 md:py-20 bg-[#FAFAFA] border-b border-gray-200/50">
         <div className="ali-container space-y-12">
           
-          {/* Header styled exactly like mockup */}
-          <div className="text-left w-full space-y-2 mb-10">
-            <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">
+          {/* Section Header */}
+          <div className="text-left space-y-3 max-w-3xl mb-8">
+            <span className="text-[#EE0033] font-black text-[10px] uppercase tracking-[0.18em] block bg-[#EE0033]/8 px-3.5 py-1.5 rounded-full w-max leading-none">
               {isGlobal ? 'SERVICE PORTFOLIO' : 'DANH MỤC TOÀN DIỆN'}
             </span>
-            <h2 id="services-section-title" className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
+            <h2 id="services-section-title" className="text-3xl md:text-[42px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
               {isGlobal ? 'Standard International Service Portfolio' : 'Danh mục dịch vụ chuẩn quốc tế'}
             </h2>
             <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
@@ -1100,107 +1447,151 @@ function HomepageContent() {
             </p>
           </div>
 
-          {/* 4 Cards per Row exactly as the mockup */}
-          <div className="ali-grid-4">
-            {SERVICE_CATEGORIES.slice(0, showAllServices ? undefined : 8).map((cat, i) => {
-              // Map icons precisely matching the mockup
-              let IconComponent = Cpu;
-              if (cat.slug === 'compute') IconComponent = Cloud;
-              else if (cat.slug === 'data-center') IconComponent = Server;
-              else if (cat.slug === 'storage') IconComponent = Database;
-              else if (cat.slug === 'data-platform') IconComponent = Cpu;
-              else if (cat.slug === 'networking') IconComponent = Network;
-              else if (cat.slug === 'security') IconComponent = Shield;
-              else if (cat.slug === 'cloud-operations') IconComponent = Settings;
-              else if (cat.slug === 'digital-services') IconComponent = FileCheck;
-              else if (cat.slug === 'managed-services') IconComponent = GitBranch;
-              else IconComponent = RefreshCw; // 'domain' standard fallback
+          {/* Header Control Bar */}
+          <div className="flex items-center justify-between mb-3 pr-2">
+            {/* Elegant link on the left */}
+            <div className="text-[13px] font-bold text-[#EE0033] hover:text-[#D0002D] transition-colors cursor-pointer flex items-center gap-1.5 pl-1 select-none group">
+              <span>{isGlobal ? 'Explore all services' : 'Xem tất cả nhóm dịch vụ'}</span>
+              <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1" />
+            </div>
 
-              return (
-                <Link 
-                  key={cat.id}
-                  href={`/services/${cat.slug}`}
-                  className="bg-white rounded-2xl p-6 md:p-8 flex flex-col justify-between border border-gray-200/80 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
-                >
-                  <div className="space-y-6">
-                    {/* Icon container styled exactly like mockup */}
-                    <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[#FAFAFA] text-[#EE0033] border border-gray-100 transition-all duration-300 group-hover:bg-[#FFF0F2] group-hover:border-[#FCD9D8]">
-                      <IconComponent className="w-5 h-5 stroke-[1.8]" />
-                    </div>
+            {/* Elegant compact Pagination Controllers */}
+            <div className="flex items-center gap-2 bg-white/95 backdrop-blur-md p-1.5 px-2.5 rounded-[14px] border border-gray-200/60 shadow-xs">
+              <span className="text-[11px] font-mono font-bold tracking-wider text-gray-500 mr-1.5 pl-1.5 select-none">
+                0{activeServicePage + 1} / 02
+              </span>
+              
+              <button
+                onClick={() => setActiveServicePage((prev) => (prev === 0 ? 1 : 0))}
+                className="w-8 h-8 rounded-[8px] border border-gray-200 bg-white flex items-center justify-center text-gray-600 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 transition-all outline-none cursor-pointer"
+                aria-label="Previous page"
+              >
+                <ArrowLeft className="w-4 h-4 stroke-[2]" />
+              </button>
 
-                    <div className="space-y-2">
-                      <h3 className="font-bold text-sm md:text-base text-gray-950 tracking-tight">
-                        {cat.name}
-                      </h3>
-                      <p className="text-xs text-gray-500 leading-relaxed">
-                        {cat.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Footers of cards matching the mockup layout */}
-                  <div className="pt-6 mt-6">
-                    <span className="text-xs font-bold text-[#EE0033] inline-flex items-center gap-1.5 transition-all duration-300">
-                      <span className="w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden whitespace-nowrap">
-                        Xem chi tiết
-                      </span>
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
+              <button
+                onClick={() => setActiveServicePage((prev) => (prev === 0 ? 1 : 0))}
+                className="w-8 h-8 rounded-[8px] border border-gray-200 bg-white flex items-center justify-center text-gray-600 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 transition-all outline-none cursor-pointer"
+                aria-label="Next page"
+              >
+                <ArrowRight className="w-4 h-4 stroke-[2]" />
+              </button>
+            </div>
           </div>
 
-          {/* VIEW MORE / SHOW LESS BUTTON WITH ULTRA HIGH POLISHED INTERACTION */}
-          <div className="flex justify-end pt-8">
-            <button
-              onClick={() => setShowAllServices(!showAllServices)}
-              className="inline-flex items-center gap-2 border border-gray-200 bg-white hover:bg-gray-50 text-gray-800 py-3 px-8 rounded-full font-bold text-sm shadow-sm hover:shadow transition-all duration-300 active:scale-95 outline-none cursor-pointer group"
+          {/* Cards with smooth slide transition using AnimatePresence */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeServicePage}
+              initial={{ opacity: 0, x: activeServicePage === 0 ? -15 : 15 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: activeServicePage === 0 ? 15 : -15 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="ali-grid-4"
             >
-              <span>{showAllServices ? 'Thu gọn danh mục' : 'Xem thêm nhóm dịch vụ'}</span>
-              <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${showAllServices ? 'rotate-180 text-[#EE0033]' : 'group-hover:translate-y-0.5 group-hover:text-[#EE0033]'}`} />
-            </button>
-          </div>
+              {(activeServicePage === 0 ? SERVICE_CATEGORIES.slice(0, 8) : SERVICE_CATEGORIES.slice(8, 10)).map((cat, i) => {
+                // Map icons precisely matching the mockup
+                let IconComponent = Cpu;
+                if (cat.slug === 'compute') IconComponent = Cloud;
+                else if (cat.slug === 'data-center') IconComponent = Server;
+                else if (cat.slug === 'storage') IconComponent = Database;
+                else if (cat.slug === 'data-platform') IconComponent = Cpu;
+                else if (cat.slug === 'networking') IconComponent = Network;
+                else if (cat.slug === 'security') IconComponent = Shield;
+                else if (cat.slug === 'cloud-operations') IconComponent = Settings;
+                else if (cat.slug === 'digital-services') IconComponent = FileCheck;
+                else if (cat.slug === 'managed-services') IconComponent = GitBranch;
+                else IconComponent = RefreshCw; // 'domain' standard fallback
+
+                return (
+                  <Link 
+                    key={cat.id}
+                    href={`/services/${cat.slug}`}
+                    className="bg-white rounded-[14px] p-6 md:p-8 flex flex-col justify-between border border-gray-200/80 hover:border-[#EE0033]/60 hover:shadow-[0_8px_30px_rgba(238,0,51,0.15)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
+                  >
+                    <div className="space-y-6">
+                      {/* Icon container styled exactly like mockup */}
+                      <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[#FAFAFA] text-[#EE0033] border border-gray-100 transition-all duration-300 group-hover:bg-[#FFF0F2] group-hover:border-[#FCD9D8]">
+                        <IconComponent className="w-5 h-5 stroke-[1.8]" />
+                      </div>
+
+                      <div className="space-y-2">
+                        <h3 className="font-bold text-sm md:text-base text-gray-950 tracking-tight">
+                          {cat.name}
+                        </h3>
+                        <p className="text-xs text-gray-500 leading-relaxed">
+                          {cat.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Footers of cards matching the mockup layout */}
+                    <div className="pt-6 mt-6">
+                      <span className="text-xs font-bold text-[#EE0033] inline-flex items-center gap-1.5 transition-all duration-300">
+                        <span className="w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-300 overflow-hidden whitespace-nowrap">
+                          {isGlobal ? 'Details' : 'Xem chi tiết'}
+                        </span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
 
       {/* SECTION 4: 8 BỘ GIẢI PHÁP CAROUSEL */}
-      <section className="py-16 bg-white border-b border-gray-100 relative overflow-hidden">
-        {/* Subtle grid elements matching design theme */}
-        <div className="absolute inset-0 bg-[radial-gradient(#E5E7EB_1px,transparent_1px)] [background-size:16px_16px] opacity-30 pointer-events-none" />
+      <section className="py-16 md:py-20 bg-white border-b border-gray-100 relative">
         
         <div className="ali-container relative z-10 space-y-12">
           
-          {/* Header block with next/prev buttons aligned to the right! */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="space-y-3 max-w-2xl">
-              <span className="text-[#EE0033] font-bold text-xs uppercase tracking-wider block">TỐI ƯU VẬN HÀNH</span>
-              <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight md:whitespace-nowrap">
-                Giải pháp chuyên sâu cho doanh nghiệp
-              </h2>
-              <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
-                Kiến tạo hạ tầng số an toàn, bảo mật và đáp ứng đầy đủ tiêu chuẩn khắt khe nhất của mọi doanh nghiệp.
-              </p>
-            </div>
+          {/* Section Header */}
+          <div className="text-left space-y-3 max-w-3xl mb-8">
+            <span className="text-[#EE0033] font-black text-[10px] uppercase tracking-[0.18em] block bg-[#EE0033]/8 px-3.5 py-1.5 rounded-full w-max leading-none">
+              TỐI ƯU VẬN HÀNH
+            </span>
+            <h2 className="text-3xl md:text-[42px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
+              Giải pháp chuyên sâu cho doanh nghiệp
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
+              Kiến tạo hạ tầng số an toàn, bảo mật và đáp ứng đầy đủ tiêu chuẩn khắt khe nhất của mọi doanh nghiệp.
+            </p>
+          </div>
 
-            {/* Navigation Slide Buttons aligned to top right */}
-            <div className="flex items-center gap-3 self-start md:self-end">
+          <div className="flex items-center justify-between mb-3 pr-2">
+            {/* Elegant link on the left */}
+            <Link
+              href="/solutions"
+              className="text-[13px] font-bold text-[#EE0033] hover:text-[#D0002D] transition-colors cursor-pointer flex items-center gap-1.5 pl-1 select-none group"
+            >
+              <span>Xem tất cả giải pháp</span>
+              <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+
+            {/* Elegant compact Pagination Controllers - placed close to the card */}
+            <div className="flex items-center gap-2 bg-white/95 backdrop-blur-md p-1.5 px-2.5 rounded-[14px] border border-gray-200/60 shadow-xs">
+              <span className="text-[11px] font-mono font-bold tracking-wider text-gray-500 mr-1.5 pl-1.5 select-none">
+                0{activeDot + 1} / 02
+              </span>
+              
               <button
                 id="btn-prev-slide"
                 onClick={() => scroll('left')}
-                className="w-11 h-11 rounded-full border border-gray-200 bg-white hover:bg-gray-50 flex items-center justify-center text-gray-700 hover:text-[#EE0033] hover:border-[#EE0033] shadow-sm hover:shadow transition-all duration-300 active:scale-95 cursor-pointer outline-none group"
+                className="w-8 h-8 rounded-[8px] border border-gray-200 bg-white flex items-center justify-center text-gray-600 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 transition-all outline-none cursor-pointer"
                 aria-label="Slide trước"
               >
-                <ChevronLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-0.5 text-gray-600 group-hover:text-[#EE0033]" />
+                <ArrowLeft className="w-4 h-4 stroke-[2]" />
               </button>
+
               <button
                 id="btn-next-slide"
                 onClick={() => scroll('right')}
-                className="w-11 h-11 rounded-full border border-gray-200 bg-white hover:bg-gray-50 flex items-center justify-center text-gray-700 hover:text-[#EE0033] hover:border-[#EE0033] shadow-sm hover:shadow transition-all duration-300 active:scale-95 cursor-pointer outline-none group"
+                className="w-8 h-8 rounded-[8px] border border-gray-200 bg-white flex items-center justify-center text-gray-600 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 transition-all outline-none cursor-pointer"
                 aria-label="Slide tiếp theo"
               >
-                <ChevronRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 text-gray-600 group-hover:text-[#EE0033]" />
+                <ArrowRight className="w-4 h-4 stroke-[2]" />
               </button>
             </div>
           </div>
@@ -1217,10 +1608,10 @@ function HomepageContent() {
                 <Link 
                   key={index}
                   href={`/solutions/${sol.slug}`}
-                  className="min-w-[280px] sm:min-w-[325px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)] flex-shrink-0 snap-start bg-white rounded-2xl p-8 flex flex-col justify-between h-[420px] relative overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer transform-gpu"
+                  className="min-w-[280px] sm:min-w-[325px] md:min-w-[calc(50%-12px)] lg:min-w-[calc(25%-18px)] flex-shrink-0 snap-start bg-white rounded-[14px] pt-8 px-8 pb-5 flex flex-col justify-between h-[420px] relative overflow-hidden hover:shadow-[0_8px_30px_rgba(238,0,51,0.2)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer transform-gpu"
                 >
                   {/* Premium Border Overlay to prevent the scaled image from covering the border on hover */}
-                  <div className="absolute inset-0 rounded-2xl border border-gray-200/80 group-hover:border-gray-300 transition-colors duration-300 pointer-events-none z-20" />
+                  <div className="absolute inset-0 rounded-[14px] border border-gray-200/80 group-hover:border-[#EE0033]/60 transition-colors duration-300 pointer-events-none z-20" />
 
                   {/* Real design background image from Cloudinary */}
                   <div 
@@ -1247,19 +1638,10 @@ function HomepageContent() {
                   </div>
 
                   {/* Bottom button alignment wrapper */}
-                  <div className="relative z-10 w-full pb-2">
-                    <div className="relative flex items-center h-[42px] w-full">
-                      {/* The pill wrapper */}
-                      <div className="relative flex items-center bg-white border border-gray-200 rounded-full h-[42px] w-[42px] transition-all duration-300 ease-in-out group-hover:w-[175px] group-hover:border-[#EE0033] overflow-hidden">
-                        {/* Text is only visible on hover */}
-                        <span className="opacity-0 group-hover:opacity-100 whitespace-nowrap pl-5 text-[13px] font-bold text-gray-900 transition-opacity duration-200 group-hover:delay-150 pointer-events-none">
-                          Khám phá ngay
-                        </span>
-                      </div>
-                      {/* The circle overlay on the right */}
-                      <div className="absolute left-0 w-[42px] h-[42px] rounded-full border border-gray-200 bg-white flex items-center justify-center text-[#EE0033] pointer-events-none z-10 transition-all duration-300 group-hover:border-[#EE0033] group-hover:translate-x-[133px]">
-                        <ArrowRight className="w-5 h-5 text-[#EE0033] stroke-[2.5]" />
-                      </div>
+                  <div className="relative z-10 w-full pb-0">
+                    <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-white bg-[#EE0033] group-hover:bg-[#D0002D] transition-all duration-300 select-none py-2 px-4 rounded-[8px] shadow-xs">
+                      <span>Xem chi tiết</span>
+                      <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
                     </div>
                   </div>
                 </Link>
@@ -1271,14 +1653,12 @@ function HomepageContent() {
       </section>
 
       {/* SECTION 5: GIẢI PHÁP ĐA LĨNH VỰC - SYSTEM CLOUD SCENARIOS */}
-      <section className="py-16 text-gray-950 overflow-hidden relative border-t border-gray-100">
+      <section className="py-16 md:py-20 text-gray-950 overflow-hidden relative border-t border-gray-100">
         {/* Real-world high aesthetic background image requested by user */}
         <div 
           className="absolute inset-0 bg-cover bg-center pointer-events-none"
           style={{ backgroundImage: `url('https://res.cloudinary.com/dpyizq1m2/image/upload/v1782045831/BANNER_zvcj7o.png')` }}
         />
-        {/* Abstract dark tech dots or stripes in background */}
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(238,0,51,0.04)_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
         
         {/* Header container aligned to max-w-7xl content columns */}
         <div className="ali-container space-y-10 relative z-10 animate-fade-in">
@@ -1315,7 +1695,7 @@ function HomepageContent() {
                   key={item.id}
                   onMouseEnter={() => setActiveIndustry(index)}
                   onClick={() => setActiveIndustry(index)}
-                  className={`relative h-full rounded-2xl overflow-hidden cursor-pointer select-none border transition-all duration-500 min-w-0 group ${
+                  className={`relative h-full rounded-[14px] overflow-hidden cursor-pointer select-none border transition-all duration-500 min-w-0 group ${
                     isActive 
                       ? "flex-[3.5] border-transparent shadow-[0_20px_50px_rgba(0,0,0,0.08)]" 
                       : "flex-1 border-gray-200/40 hover:flex-[1.1] hover:border-gray-300/60"
@@ -1331,7 +1711,7 @@ function HomepageContent() {
                   <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-[1]" />
 
                   {/* Active glowing accent border overlay */}
-                  <div className={`absolute inset-0 border-[1.5px] rounded-2xl pointer-events-none z-[2] transition-opacity duration-500 ${
+                  <div className={`absolute inset-0 border-[1.5px] rounded-[14px] pointer-events-none z-[2] transition-opacity duration-500 ${
                     isActive ? "border-white/30 opacity-100" : "border-transparent opacity-0"
                   }`} />
 
@@ -1345,14 +1725,12 @@ function HomepageContent() {
                         : "opacity-0 pointer-events-none"
                     }`}>
                       {/* Top sector-meta row */}
-                      <div className="flex items-center justify-end w-full">
-                        <span className="text-white/30 font-mono font-black text-2xl tracking-tighter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-                          0{index + 1}
-                        </span>
+                      <div className="flex items-center justify-end w-full min-h-8">
+                        {/* Number removed */}
                       </div>
 
                       {/* Grouped bottom content, pulled all the way down with an elegant frosted-glass container */}
-                      <div className="w-full mt-auto bg-white/10 backdrop-blur-lg border border-white/10 rounded-2xl p-6.5 space-y-4 shadow-2xl">
+                      <div className="w-full mt-auto bg-white/10 backdrop-blur-lg border border-white/10 rounded-[14px] p-6.5 space-y-4 shadow-2xl">
                         {/* Title & Description & Bullets */}
                         <div className="space-y-2 max-w-2xl">
                           <div className="space-y-0.5">
@@ -1370,8 +1748,8 @@ function HomepageContent() {
                           <div className="space-y-2 pt-1 max-w-xl">
                             {item.bullets.slice(0, 3).map((bullet, idx) => (
                               <div key={idx} className="flex items-start gap-2.5">
-                                <span className="w-4 h-4 rounded-full bg-[#EE0033]/20 border border-[#EE0033]/45 flex items-center justify-center shrink-0 mt-0.5">
-                                  <Check className="w-2.5 h-2.5 text-[#FF3366] stroke-[4]" />
+                                <span className="w-4 h-4 rounded-full bg-white/20 border border-white/30 flex items-center justify-center shrink-0 mt-0.5">
+                                  <Check className="w-2.5 h-2.5 text-white stroke-[4]" />
                                 </span>
                                 <span className="text-[12px] md:text-[13px] font-medium text-white/90 leading-normal">
                                   {bullet}
@@ -1385,12 +1763,10 @@ function HomepageContent() {
                         <div className="pt-1 flex justify-between items-center w-full">
                           <Link 
                             href={`/solutions/${item.slug}`}
-                            className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#EE0033] hover:bg-[#D0002D] text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#EE0033]/20 transition-all duration-300 transform active:scale-95 cursor-pointer"
+                            className="inline-flex items-center gap-1.5 text-[11px] font-bold text-white bg-[#EE0033] hover:bg-[#D0002D] transition-all duration-300 select-none py-2 px-4 rounded-[8px] shadow-xs active:scale-95 cursor-pointer group"
                           >
                             <span>Tìm hiểu thêm</span>
-                            <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-[#EE0033]">
-                              <ArrowRight className="w-3 h-3 stroke-[3]" />
-                            </div>
+                            <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
                           </Link>
                         </div>
                       </div>
@@ -1407,18 +1783,11 @@ function HomepageContent() {
                         <IconComponent className="w-5.5 h-5.5 text-white stroke-[1.8]" />
                       </div>
 
-                      {/* Middle: rotated vertical title for high end visual design */}
-                      <div className="absolute inset-y-24 flex items-center justify-center pointer-events-none w-full">
-                        <div className="rotate-90 origin-center whitespace-nowrap text-white font-black text-sm uppercase tracking-[0.25em] opacity-45 leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                      {/* Bottom: Large title text at the bottom edge of the card */}
+                      <div className="mt-auto pt-4">
+                        <h3 className="text-xl md:text-2xl font-extrabold text-white/95 uppercase tracking-tight leading-tight select-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] group-hover:text-white transition-colors duration-300">
                           {item.title}
-                        </div>
-                      </div>
-
-                      {/* Bottom: Circular Index count */}
-                      <div className="mt-auto w-full flex justify-center z-10">
-                        <span className="text-white/40 font-mono font-bold text-base bg-black/30 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-                          0{index + 1}
-                        </span>
+                        </h3>
                       </div>
                     </div>
 
@@ -1439,7 +1808,7 @@ function HomepageContent() {
                   key={item.id}
                   layout="position"
                   onClick={() => setActiveIndustry(index)}
-                  className={`relative rounded-2xl overflow-hidden cursor-pointer select-none border transition-all duration-500 ${
+                  className={`relative rounded-[14px] overflow-hidden cursor-pointer select-none border transition-all duration-500 ${
                     isActive 
                       ? "border-white/30 shadow-lg" 
                       : "border-gray-200/40"
@@ -1460,7 +1829,6 @@ function HomepageContent() {
                     
                     <div className="w-full flex justify-between items-center gap-2">
                       <div className="flex items-center gap-3">
-                        <span className="text-[#EE0033] font-mono font-black text-sm bg-white/90 px-2 py-0.5 rounded shadow-sm">0{index + 1}</span>
                         <h2 className="text-base text-white font-extrabold leading-tight tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                           {item.title}
                         </h2>
@@ -1474,7 +1842,7 @@ function HomepageContent() {
 
                     {isActive && (
                       <div className="w-full space-y-4 animate-fade-in mt-4">
-                        <p className="text-[12.5px] text-white/95 leading-relaxed bg-white/12 backdrop-blur-lg p-4 rounded-xl border border-white/10 shadow-inner">
+                        <p className="text-[12.5px] text-white/95 leading-relaxed bg-white/12 backdrop-blur-lg p-4 rounded-[14px] border border-white/10 shadow-inner">
                           {item.desc}
                         </p>
                         
@@ -1482,10 +1850,10 @@ function HomepageContent() {
                         <div className="flex items-center justify-between pt-2 border-t border-white/10">
                           <Link 
                             href={`/solutions/${item.slug}`}
-                            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#EE0033] hover:bg-[#D0002D] text-white text-xs font-bold uppercase tracking-wider"
+                            className="inline-flex items-center gap-1.5 text-[11px] font-bold text-white bg-[#EE0033] hover:bg-[#D0002D] transition-all duration-300 select-none py-2 px-4 rounded-[8px] shadow-xs active:scale-95 cursor-pointer group"
                           >
-                            <span>Tìm hiểu</span>
-                            <ArrowRight className="w-3 h-3 text-white" />
+                            <span>Tìm hiểu thêm</span>
+                            <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
                           </Link>
                           
                           <div className="flex items-center gap-2 bg-black/40 px-2.5 py-1 rounded-full border border-white/10">
@@ -1508,35 +1876,73 @@ function HomepageContent() {
       </section>
 
       {/* SECTION: NETWORK OF DATA CENTERS (MẠNG LƯỚI TRUNG TÂM DỮ LIỆU) */}
-      <section id="datacenter-network-section" className="bg-[#FAF9F9] py-24 relative overflow-hidden">
+      <section id="datacenter-network-section" className="bg-[#FAF9F9] py-16 md:py-20 relative overflow-hidden">
         <div className="ali-container relative z-10">
           
           {/* Section Header */}
-          <div className="text-left space-y-3 max-w-3xl mb-14">
+          <div className="text-left space-y-3 max-w-3xl mb-8">
             <span className="text-[#EE0033] font-black text-[10px] uppercase tracking-[0.18em] block bg-[#EE0033]/8 px-3.5 py-1.5 rounded-full w-max leading-none">
               HẠ TẦNG SỐ KHẮT KHE NHẤT
             </span>
             <h2 className="text-3xl md:text-[42px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
-              Hệ thống Trung tâm Dữ liệu chuẩn quốc tế toàn quốc
+              Hệ thống Trung tâm Dữ liệu chuẩn quốc tế
             </h2>
             <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
               Mạng lưới hạ tầng điện toán đám mây thế hệ mới của Viettel IDC, phân bổ chiến lược tại các vùng kinh tế trọng điểm, đáp ứng tiêu chuẩn khắt khe nhất toàn cầu.
             </p>
           </div>
 
+          <div className="flex items-center justify-between mb-3 pr-2">
+            {/* Elegant link on the left */}
+            <div className="text-[13px] font-bold text-[#EE0033] hover:text-[#D0002D] transition-colors cursor-pointer flex items-center gap-1.5 pl-1 select-none group">
+              <span>Xem tất cả Trung tâm dữ liệu</span>
+              <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1" />
+            </div>
+
+            {/* Elegant compact Pagination Controllers - placed close to the card */}
+            <div className="flex items-center gap-2 bg-white/95 backdrop-blur-md p-1.5 px-2.5 rounded-[14px] border border-gray-200/60 shadow-xs">
+              <span className="text-[11px] font-mono font-bold tracking-wider text-gray-500 mr-1.5 pl-1.5 select-none">
+                {activeDCIndex + 1 < 10 ? `0${activeDCIndex + 1}` : activeDCIndex + 1} / {DATACENTER_VIEWS.length < 10 ? `0${DATACENTER_VIEWS.length}` : DATACENTER_VIEWS.length}
+              </span>
+              
+              <button
+                id="btn-view-prev"
+                onClick={() => {
+                  const nextIndex = (activeDCIndex - 1 + DATACENTER_VIEWS.length) % DATACENTER_VIEWS.length;
+                  setActiveDCIndex(nextIndex);
+                  const matchingDC = DATA_CENTERS.find(dc => dc.id === DATACENTER_VIEWS[nextIndex].id);
+                  if (matchingDC) setSelectedDCData(matchingDC);
+                }}
+                className="w-8 h-8 rounded-[8px] border border-gray-200 bg-white flex items-center justify-center text-gray-600 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 transition-all outline-none cursor-pointer"
+                aria-label="Previous view"
+              >
+                <ArrowLeft className="w-4 h-4 stroke-[2]" />
+              </button>
+
+              <button
+                id="btn-view-next"
+                onClick={() => {
+                  const nextIndex = (activeDCIndex + 1) % DATACENTER_VIEWS.length;
+                  setActiveDCIndex(nextIndex);
+                  const matchingDC = DATA_CENTERS.find(dc => dc.id === DATACENTER_VIEWS[nextIndex].id);
+                  if (matchingDC) setSelectedDCData(matchingDC);
+                }}
+                className="w-8 h-8 rounded-[8px] border border-gray-200 bg-white flex items-center justify-center text-gray-600 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 transition-all outline-none cursor-pointer"
+                aria-label="Next view"
+              >
+                <ArrowRight className="w-4 h-4 stroke-[2]" />
+              </button>
+            </div>
+          </div>
+
           {/* Interactive Bento Split Panel - Unified in 1 Block */}
-          <div className="grid grid-cols-1 lg:grid-cols-10 border border-gray-200/50 shadow-[0_24px_65px_rgba(0,0,0,0.04)] rounded-[2rem] overflow-hidden bg-white items-stretch mb-10 transition-all duration-300">
+          <div className="grid grid-cols-1 lg:grid-cols-10 border border-gray-200/50 shadow-[0_24px_65px_rgba(0,0,0,0.04)] rounded-[14px] overflow-hidden bg-white items-stretch mb-10 transition-all duration-300">
             
             {/* Left: Beautiful Image Showcase / Map Toggle Panel - Unified borderless design */}
-            <div className="lg:col-span-5 relative h-[450px] sm:h-[520px] lg:h-[560px] flex flex-col bg-slate-50 group">
+            <div className="lg:col-span-4 relative h-[450px] sm:h-[520px] lg:h-[560px] flex flex-col bg-slate-50 group rounded-[14px] overflow-hidden">
               
               {/* Card Header with Glass Toggle buttons */}
-              <div className="absolute top-6 left-6 right-6 z-30 flex items-center justify-between pointer-events-auto">
-                {/* Active DC regional Tag */}
-                <span className="px-3 py-1.5 bg-gray-950/90 text-white text-[10px] font-black uppercase tracking-[0.12em] rounded-lg shadow-md leading-none transition-all">
-                  {DATACENTER_VIEWS[activeDCIndex].tag}
-                </span>
-
+              <div className="absolute top-6 left-6 right-6 z-30 flex items-center justify-end pointer-events-auto">
                 {/* Switcher Button */}
                 <div className="flex bg-white/95 backdrop-blur-md p-1 rounded-full border border-gray-200/45 shadow-md">
                   <button
@@ -1569,7 +1975,7 @@ function HomepageContent() {
               </div>
 
               {/* Card Body content */}
-              <div className="relative w-full h-full flex-grow flex items-center justify-center">
+              <div className="relative w-full h-full flex-grow flex items-center justify-center rounded-[14px] overflow-hidden">
                 {dcViewMode === 'image' ? (
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -1578,28 +1984,25 @@ function HomepageContent() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.99 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="absolute inset-0 w-full h-full"
+                      className="absolute inset-0 w-full h-full rounded-[14px] overflow-hidden"
                     >
-                      <img 
+                      <Image 
                         src={DATACENTER_VIEWS[activeDCIndex].image} 
                         alt={DATACENTER_VIEWS[activeDCIndex].name} 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.03]"
+                        fill
+                        className="absolute inset-0 w-full h-full object-cover rounded-[14px]"
                         referrerPolicy="no-referrer"
                       />
                       {/* Dark overlay for text readability */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent pointer-events-none" />
                       
                       {/* Beautiful glassmorphic blurred overlay layer floating at the bottom of the image */}
-                      <div className="absolute left-5 right-5 bottom-5 bg-white/10 backdrop-blur-lg border border-white/15 rounded-2xl px-6 py-4 flex items-center justify-between z-10 shadow-lg">
+                      <div className="absolute left-5 right-5 bottom-5 bg-white/10 backdrop-blur-lg border border-white/15 rounded-[14px] px-6 py-4 flex items-center justify-between z-10 shadow-lg">
                         <div className="text-left">
                           <span className="text-[10px] font-mono font-bold tracking-[0.15em] text-[#EE0033] block mb-0.5">VIETTEL IDC CORE FACILITY</span>
                           <h4 className="text-lg md:text-xl font-extrabold text-white leading-tight tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                             {DATACENTER_VIEWS[activeDCIndex].name}
                           </h4>
-                        </div>
-                        <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur text-[8.5px] font-mono font-bold text-white uppercase tracking-widest">
-                          <span className="w-1 h-1 rounded-full bg-[#EE0033]" />
-                          <span>Tier III Standard</span>
                         </div>
                       </div>
                     </motion.div>
@@ -1624,7 +2027,7 @@ function HomepageContent() {
             </div>
 
             {/* Right: Premium Spec & Control Card */}
-            <div className="lg:col-span-5 bg-transparent p-6 sm:p-8 lg:p-10 flex flex-col justify-between h-[520px] lg:h-[560px] relative overflow-hidden">
+            <div className="lg:col-span-6 bg-transparent p-6 sm:p-8 lg:p-10 flex flex-col justify-between h-[520px] lg:h-[560px] relative overflow-hidden">
               <div className="space-y-4">
                 
                 {/* Active DC Header with Uptime badge */}
@@ -1647,7 +2050,7 @@ function HomepageContent() {
                 </p>
                 
                 {/* Exquisite Certificates row (moved up near standard specifications with soft red styled badges) */}
-                <div className="border-t border-gray-150/40 pt-4 space-y-2">
+                <div className="pt-4 space-y-2">
                   <span className="text-[9px] font-extrabold text-gray-400 uppercase tracking-wider block">CHỨNG CHỈ SỞ HỮU</span>
                   <div className="flex flex-wrap gap-1.5">
                     {DATACENTER_VIEWS[activeDCIndex].subText.split(' · ').map((cert, certIdx) => (
@@ -1661,7 +2064,7 @@ function HomepageContent() {
                   </div>
                 </div>
                 
-                <div className="border-t border-gray-150/40 pt-4 space-y-3">
+                <div className="pt-4 space-y-3">
                   <h4 className="text-[9px] font-extrabold text-gray-400 uppercase tracking-wider">Thông số kỹ thuật tiêu chuẩn</h4>
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 lg:gap-x-12 gap-y-2">
@@ -1702,7 +2105,7 @@ function HomepageContent() {
               </div>
 
               {/* Specs Detailed Trigger Button Footer */}
-              <div className="pt-4 mt-6 border-t border-gray-150/40 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="pt-4 mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="flex items-center gap-1.5 text-gray-400 text-left">
                   <Shield className="w-3.5 h-3.5 text-emerald-500 stroke-[2.5]" />
                   <span className="text-[9.5px] font-black uppercase tracking-widest text-slate-400">Vận hành chuẩn quốc tế</span>
@@ -1717,101 +2120,12 @@ function HomepageContent() {
                       setShowDCModal(true);
                     }
                   }}
-                  className="group inline-flex items-center gap-2 text-xs font-bold text-white bg-[#EE0033] hover:bg-[#D0002D] cursor-pointer transition-all duration-300 select-none py-2 px-5 rounded-xl shadow-[0_4px_14px_rgba(238,0,51,0.15)] hover:shadow-[0_6px_20px_rgba(238,0,51,0.25)] hover:scale-[1.02] active:scale-98 shrink-0 self-start sm:self-auto"
+                  className="group inline-flex items-center gap-1.5 text-[11px] font-bold text-white bg-[#EE0033] hover:bg-[#D0002D] cursor-pointer transition-all duration-300 select-none py-2 px-4 rounded-[12px] shadow-xs active:scale-98 shrink-0 self-start sm:self-auto"
                 >
                   <span>Xem chi tiết</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </button>
               </div>
-            </div>
-
-          </div>
-
-          {/* Slider Row of the 10 preview thumbnails with glassmorphic labels (Mobile swipeable tray + Desktop grid) */}
-          <div className="flex overflow-x-auto pb-4 gap-3 w-full scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent md:grid md:grid-cols-5 lg:grid-cols-10 md:overflow-visible md:pb-0 mt-4 animate-fadeIn">
-            {DATACENTER_VIEWS.map((view, index) => {
-              const isActive = activeDCIndex === index;
-              return (
-                <div
-                  key={view.id}
-                  id={`dc-view-card-${view.id}`}
-                  onClick={() => {
-                    setActiveDCIndex(index);
-                    const matchingDC = DATA_CENTERS.find(dc => dc.id === view.id);
-                    if (matchingDC) {
-                      setSelectedDCData(matchingDC);
-                    }
-                  }}
-                  className={`group relative overflow-hidden aspect-[16/10.5] shrink-0 w-[140px] sm:w-auto rounded-2xl cursor-pointer transition-all duration-300 ${
-                    isActive 
-                      ? 'ring-2 ring-[#EE0033] ring-offset-2 shadow-[0_8px_25px_rgba(238,0,51,0.2)] scale-[1.02]' 
-                      : 'border border-gray-200/60 hover:border-gray-400/80 hover:shadow-sm'
-                  }`}
-                >
-                  <img 
-                    src={view.thumbnail} 
-                    alt={view.name} 
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-neutral-950/20 group-hover:bg-neutral-950/10 transition-colors duration-300" />
-                  
-                  {/* Glassmorphic Bar for Name */}
-                  <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-md px-1.5 sm:px-2.5 py-2 flex items-center justify-between">
-                    <span className="text-[8.5px] sm:text-[9.5px] font-bold text-white truncate max-w-[85%]">
-                      {view.name.replace("Trung tâm Dữ liệu", "TTDL").replace("TTDL ", "")}
-                    </span>
-                    <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${isActive ? 'bg-[#EE0033] animate-pulse' : 'bg-white/40'}`} />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Slide Navigation Pagination and Detailed Modal trigger aligned bottom */}
-          <div className="hidden sm:flex items-center justify-between mt-6">
-            
-            {/* Left Status indicator */}
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-[10.5px] font-mono font-bold text-gray-400 uppercase tracking-wider">
-                Hệ thống vận hành an toàn 24/7/365
-              </span>
-            </div>
-
-            {/* Right Pagination Controllers */}
-            <div className="flex items-center gap-3">
-              <span className="text-[11px] font-mono font-black tracking-widest text-gray-400 uppercase mr-1">
-                {activeDCIndex + 1 < 10 ? `0${activeDCIndex + 1}` : activeDCIndex + 1} / {DATACENTER_VIEWS.length < 10 ? `0${DATACENTER_VIEWS.length}` : DATACENTER_VIEWS.length} VIEWS
-              </span>
-              
-              <button
-                id="btn-view-prev"
-                onClick={() => {
-                  const nextIndex = (activeDCIndex - 1 + DATACENTER_VIEWS.length) % DATACENTER_VIEWS.length;
-                  setActiveDCIndex(nextIndex);
-                  const matchingDC = DATA_CENTERS.find(dc => dc.id === DATACENTER_VIEWS[nextIndex].id);
-                  if (matchingDC) setSelectedDCData(matchingDC);
-                }}
-                className="w-10 h-10 rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-700 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 transition-all outline-none cursor-pointer shadow-sm"
-                aria-label="Previous view"
-              >
-                <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
-              </button>
-
-              <button
-                id="btn-view-next"
-                onClick={() => {
-                  const nextIndex = (activeDCIndex + 1) % DATACENTER_VIEWS.length;
-                  setActiveDCIndex(nextIndex);
-                  const matchingDC = DATA_CENTERS.find(dc => dc.id === DATACENTER_VIEWS[nextIndex].id);
-                  if (matchingDC) setSelectedDCData(matchingDC);
-                }}
-                className="w-10 h-10 rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-700 hover:text-white hover:bg-[#EE0033] hover:border-[#EE0033] active:scale-95 transition-all outline-none cursor-pointer shadow-sm"
-                aria-label="Next view"
-              >
-                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-              </button>
             </div>
 
           </div>
@@ -1820,44 +2134,48 @@ function HomepageContent() {
       </section>
 
       {/* New Standards & Awards Section */}
-      <section className="py-16 md:py-20 bg-gray-50 border-b border-gray-100">
+      <section className="py-16 md:py-20 bg-white border-b border-gray-100">
         <div className="ali-container">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-            <div className="text-left space-y-2">
-              <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">UY TÍN ĐƯỢC KIỂM CHỨNG</span>
-              <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
-                Tiêu chuẩn & Giải thưởng quốc tế
-              </h2>
-              <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
-                Viettel IDC nắm giữ các chứng nhận quốc tế hàng đầu và liên tiếp được vinh danh bởi các tổ chức uy tín toàn cầu — minh chứng vững chắc cho chất lượng hạ tầng và dịch vụ.
-              </p>
-            </div>
+          <div className="text-left space-y-2 max-w-3xl mb-8">
+            <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">UY TÍN ĐƯỢC KIỂM CHỨNG</span>
+            <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
+              Tiêu chuẩn & Giải thưởng quốc tế
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
+              Viettel IDC nắm giữ các chứng nhận quốc tế hàng đầu và liên tiếp được vinh danh bởi các tổ chức uy tín toàn cầu — minh chứng vững chắc cho chất lượng hạ tầng và dịch vụ.
+            </p>
+          </div>
+
+          <div className="flex items-center justify-between mb-4 pr-1">
+            {/* Elegant link on the left */}
+            <a href="#" className="text-[13px] font-bold text-[#EE0033] hover:text-[#D0002D] transition-colors cursor-pointer flex items-center gap-1.5 pl-1 select-none group">
+              <span>Xem toàn bộ {activeCertTab === 'cert' ? 'chứng nhận' : 'giải thưởng'}</span>
+              <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
 
             {/* Controls Row */}
-            <div className="flex items-center gap-4 shrink-0">
-              <div className="flex items-center bg-gray-100 p-1 rounded-full border border-gray-200/50">
-                <button 
-                  onClick={() => setActiveCertTab('cert')}
-                  className={`font-bold py-2 px-5 rounded-full text-xs transition-all duration-300 cursor-pointer ${
-                    activeCertTab === 'cert' 
-                      ? 'bg-[#EE0033] text-white shadow-none' 
-                      : 'text-gray-500 hover:text-gray-900 bg-transparent'
-                  }`}
-                >
-                  Chứng nhận
-                </button>
-                <button 
-                  onClick={() => setActiveCertTab('award')}
-                  className={`font-bold py-2 px-5 rounded-full text-xs transition-all duration-300 cursor-pointer ${
-                    activeCertTab === 'award' 
-                      ? 'bg-[#EE0033] text-white shadow-none' 
-                      : 'text-gray-500 hover:text-gray-900 bg-transparent'
-                  }`}
-                >
-                  Giải thưởng
-                </button>
-              </div>
+            <div className="flex items-center bg-white p-1 rounded-[6px] border border-gray-200">
+              <button 
+                onClick={() => setActiveCertTab('cert')}
+                className={`font-bold py-1.5 px-4 rounded-[6px] text-xs transition-all duration-300 cursor-pointer ${
+                  activeCertTab === 'cert' 
+                    ? 'bg-[#EE0033] text-white shadow-sm' 
+                    : 'text-gray-500 hover:text-gray-900 bg-transparent'
+                }`}
+              >
+                Chứng nhận
+              </button>
+              <button 
+                onClick={() => setActiveCertTab('award')}
+                className={`font-bold py-1.5 px-4 rounded-[6px] text-xs transition-all duration-300 cursor-pointer ${
+                  activeCertTab === 'award' 
+                    ? 'bg-[#EE0033] text-white shadow-sm' 
+                    : 'text-gray-500 hover:text-gray-900 bg-transparent'
+                }`}
+              >
+                Giải thưởng
+              </button>
             </div>
           </div>
 
@@ -1873,16 +2191,15 @@ function HomepageContent() {
               {(activeCertTab === 'cert' ? CERTIFICATIONS_DATA : AWARDS_DATA).map((item, i) => (
                 <div 
                   key={i} 
-                  className="bg-white p-5 rounded-2xl border border-gray-200/80 flex flex-col h-full hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
+                  className="bg-slate-50/40 hover:bg-white p-5 rounded-[14px] border border-gray-200/60 flex flex-col h-full hover:border-[#EE0033]/60 hover:shadow-[0_8px_30px_rgba(238,0,51,0.15)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
                 >
                   {/* Top Row: Image & Tag */}
                   <div className="flex items-start justify-between gap-4 mb-4">
                     <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-gray-50 border border-gray-100/60 shrink-0">
-                      <img 
+                      <SafeCertImage 
                         src={item.image} 
                         alt={item.title} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        referrerPolicy="no-referrer"
+                        tag={item.tag}
                       />
                     </div>
                     <div className="px-2 py-1 bg-gray-100 rounded text-[9px] font-mono font-bold text-gray-600 tracking-wide uppercase max-w-[120px] truncate shrink-0">
@@ -1917,11 +2234,7 @@ function HomepageContent() {
             </motion.div>
           </AnimatePresence>
 
-          <div className="mt-10 text-right">
-            <a href="#" className="text-[#EE0033] font-bold inline-flex items-center gap-1 hover:underline text-sm">
-              Xem toàn bộ {activeCertTab === 'cert' ? 'chứng nhận' : 'giải thưởng'} <ChevronRight className="w-4 h-4" />
-            </a>
-          </div>
+
 
         </div>
       </section>
@@ -1959,16 +2272,16 @@ function HomepageContent() {
                 {[...PARTNERS, ...PARTNERS].map((partner, index) => (
                   <div 
                     key={`${partner.id}-${index}`} 
-                    className="bg-white border border-gray-100 p-5 rounded-2xl flex flex-col items-center justify-center gap-3 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer text-center h-[140px] w-[160px] md:w-[180px] flex-shrink-0"
+                    className="bg-white border border-gray-100 p-5 rounded-[14px] flex flex-col items-center justify-center gap-3 hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer text-center h-[140px] w-[160px] md:w-[180px] flex-shrink-0"
                     title={`${partner.name} - ${partner.role}`}
                   >
                     {/* Brand Logo Container */}
                     <div className="w-full h-12 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-                      <img 
+                      <SafePartnerImage 
                         src={partner.logoUrl} 
                         alt={partner.name}
-                        className="max-w-[85%] max-h-[85%] object-contain grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-                        referrerPolicy="no-referrer"
+                        logoText={partner.logoText}
+                        logoBg={partner.logoBg}
                       />
                     </div>
                     <span className="font-extrabold text-[11px] md:text-xs text-gray-500 group-hover:text-[#EE0033] transition-colors uppercase tracking-wider">
@@ -2000,13 +2313,14 @@ function HomepageContent() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="relative bg-white text-gray-900 w-full max-w-2xl rounded-2xl md:rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden z-10 border border-gray-100 flex flex-col"
+              className="relative bg-white text-gray-900 w-full max-w-2xl rounded-[14px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden z-10 border border-gray-100 flex flex-col"
             >
               {/* Image banner inside details */}
               <div className="relative h-48 md:h-56 bg-neutral-900 overflow-hidden shrink-0">
-                <img 
+                <Image 
                   src={selectedDCData.image} 
                   alt={selectedDCData.name} 
+                  fill
                   className="w-full h-full object-cover opacity-85"
                   referrerPolicy="no-referrer"
                 />
@@ -2043,15 +2357,15 @@ function HomepageContent() {
 
                 {/* Main Specs Bento layout */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl text-center space-y-1">
+                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-[14px] text-center space-y-1">
                     <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block font-mono">Tổng diện tích sàn</span>
                     <span className="text-base font-black text-gray-900 font-sans block">{selectedDCData.area}</span>
                   </div>
-                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl text-center space-y-1">
+                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-[14px] text-center space-y-1">
                     <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block font-mono">Quy mô tải trọng</span>
                     <span className="text-base font-black text-gray-900 font-sans block">{selectedDCData.racks}</span>
                   </div>
-                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl text-center space-y-1 col-span-2 sm:col-span-1">
+                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-[14px] text-center space-y-1 col-span-2 sm:col-span-1">
                     <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block font-mono">Khu vực khai thác</span>
                     <span className="text-base font-black text-gray-900 font-sans block">{selectedDCData.city}</span>
                   </div>
@@ -2104,14 +2418,14 @@ function HomepageContent() {
               <div className="p-6 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-3 shrink-0">
                 <button
                   onClick={() => setShowDCModal(false)}
-                  className="px-5 py-2.5 bg-white border border-gray-250 hover:bg-gray-50 rounded-full text-xs font-bold font-sans tracking-wide transition-all uppercase outline-none cursor-pointer"
+                  className="px-5 py-2.5 bg-white border border-gray-250 hover:bg-gray-50 rounded-[14px] text-xs font-bold font-sans tracking-wide transition-all uppercase outline-none cursor-pointer"
                 >
                   Đóng lại
                 </button>
                 <Link
                   href="/contact"
                   onClick={() => setShowDCModal(false)}
-                  className="px-6 py-2.5 bg-[#EE0033] hover:bg-[#CC002B] text-white rounded-full text-xs font-bold font-sans tracking-wide transition-all uppercase inline-flex items-center gap-1.5 hover:-translate-y-0.5 shadow-sm active:translate-y-0 cursor-pointer"
+                  className="px-6 py-2.5 bg-[#EE0033] hover:bg-[#CC002B] text-white rounded-[14px] text-xs font-bold font-sans tracking-wide transition-all uppercase inline-flex items-center gap-1.5 hover:-translate-y-0.5 shadow-sm active:translate-y-0 cursor-pointer"
                 >
                   Đăng ký tham quan phòng máy
                   <ArrowRight className="w-3.5 h-3.5 text-white" />
@@ -2124,7 +2438,7 @@ function HomepageContent() {
       </AnimatePresence>
 
       {/* SECTION 6: CTA BANNER */}
-      <section id="consultation-form-section" className="relative py-20 lg:py-28 bg-gradient-to-br from-[#8A001A] via-[#660011] to-[#3B0007] overflow-hidden text-white font-sans">
+      <section id="consultation-form-section" className="relative py-16 md:py-20 bg-gradient-to-br from-[#8A001A] via-[#660011] to-[#3B0007] overflow-hidden text-white font-sans">
         {/* Subtle grid and decorative glow spots */}
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-5 pointer-events-none" />
         <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-[#EE0033]/20 blur-[120px] pointer-events-none" />
@@ -2170,7 +2484,7 @@ function HomepageContent() {
 
             {/* Right Column: Lead Form Card */}
             <div className="lg:col-span-5">
-              <div className="bg-white rounded-3xl p-6 md:p-8 lg:p-10 shadow-2xl text-neutral-900 max-w-lg mx-auto lg:ml-auto relative border border-neutral-100">
+              <div className="bg-white rounded-[14px] p-6 md:p-8 lg:p-10 shadow-2xl text-neutral-900 max-w-lg mx-auto lg:ml-auto relative border border-neutral-100">
                 
                 <div className="text-center mb-6">
                   <h3 className="text-xl md:text-2xl font-black text-neutral-950 tracking-tight">
@@ -2212,7 +2526,7 @@ function HomepageContent() {
                           value={ctaForm.name}
                           onChange={(e) => setCtaForm({ ...ctaForm, name: e.target.value })}
                           placeholder="Ví dụ: Nguyễn Văn Vương"
-                          className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
+                          className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-[14px] pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
                         />
                       </div>
                     </div>
@@ -2232,7 +2546,7 @@ function HomepageContent() {
                             value={ctaForm.email}
                             onChange={(e) => setCtaForm({ ...ctaForm, email: e.target.value })}
                             placeholder="name@company.com"
-                            className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
+                            className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-[14px] pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
                           />
                         </div>
                       </div>
@@ -2250,7 +2564,7 @@ function HomepageContent() {
                             value={ctaForm.phone}
                             onChange={(e) => setCtaForm({ ...ctaForm, phone: e.target.value })}
                             placeholder="Ví dụ: 098xxxxx7"
-                            className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
+                            className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-[14px] pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
                           />
                         </div>
                       </div>
@@ -2263,7 +2577,7 @@ function HomepageContent() {
                         <select
                           value={ctaForm.solution}
                           onChange={(e) => setCtaForm({ ...ctaForm, solution: e.target.value })}
-                          className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl px-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] appearance-none font-medium transition-all"
+                          className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-[14px] px-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] appearance-none font-medium transition-all"
                         >
                           <option value="">Chọn dịch vụ quan tâm</option>
                           <option value="Cloud Computing (Viettel Cloud Server)">Cloud Computing (Viettel Cloud Server)</option>
@@ -2281,7 +2595,7 @@ function HomepageContent() {
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      className="w-full bg-[#EE0033] hover:bg-[#D0002A] text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-[#EE0033]/20 flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 active:translate-y-0 text-xs md:text-sm mt-6 cursor-pointer"
+                      className="w-full bg-[#EE0033] hover:bg-[#D0002A] text-white font-bold py-3.5 px-6 rounded-[14px] shadow-lg shadow-[#EE0033]/20 flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 active:translate-y-0 text-xs md:text-sm mt-6 cursor-pointer"
                     >
                       <span>Gửi yêu cầu tư vấn ngay</span>
                       <ArrowRight className="w-4 h-4 text-white" />

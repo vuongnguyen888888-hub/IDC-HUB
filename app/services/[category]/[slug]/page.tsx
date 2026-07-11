@@ -16,6 +16,9 @@ import Footer from '../../../../components/Footer';
 import ScreenSwitcher from '../../../../components/ScreenSwitcher';
 import ViettelCloudServerPage from '../../../../components/ViettelCloudServerPage';
 import ViettelCustomServicePage from '../../../../components/ViettelCustomServicePage';
+import ViettelOpenPrivateCloudPage from '../../../../components/ViettelOpenPrivateCloudPage';
+import ViettelDedicatedPrivateCloudPage from '../../../../components/ViettelDedicatedPrivateCloudPage';
+import ViettelCloudGpuPage from '../../../../components/ViettelCloudGpuPage';
 import { SERVICE_CATEGORIES } from '../../../../lib/db';
 
 type PageParams = { category: string; slug: string };
@@ -135,6 +138,18 @@ function ServiceDetailPageContent({ params }: PageProps) {
   // --- SPECIALIZED VIETTEL CLOUD SERVER LAYOUT ---
   if (productSlug === 'viettel-cloud-server') {
     return <ViettelCloudServerPage />;
+  }
+
+  if (productSlug === 'viettel-open-private-cloud') {
+    return <ViettelOpenPrivateCloudPage />;
+  }
+
+  if (productSlug === 'viettel-dedicated-private-cloud') {
+    return <ViettelDedicatedPrivateCloudPage />;
+  }
+
+  if (productSlug === 'viettel-gpu-server' || productSlug === 'viettel-cloud-gpu') {
+    return <ViettelCloudGpuPage />;
   }
 
   // Render all other service pages using the high-fidelity custom service page template
@@ -1466,7 +1481,7 @@ function ServiceDetailPageContent({ params }: PageProps) {
           </div>
           <Link 
             href="/pricing/calculator"
-            className="px-5 py-2.5 bg-brand-500 hover:bg-brand-300 text-white font-bold text-xs rounded shadow-md transition-all-200"
+            className="px-5 py-2.5 bg-brand-500 hover:bg-brand-300 text-white font-bold text-xs rounded-[8px] shadow-md transition-all-200"
           >
             Tính chi phi ngay
           </Link>
@@ -1580,7 +1595,7 @@ function ServiceDetailPageContent({ params }: PageProps) {
             <div className="pt-4 max-w-sm">
               <Link 
                 href="/contact" 
-                className="w-full inline-flex items-center justify-center py-3.5 px-6 bg-[#EE0033] hover:bg-[#C8002B] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all duration-300 shadow-md shadow-[#EE0033]/25 hover:-translate-y-0.5"
+                className="w-full inline-flex items-center justify-center py-3.5 px-6 bg-[#EE0033] hover:bg-[#C8002B] text-white font-bold text-xs uppercase tracking-wider rounded-[8px] transition-all duration-300 shadow-md shadow-[#EE0033]/25 hover:-translate-y-0.5"
               >
                 Gửi yêu cầu Khảo sát & Nhận báo giá
               </Link>

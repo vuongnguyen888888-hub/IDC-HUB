@@ -255,7 +255,7 @@ function PartnersPageContent() {
                     required
                     value={formValues.name}
                     onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
-                    className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                    className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                     placeholder="Nguyễn Văn Đại diện" 
                   />
                 </div>
@@ -266,7 +266,7 @@ function PartnersPageContent() {
                     required
                     value={formValues.email}
                     onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
-                    className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                    className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                     placeholder="partner@doanhnghiep.com" 
                   />
                 </div>
@@ -280,7 +280,7 @@ function PartnersPageContent() {
                     required
                     value={formValues.phone}
                     onChange={(e) => setFormValues({ ...formValues, phone: e.target.value })}
-                    className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                    className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                     placeholder="0911 xxx xxx" 
                   />
                 </div>
@@ -291,7 +291,7 @@ function PartnersPageContent() {
                     required
                     value={formValues.company}
                     onChange={(e) => setFormValues({ ...formValues, company: e.target.value })}
-                    className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                    className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                     placeholder="www.daonhanghiep.com" 
                   />
                 </div>
@@ -303,7 +303,7 @@ function PartnersPageContent() {
                   rows={3}
                   value={formValues.memo}
                   onChange={(e) => setFormValues({...formValues, memo: e.target.value})}
-                  className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                  className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                   placeholder="Cam kết doanh thọ 50tr/tháng, chuyên cung cấp Website TMĐT..."
                 />
               </div>
@@ -311,7 +311,7 @@ function PartnersPageContent() {
               <div className="pt-2">
                 <button 
                   type="submit"
-                  className="w-full p-3 bg-[#EE0033] hover:bg-[#FF302D] text-white font-extrabold text-xs uppercase tracking-wider rounded shadow-md focus-ring-brand transition-all-200"
+                  className="w-full p-3 bg-[#EE0033] hover:bg-[#FF302D] text-white font-extrabold text-xs uppercase tracking-wider rounded-[8px] shadow-md focus-ring-brand transition-all-200"
                 >
                   Gửi hồ sơ đăng ký đối tác (Tab: {activeFormTab === 'agency' ? 'Đại Lý' : activeFormTab === 'reseller' ? 'Nhà Phân Phối' : 'Tiếp Thị'})
                 </button>

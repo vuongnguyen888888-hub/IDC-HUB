@@ -182,7 +182,7 @@ function ContactPageContent() {
                       required
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                      className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                      className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                       placeholder="Nguyễn" 
                     />
                   </div>
@@ -193,7 +193,7 @@ function ContactPageContent() {
                       required
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                      className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                       placeholder="Văn A" 
                     />
                   </div>
@@ -208,7 +208,7 @@ function ContactPageContent() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                      className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                       placeholder="a.nguyen@congty.com" 
                     />
                   </div>
@@ -219,7 +219,7 @@ function ContactPageContent() {
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                      className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                       placeholder="0911 223 344" 
                     />
                   </div>
@@ -233,7 +233,7 @@ function ContactPageContent() {
                       type="text" 
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                      className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                       placeholder="Công ty Giải pháp mây Việt" 
                     />
                   </div>
@@ -242,7 +242,7 @@ function ContactPageContent() {
                     <select 
                       value={formData.industry}
                       onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
-                      className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                      className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                     >
                       <option>Tài chính / Ngân hàng</option>
                       <option>Chính phủ / Khối công</option>
@@ -260,7 +260,7 @@ function ContactPageContent() {
                   <select 
                     value={formData.scale}
                     onChange={(e) => setFormData({ ...formData, scale: e.target.value })}
-                    className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                    className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                   >
                     <option>Dưới 10 nhân sự</option>
                     <option>10 - 50 nhân sự</option>
@@ -276,7 +276,7 @@ function ContactPageContent() {
                     rows={4}
                     value={formData.content}
                     onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                    className="w-full p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
+                    className="w-full p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-950 font-semibold"
                     placeholder="Mô tả sơ qua thách thức hiện tại, máy chủ cần khởi tạo..."
                   />
                 </div>
@@ -299,7 +299,7 @@ function ContactPageContent() {
                 <div className="pt-2">
                   <button 
                     type="submit"
-                    className="w-full p-3 bg-[#EE0033] hover:bg-[#FF302D] text-white font-extrabold text-xs uppercase tracking-wider rounded shadow-md focus-ring-brand transition-all-200"
+                    className="w-full p-3 bg-[#EE0033] hover:bg-[#FF302D] text-white font-extrabold text-xs uppercase tracking-wider rounded-[8px] shadow-md focus-ring-brand transition-all-200"
                   >
                     Gửi yêu cầu hảo sát tư vấn
                   </button>

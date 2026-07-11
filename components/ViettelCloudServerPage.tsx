@@ -17,7 +17,7 @@ import ScreenSwitcher from './ScreenSwitcher';
 export default function ViettelCloudServerPage() {
   const [selectedPlatform, setSelectedPlatform] = useState<'vmware' | 'openstack'>('vmware');
   const [selectedPricingPlan, setSelectedPricingPlan] = useState<'saving' | 'payg'>('saving');
-  const [selectedRegion, setSelectedRegion] = useState<'north' | 'south'>('north');
+  const [selectedRegion, setSelectedRegion] = useState<'north' | 'central' | 'south'>('north');
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<string>('overview');
 
@@ -151,7 +151,7 @@ export default function ViettelCloudServerPage() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 80; // subnav offset buffer
       
-      const sections = ['overview', 'pricing', 'features', 'benefits', 'platform-selector', 'use-cases', 'faq'];
+      const sections = ['platform-selector', 'overview', 'pricing', 'features', 'benefits', 'use-cases', 'faq'];
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
         if (el) {
@@ -236,7 +236,7 @@ export default function ViettelCloudServerPage() {
                   }`}
                 >
                   <Server className="w-4 h-4" />
-                  <span>Nền tảng VMware</span>
+                  <span>VMware</span>
                 </button>
                 <button
                   onClick={() => setSelectedPlatform('openstack')}
@@ -247,18 +247,18 @@ export default function ViettelCloudServerPage() {
                   }`}
                 >
                   <Cpu className="w-4 h-4" />
-                  <span>Nền tảng OpenStack</span>
+                  <span>OpenStack</span>
                 </button>
               </div>
               
               {/* Desktop Tabs */}
               <div className="hidden md:flex items-center gap-5 lg:gap-7 h-full">
                 {[
+                  { id: 'platform-selector', label: 'Nền tảng' },
                   { id: 'overview', label: 'Tổng quan' },
                   { id: 'pricing', label: 'Bảng giá' },
                   { id: 'features', label: 'Tính năng' },
                   { id: 'benefits', label: 'Lợi ích' },
-                  { id: 'platform-selector', label: 'Nền tảng' },
                   { id: 'use-cases', label: 'Use cases' },
                   { id: 'faq', label: 'Hỏi đáp' }
                 ].map((tab) => {
@@ -337,6 +337,152 @@ export default function ViettelCloudServerPage() {
         </div>
       </div>
 
+      {/* SECTION 4 — PLATFORM SELECTOR */}
+      <section id="platform-selector" className="py-16 md:py-20 bg-white">
+        <div className="ali-container">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-left w-full space-y-2 mb-12"
+          >
+            <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">NỀN TẢNG LINH HOẠT</span>
+            <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
+              Tùy chọn nền tảng máy chủ ảo
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
+              Viettel IDC cung cấp 2 tùy chọn công nghệ máy chủ ảo hàng đầu thế giới, đáp ứng tốt từ các hệ thống doanh nghiệp truyền thống đến mô hình cloud-native.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-left">
+            {/* VMware Card */}
+            <motion.div 
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setSelectedPlatform('vmware')}
+              className={`cursor-pointer rounded-[12px] p-6 md:p-8 transition-colors duration-300 border-2 flex flex-col justify-between relative ${
+                selectedPlatform === 'vmware' 
+                  ? 'border-[#EE0033] bg-white shadow-[0_12px_32px_rgba(238,0,51,0.06)]' 
+                  : 'border-gray-200 bg-gray-50/30 hover:bg-gray-50/80 shadow-xs'
+              }`}
+            >
+              <div>
+                {selectedPlatform === 'vmware' && (
+                  <div className="absolute top-6 right-6 bg-[#EE0033] text-white p-1 rounded-full">
+                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                  </div>
+                )}
+                <div className="flex flex-wrap items-center gap-3 mb-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-950">VMware vSphere</h3>
+                  <span className="bg-[#EE0033]/10 text-[#EE0033] text-xs font-bold px-2.5 py-0.5 rounded-full">
+                    Enterprise Grade
+                  </span>
+                </div>
+                <p className="text-xs md:text-sm text-gray-500 leading-relaxed mb-6">
+                  Nền tảng ảo hóa doanh nghiệp mạnh mẽ với độ tin cậy tuyệt đối, tính bảo mật nghiêm ngặt và khả năng tương thích phần cứng cao hàng đầu thế giới.
+                </p>
+                
+                <div className="space-y-3 border-t border-gray-100 pt-6">
+                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Thành phần & Tính năng:</h4>
+                  <ul className="space-y-2.5 text-xs text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
+                      <span>VMware ESXi Server — lớp ảo hóa chạy trực tiếp trên bare-metal</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
+                      <span>VMware vCenter — hệ thống điều phối, quản trị tập trung tối ưu</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
+                      <span>Giao diện vSphere Web Client — quản trị trực quan, tiện lợi</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
+                      <span>Cluster DRS & HA — tự động khôi phục, di chuyển nóng VM</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Phù hợp nhất cho:</span>
+                <span className="bg-[#FAFAFA] border border-gray-200 text-gray-750 text-[11px] font-bold px-3 py-1 rounded-full">
+                  Enterprise · Hybrid Cloud
+                </span>
+              </div>
+            </motion.div>
+
+            {/* OpenStack Card */}
+            <motion.div 
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setSelectedPlatform('openstack')}
+              className={`cursor-pointer rounded-[12px] p-6 md:p-8 transition-colors duration-300 border-2 flex flex-col justify-between relative ${
+                selectedPlatform === 'openstack' 
+                  ? 'border-[#EE0033] bg-white shadow-[0_12px_32px_rgba(238,0,51,0.06)]' 
+                  : 'border-gray-200 bg-gray-50/30 hover:bg-gray-50/80 shadow-xs'
+              }`}
+            >
+              <div>
+                {selectedPlatform === 'openstack' && (
+                  <div className="absolute top-6 right-6 bg-[#EE0033] text-white p-1 rounded-full">
+                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                  </div>
+                )}
+                <div className="flex flex-wrap items-center gap-3 mb-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-950">OpenStack</h3>
+                  <span className="bg-gray-100 text-gray-700 text-xs font-bold px-2.5 py-0.5 rounded-full">
+                    Open Source API
+                  </span>
+                </div>
+                <p className="text-xs md:text-sm text-gray-500 leading-relaxed mb-6">
+                  Nền tảng điện toán đám mây mã nguồn mở chuẩn công nghiệp toàn cầu, mang lại khả năng tùy biến tuyệt đối, tự động hóa linh hoạt dạng IaaS.
+                </p>
+                
+                <div className="space-y-3 border-t border-gray-100 pt-6">
+                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Thành phần & Tính năng:</h4>
+                  <ul className="space-y-2.5 text-xs text-gray-700">
+                    <li className="flex items-start space-x-2">
+                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
+                      <span>Kiến trúc mở hoàn toàn, không lo lock-in nhà cung cấp</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
+                      <span>Khả năng mở rộng tuyệt vời cho container & K8s</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
+                      <span>Hệ thống API chuẩn, hỗ trợ tự động hóa hạ tầng (IAC)</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
+                      <span>Lưu trữ phân tán, đảm bảo an toàn dữ liệu 100% tại VN</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Phù hợp nhất cho:</span>
+                <span className="bg-[#FAFAFA] border border-gray-200 text-gray-750 text-[11px] font-bold px-3 py-1 rounded-full">
+                  DevOps · Cloud-native
+                </span>
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="w-full bg-amber-50/60 border border-amber-100 rounded-[12px] p-5 flex items-center space-x-3 text-left">
+            <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
+            <p className="text-xs md:text-sm text-amber-800 font-medium">
+              <strong>Lưu ý quan trọng:</strong> Để đảm bảo tính toàn vẹn của dữ liệu và hiệu năng phần cứng, Viettel IDC hiện chưa hỗ trợ chuyển đổi trực tiếp giữa 2 công nghệ ảo hóa (VMware và OpenStack) đối với các máy chủ ảo đang hoạt động.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION OVERVIEW — TỔNG QUAN VIETTEL CLOUD SERVER */}
       <section id="overview" className="py-16 md:py-20 bg-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(#E5E7EB_1px,transparent_1px)] [background-size:16px_16px] opacity-20 pointer-events-none" />
@@ -411,82 +557,92 @@ export default function ViettelCloudServerPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 mb-12 bg-white border border-gray-200/80 rounded-2xl p-6 shadow-sm"
+            className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 mb-12 bg-white border border-gray-200/80 rounded-[12px] p-6 shadow-sm"
           >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5 w-full xl:w-auto">
               <span className="text-xs font-bold text-gray-400 uppercase tracking-wider shrink-0">Nền tảng ảo hóa:</span>
-              <div className="flex items-center bg-gray-100 p-1 rounded-full border border-gray-200/50">
+              <div className="flex items-center bg-gray-100 p-[1px] rounded-[12px] border border-gray-200/50 w-full sm:w-auto">
                 <button
                   onClick={() => setSelectedPlatform('vmware')}
-                  className={`px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 ${
+                  className={`flex-1 sm:flex-initial px-5 py-2.5 text-xs font-bold rounded-[12px] transition-all duration-300 ${
                     selectedPlatform === 'vmware'
-                      ? 'bg-[#EE0033] text-white shadow-md'
+                      ? 'bg-gray-950 text-white'
                       : 'text-gray-500 hover:text-gray-900 bg-transparent cursor-pointer'
                   }`}
                 >
-                  Nền tảng VMware
+                  VMware
                 </button>
                 <button
                   onClick={() => setSelectedPlatform('openstack')}
-                  className={`px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 ${
+                  className={`flex-1 sm:flex-initial px-5 py-2.5 text-xs font-bold rounded-[12px] transition-all duration-300 ${
                     selectedPlatform === 'openstack'
-                      ? 'bg-[#EE0033] text-white shadow-md'
+                      ? 'bg-gray-950 text-white'
                       : 'text-gray-500 hover:text-gray-900 bg-transparent cursor-pointer'
                   }`}
                 >
-                  Nền tảng OpenStack
+                  OpenStack
                 </button>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5 w-full xl:w-auto">
               <span className="text-xs font-bold text-gray-400 uppercase tracking-wider shrink-0">Mô hình thanh toán:</span>
-              <div className="flex items-center bg-gray-100 p-1 rounded-full border border-gray-200/50">
+              <div className="flex items-center bg-gray-100 p-[1px] rounded-[12px] border border-gray-200/50 w-full sm:w-auto">
                 <button
                   onClick={() => setSelectedPricingPlan('saving')}
-                  className={`px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 ${
+                  className={`flex-1 sm:flex-initial px-5 py-2.5 text-xs font-bold rounded-[12px] transition-all duration-300 ${
                     selectedPricingPlan === 'saving'
-                      ? 'bg-[#EE0033] text-white shadow-md'
+                      ? 'bg-gray-950 text-white'
                       : 'text-gray-500 hover:text-gray-900 bg-transparent cursor-pointer'
                   }`}
                 >
-                  Saving Plan (Tháng)
+                  Saving Plan
                 </button>
                 <button
                   onClick={() => setSelectedPricingPlan('payg')}
-                  className={`px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 ${
+                  className={`flex-1 sm:flex-initial px-5 py-2.5 text-xs font-bold rounded-[12px] transition-all duration-300 ${
                     selectedPricingPlan === 'payg'
-                      ? 'bg-[#EE0033] text-white shadow-md'
+                      ? 'bg-gray-950 text-white'
                       : 'text-gray-500 hover:text-gray-900 bg-transparent cursor-pointer'
                   }`}
                 >
-                  Pay-as-you-go (Giờ)
+                  Pay-as-you-go
                 </button>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5 w-full xl:w-auto">
               <span className="text-xs font-bold text-gray-400 uppercase tracking-wider shrink-0">Khu vực hạ tầng:</span>
-              <div className="flex items-center bg-gray-100 p-1 rounded-full border border-gray-200/50">
+              <div className="flex items-center bg-gray-100 p-[1px] rounded-[12px] border border-gray-200/50 w-full sm:w-auto">
                 <button
                   onClick={() => setSelectedRegion('north')}
-                  className={`px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 ${
+                  className={`flex-1 sm:flex-initial px-5 py-2.5 text-xs font-bold rounded-[12px] transition-all duration-300 ${
                     selectedRegion === 'north'
-                      ? 'bg-[#EE0033] text-white shadow-md'
+                      ? 'bg-gray-950 text-white'
                       : 'text-gray-500 hover:text-gray-900 bg-transparent cursor-pointer'
                   }`}
                 >
-                  Hạ tầng Miền Bắc
+                  Miền Bắc
+                </button>
+                <button
+                  onClick={() => setSelectedRegion('central')}
+                  className={`flex-1 sm:flex-initial px-5 py-2.5 text-xs font-bold rounded-[12px] transition-all duration-300 ${
+                    selectedRegion === 'central'
+                      ? 'bg-gray-950 text-white'
+                      : 'text-gray-500 hover:text-gray-900 bg-transparent cursor-pointer'
+                  }`}
+                >
+                  Miền Trung
                 </button>
                 <button
                   onClick={() => setSelectedRegion('south')}
-                  className={`px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 ${
+                  className={`flex-1 sm:flex-initial px-5 py-2.5 text-xs font-bold rounded-[12px] transition-all duration-300 ${
                     selectedRegion === 'south'
-                      ? 'bg-[#EE0033] text-white shadow-md'
+                      ? 'bg-gray-950 text-white'
                       : 'text-gray-500 hover:text-gray-900 bg-transparent cursor-pointer'
                   }`}
                 >
-                  Hạ tầng Miền Nam
+                  Miền Nam
                 </button>
               </div>
             </div>
@@ -501,19 +657,18 @@ export default function ViettelCloudServerPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: i * 0.05 }}
-                whileHover={{ y: -6 }}
-                className={`bg-white rounded-3xl overflow-hidden flex flex-col justify-between transition-colors duration-300 relative p-6 md:p-7 border ${
+                className={`bg-white rounded-[12px] overflow-hidden flex flex-col justify-between transition-all duration-300 relative p-6 md:p-7 border ${
                   plan.featured 
-                    ? 'border-2 border-[#EE0033]/70 shadow-[0_16px_36px_rgba(238,0,51,0.08)] hover:shadow-[0_20px_40px_rgba(238,0,51,0.12)]' 
-                    : 'border-gray-200 hover:border-[#EE0033]/40 shadow-xs hover:shadow-lg'
+                    ? 'border-gray-200 shadow-none hover:shadow-[0_12px_32px_rgba(238,0,51,0.25)] hover:border-[#EE0033]/40' 
+                    : 'border-gray-200 shadow-none hover:shadow-[0_12px_32px_rgba(238,0,51,0.25)] hover:border-[#EE0033]/40'
                 }`}
               >
                 <div>
                   {/* Top section rounded card-within-card background like image */}
-                  <div className="bg-[#F8F9FA] border-b border-gray-200/60 -mx-6 -mt-6 md:-mx-7 md:-mt-7 p-6 md:p-7 mb-6 relative rounded-t-[22px] md:rounded-t-[26px]">
+                  <div className="bg-[#F8F9FA] border-b border-gray-200/60 -mx-6 -mt-6 md:-mx-7 md:-mt-7 p-6 md:p-7 mb-6 relative rounded-[12px]">
                     <div className="flex justify-between items-center gap-2">
-                      <h3 className="text-lg font-bold text-gray-950 tracking-tight">{plan.name}</h3>
-                      {plan.featured && (
+                       <h3 className="text-lg font-bold text-gray-950 tracking-tight">{plan.name}</h3>
+                       {plan.featured && (
                         <span className="bg-[#EE0033]/10 text-[#EE0033] text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md flex items-center gap-0.5">
                           ★ BÁN CHẠY
                         </span>
@@ -529,15 +684,14 @@ export default function ViettelCloudServerPage() {
                         {selectedPricingPlan === 'saving' ? plan.savingPrice.replace(' đ', '') : plan.paygPrice.replace(' đ', '')}
                       </span>
                       <div className="flex flex-col text-[9px] text-gray-400 uppercase tracking-widest font-black leading-tight select-none">
-                        <span className="text-gray-950 font-black">VND</span>
-                        <span>{selectedPricingPlan === 'saving' ? '/ Tháng' : '/ Giờ'}</span>
+                        <span className="text-gray-950 font-black">{selectedPricingPlan === 'saving' ? 'Đ/THÁNG' : 'Đ/GIỜ'}</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Features section layout */}
                   <div className="mb-4 text-left px-1">
-                    <span className="text-xs font-extrabold text-gray-950 uppercase tracking-wider block">Tính năng</span>
+                    <span className="text-xs font-extrabold text-gray-950 uppercase tracking-wider block">Cấu hình</span>
                     <span className="text-[10px] text-gray-400 mt-0.5 block">Cấu hình chi tiết bao gồm:</span>
                   </div>
 
@@ -560,11 +714,7 @@ export default function ViettelCloudServerPage() {
                     href="https://console.viettelidc.com.vn" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-full block py-3 text-center font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300 ${
-                      plan.featured
-                        ? 'bg-[#EE0033] hover:bg-[#FF1A4E] text-white shadow-[0_4px_14px_rgba(238,0,51,0.25)]'
-                        : 'border border-[#EE0033] hover:bg-[#EE0033] text-[#EE0033] hover:text-white bg-transparent'
-                    }`}
+                    className="w-full block py-3 text-center font-bold text-xs uppercase tracking-wider rounded-[12px] transition-all duration-300 bg-[#EE0033] hover:bg-[#FF1A4E] text-white shadow-none hover:shadow-[0_6px_20px_rgba(238,0,51,0.35)] hover:-translate-y-0.5"
                   >
                     Đăng ký ngay
                   </a>
@@ -572,7 +722,7 @@ export default function ViettelCloudServerPage() {
                     href="https://console.viettelidc.com.vn" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full block py-3 border border-gray-200 hover:border-gray-300 text-gray-600 hover:text-gray-900 bg-white hover:bg-gray-50 text-center font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300"
+                    className="w-full block py-3 border border-gray-200 hover:border-gray-300 text-gray-600 hover:text-gray-900 bg-white hover:bg-gray-50 text-center font-bold text-xs uppercase tracking-wider rounded-[12px] transition-all duration-300"
                   >
                     Dùng thử miễn phí
                   </a>
@@ -588,7 +738,7 @@ export default function ViettelCloudServerPage() {
             viewport={{ once: true }}
             className="max-w-5xl mx-auto space-y-3.5 mt-8 text-left"
           >
-            <div className="bg-slate-950 text-white rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-slate-800 shadow-xl relative overflow-hidden">
+            <div className="bg-slate-950 text-white rounded-[12px] p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-slate-800 shadow-xl relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(#EE0033_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none" />
               <div className="relative z-10">
                 <h4 className="text-base md:text-lg font-bold">Cấu hình tùy chỉnh — Thiết kế riêng theo nhu cầu</h4>
@@ -598,7 +748,7 @@ export default function ViettelCloudServerPage() {
               </div>
               <a 
                 href="/contact"
-                className="relative z-10 px-6 py-3 bg-[#EE0033] hover:bg-[#FF1A4E] text-white font-bold text-xs uppercase tracking-wider rounded-full text-center transition-all duration-300 hover:shadow-[0_4px_14px_rgba(238,0,51,0.4)] hover:-translate-y-0.5 whitespace-nowrap cursor-pointer self-start sm:self-center"
+                className="relative z-10 px-6 py-3 bg-[#EE0033] hover:bg-[#FF1A4E] text-white font-bold text-xs uppercase tracking-wider rounded-[12px] text-center transition-all duration-300 hover:shadow-[0_4px_14px_rgba(238,0,51,0.4)] hover:-translate-y-0.5 whitespace-nowrap cursor-pointer self-start sm:self-center"
               >
                 Liên hệ nhận báo giá
               </a>
@@ -672,7 +822,7 @@ export default function ViettelCloudServerPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: i * 0.05 }}
                   whileHover={{ y: -6 }}
-                  className="bg-white rounded-2xl p-6 md:p-8 flex flex-col justify-between border border-gray-200/80 hover:border-[#EE0033] hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] transition-colors duration-300 group cursor-pointer text-left shadow-xs"
+                  className="bg-white rounded-[12px] p-6 md:p-8 flex flex-col justify-between border border-gray-200/80 hover:border-[#EE0033] hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] transition-colors duration-300 group cursor-pointer text-left shadow-xs"
                 >
                   <div className="space-y-5">
                     <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[#FAFAFA] text-[#EE0033] border border-gray-100 transition-all duration-300 group-hover:bg-[#FFF0F2] group-hover:border-[#FCD9D8]">
@@ -745,7 +895,7 @@ export default function ViettelCloudServerPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: i * 0.05 }}
                   whileHover={{ y: -6 }}
-                  className="bg-white rounded-2xl p-6 md:p-8 flex flex-col justify-between border border-gray-200/80 hover:border-[#EE0033] hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] transition-colors duration-300 group cursor-pointer text-left shadow-xs"
+                  className="bg-white rounded-[12px] p-6 md:p-8 flex flex-col justify-between border border-gray-200/80 hover:border-[#EE0033] hover:shadow-[0_8px_24px_rgba(238,0,51,0.06)] transition-colors duration-300 group cursor-pointer text-left shadow-xs"
                 >
                   <div className="space-y-5">
                     <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-[#FAFAFA] text-[#EE0033] border border-gray-100 transition-all duration-300 group-hover:bg-[#FFF0F2] group-hover:border-[#FCD9D8]">
@@ -763,152 +913,6 @@ export default function ViettelCloudServerPage() {
                 </motion.div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 4 — PLATFORM SELECTOR */}
-      <section id="platform-selector" className="py-16 md:py-20 bg-white">
-        <div className="ali-container">
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-left w-full space-y-2 mb-12"
-          >
-            <span className="text-[#EE0033] font-bold text-xs uppercase tracking-widest block bg-[#EE0033]/10 px-3 py-1 rounded-full w-max">NỀN TẢNG LINH HOẠT</span>
-            <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-gray-950 font-sans leading-tight">
-              Tùy chọn nền tảng máy chủ ảo
-            </h2>
-            <p className="text-sm md:text-base text-gray-500 max-w-3xl leading-relaxed">
-              Viettel IDC cung cấp 2 tùy chọn công nghệ máy chủ ảo hàng đầu thế giới, đáp ứng tốt từ các hệ thống doanh nghiệp truyền thống đến mô hình cloud-native.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-left">
-            {/* VMware Card */}
-            <motion.div 
-              whileHover={{ y: -4 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setSelectedPlatform('vmware')}
-              className={`cursor-pointer rounded-2xl p-6 md:p-8 transition-colors duration-300 border-2 flex flex-col justify-between relative ${
-                selectedPlatform === 'vmware' 
-                  ? 'border-[#EE0033] bg-white shadow-[0_12px_32px_rgba(238,0,51,0.06)]' 
-                  : 'border-gray-200 bg-gray-50/30 hover:bg-gray-50/80 shadow-xs'
-              }`}
-            >
-              <div>
-                {selectedPlatform === 'vmware' && (
-                  <div className="absolute top-6 right-6 bg-[#EE0033] text-white p-1 rounded-full">
-                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                  </div>
-                )}
-                <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-950">VMware vSphere</h3>
-                  <span className="bg-[#EE0033]/10 text-[#EE0033] text-xs font-bold px-2.5 py-0.5 rounded-full">
-                    Enterprise Grade
-                  </span>
-                </div>
-                <p className="text-xs md:text-sm text-gray-500 leading-relaxed mb-6">
-                  Nền tảng ảo hóa doanh nghiệp mạnh mẽ với độ tin cậy tuyệt đối, tính bảo mật nghiêm ngặt và khả năng tương thích phần cứng cao hàng đầu thế giới.
-                </p>
-                
-                <div className="space-y-3 border-t border-gray-100 pt-6">
-                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Thành phần & Tính năng:</h4>
-                  <ul className="space-y-2.5 text-xs text-gray-700">
-                    <li className="flex items-start space-x-2">
-                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
-                      <span>VMware ESXi Server — lớp ảo hóa chạy trực tiếp trên bare-metal</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
-                      <span>VMware vCenter — hệ thống điều phối, quản trị tập trung tối ưu</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
-                      <span>Giao diện vSphere Web Client — quản trị trực quan, tiện lợi</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
-                      <span>Cluster DRS & HA — tự động khôi phục, di chuyển nóng VM</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              
-              <div className="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Phù hợp nhất cho:</span>
-                <span className="bg-[#FAFAFA] border border-gray-200 text-gray-750 text-[11px] font-bold px-3 py-1 rounded-full">
-                  Enterprise · Hybrid Cloud
-                </span>
-              </div>
-            </motion.div>
-
-            {/* OpenStack Card */}
-            <motion.div 
-              whileHover={{ y: -4 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setSelectedPlatform('openstack')}
-              className={`cursor-pointer rounded-2xl p-6 md:p-8 transition-colors duration-300 border-2 flex flex-col justify-between relative ${
-                selectedPlatform === 'openstack' 
-                  ? 'border-[#EE0033] bg-white shadow-[0_12px_32px_rgba(238,0,51,0.06)]' 
-                  : 'border-gray-200 bg-gray-50/30 hover:bg-gray-50/80 shadow-xs'
-              }`}
-            >
-              <div>
-                {selectedPlatform === 'openstack' && (
-                  <div className="absolute top-6 right-6 bg-[#EE0033] text-white p-1 rounded-full">
-                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                  </div>
-                )}
-                <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-950">OpenStack</h3>
-                  <span className="bg-gray-100 text-gray-700 text-xs font-bold px-2.5 py-0.5 rounded-full">
-                    Open Source API
-                  </span>
-                </div>
-                <p className="text-xs md:text-sm text-gray-500 leading-relaxed mb-6">
-                  Nền tảng điện toán đám mây mã nguồn mở chuẩn công nghiệp toàn cầu, mang lại khả năng tùy biến tuyệt đối, tự động hóa linh hoạt dạng IaaS.
-                </p>
-                
-                <div className="space-y-3 border-t border-gray-100 pt-6">
-                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Thành phần & Tính năng:</h4>
-                  <ul className="space-y-2.5 text-xs text-gray-700">
-                    <li className="flex items-start space-x-2">
-                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
-                      <span>Kiến trúc mở hoàn toàn, không lo lock-in nhà cung cấp</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
-                      <span>Khả năng mở rộng tuyệt vời cho container & K8s</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
-                      <span>Hệ thống API chuẩn, hỗ trợ tự động hóa hạ tầng (IAC)</span>
-                    </li>
-                    <li className="flex items-start space-x-2">
-                      <Check className="w-4 h-4 text-[#EE0033] shrink-0 mt-0.5" />
-                      <span>Lưu trữ phân tán, đảm bảo an toàn dữ liệu 100% tại VN</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Phù hợp nhất cho:</span>
-                <span className="bg-[#FAFAFA] border border-gray-200 text-gray-750 text-[11px] font-bold px-3 py-1 rounded-full">
-                  DevOps · Cloud-native
-                </span>
-              </div>
-            </motion.div>
-          </div>
-
-          <div className="w-full bg-amber-50/60 border border-amber-100 rounded-2xl p-5 flex items-center space-x-3 text-left">
-            <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
-            <p className="text-xs md:text-sm text-amber-800 font-medium">
-              <strong>Lưu ý quan trọng:</strong> Để đảm bảo tính toàn vẹn của dữ liệu và hiệu năng phần cứng, Viettel IDC hiện chưa hỗ trợ chuyển đổi trực tiếp giữa 2 công nghệ ảo hóa (VMware và OpenStack) đối với các máy chủ ảo đang hoạt động.
-            </p>
           </div>
         </div>
       </section>
@@ -963,7 +967,7 @@ export default function ViettelCloudServerPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: idx * 0.05 }}
                 whileHover={{ y: -4 }}
-                className="bg-white border border-gray-200/80 rounded-2xl p-6 md:p-8 text-left transition-colors duration-300 hover:border-[#EE0033]/30 shadow-xs hover:shadow-md flex gap-5 cursor-pointer"
+                className="bg-white border border-gray-200/80 rounded-[12px] p-6 md:p-8 text-left transition-colors duration-300 hover:border-[#EE0033]/30 shadow-xs hover:shadow-md flex gap-5 cursor-pointer"
               >
                 <div className="text-3xl font-black text-[#EE0033] shrink-0 mt-0.5 font-mono select-none">
                   {useCase.num}
@@ -1004,7 +1008,7 @@ export default function ViettelCloudServerPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ y: -4 }}
-                className="border border-gray-300/70 rounded-2xl p-6 md:p-8 bg-gray-50/40 hover:bg-gray-100/50 transition-colors duration-300 text-left flex flex-col justify-between shadow-xs hover:shadow-md cursor-pointer"
+                className="border border-gray-300/70 rounded-[12px] p-6 md:p-8 bg-gray-50/40 hover:bg-gray-100/50 transition-colors duration-300 text-left flex flex-col justify-between shadow-xs hover:shadow-md cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-xl bg-gray-200 text-gray-700 flex items-center justify-center mb-6">
@@ -1019,7 +1023,7 @@ export default function ViettelCloudServerPage() {
                   href="https://docs.viettelidc.com.vn/cloud-server/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-gray-700 hover:bg-gray-800 text-white font-bold text-xs uppercase tracking-wider rounded-[8px] transition-all duration-300 shadow-xs hover:shadow-sm self-start cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-gray-700 hover:bg-gray-800 text-white font-bold text-xs uppercase tracking-wider rounded-[12px] transition-all duration-300 shadow-xs hover:shadow-sm self-start cursor-pointer"
                 >
                   <span>Truy cập tài liệu</span>
                   <ArrowUpRight className="w-4 h-4 stroke-[2]" />
@@ -1032,7 +1036,7 @@ export default function ViettelCloudServerPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ y: -4 }}
-                className="border border-[#EE0033]/30 rounded-2xl p-6 md:p-8 bg-[#EE0033]/[0.03] hover:bg-[#EE0033]/[0.06] transition-colors duration-300 text-left flex flex-col justify-between shadow-xs hover:shadow-md cursor-pointer"
+                className="border border-[#EE0033]/30 rounded-[12px] p-6 md:p-8 bg-[#EE0033]/[0.03] hover:bg-[#EE0033]/[0.06] transition-colors duration-300 text-left flex flex-col justify-between shadow-xs hover:shadow-md cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-xl bg-[#EE0033]/10 text-[#EE0033] flex items-center justify-center mb-6">
@@ -1054,7 +1058,7 @@ export default function ViettelCloudServerPage() {
                   href="https://support.viettelidc.com.vn"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-[#EE0033] hover:bg-[#C8002B] text-white font-bold text-xs uppercase tracking-wider rounded-[8px] transition-all duration-300 shadow-xs hover:shadow-sm self-start cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-[#EE0033] hover:bg-[#C8002B] text-white font-bold text-xs uppercase tracking-wider rounded-[12px] transition-all duration-300 shadow-xs hover:shadow-sm self-start cursor-pointer"
                 >
                   <span>Gửi yêu cầu hỗ trợ</span>
                   <ArrowUpRight className="w-4 h-4 stroke-[2]" />
@@ -1113,7 +1117,7 @@ export default function ViettelCloudServerPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: i * 0.05 }}
                   whileHover={{ y: -6 }}
-                  className="bg-white border border-gray-200/80 rounded-2xl p-6 flex flex-col justify-between hover:border-[#EE0033]/30 transition-colors duration-300 shadow-xs hover:shadow-md cursor-pointer"
+                  className="bg-white border border-gray-200/80 rounded-[12px] p-6 flex flex-col justify-between hover:border-[#EE0033]/30 transition-colors duration-300 shadow-xs hover:shadow-md cursor-pointer"
                 >
                   <div>
                     <h4 className="text-base font-bold text-gray-950 mb-2">{prod.title}</h4>
@@ -1180,7 +1184,7 @@ export default function ViettelCloudServerPage() {
                 ].map((faq, index) => {
                   const isOpen = openFAQ === index;
                   return (
-                    <div key={index} className="bg-white border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300">
+                    <div key={index} className="bg-white border border-gray-200 rounded-[12px] overflow-hidden transition-all duration-300">
                       <button
                         onClick={() => setOpenFAQ(isOpen ? null : index)}
                         className="w-full flex items-center justify-between p-5 text-left transition-all hover:bg-gray-50/50 cursor-pointer"
@@ -1236,13 +1240,13 @@ export default function ViettelCloudServerPage() {
               >
                 <a 
                   href="#pricing"
-                  className="px-8 py-3.5 bg-[#EE0033] hover:bg-[#FF1A4E] text-white font-bold text-sm uppercase tracking-wider rounded-full text-center transition-all duration-300 hover:shadow-[0_4px_14px_rgba(238,0,51,0.5)] hover:-translate-y-0.5 cursor-pointer"
+                  className="px-8 py-3.5 bg-[#EE0033] hover:bg-[#FF1A4E] text-white font-bold text-sm uppercase tracking-wider rounded-[12px] text-center transition-all duration-300 hover:shadow-[0_4px_14px_rgba(238,0,51,0.5)] hover:-translate-y-0.5 cursor-pointer"
                 >
                   Đăng ký trải nghiệm
                 </a>
                 <a 
                   href="#pricing"
-                  className="px-8 py-3.5 bg-transparent border border-gray-600 hover:border-white text-gray-300 hover:text-white font-bold text-sm uppercase tracking-wider rounded-full text-center transition-all duration-300 cursor-pointer"
+                  className="px-8 py-3.5 bg-transparent border border-gray-600 hover:border-white text-gray-300 hover:text-white font-bold text-sm uppercase tracking-wider rounded-[12px] text-center transition-all duration-300 cursor-pointer"
                 >
                   Dùng thử miễn phí
                 </a>

@@ -291,7 +291,7 @@ function PricingPageContent() {
                         href="https://console.viettelidc.com.vn" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className={`w-full block text-center py-2.5 rounded text-xs font-bold transition-all-200 uppercase tracking-wider ${
+                        className={`w-full block text-center py-2.5 rounded-[8px] text-xs font-bold transition-all-200 uppercase tracking-wider ${
                           plan.isPopular 
                             ? 'bg-[#EE0033] hover:bg-[#FF302D] text-white shadow-md focus-ring-brand' 
                             : 'bg-white border border-gray-100 hover:border-brand-500 text-gray-700 hover:text-[#EE0033]'
@@ -320,7 +320,7 @@ function PricingPageContent() {
               </div>
               <Link
                 href="/pricing/calculator"
-                className="px-5 py-2.5 bg-brand-500 hover:bg-brand-300 text-white font-bold text-xs rounded shadow-md transition-all-200 shrink-0"
+                className="px-5 py-2.5 bg-brand-500 hover:bg-brand-300 text-white font-bold text-xs rounded-[8px] shadow-md transition-all-200 shrink-0"
               >
                 Tính chi phí trực tuyến →
               </Link>
@@ -381,7 +381,7 @@ function PricingPageContent() {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full text-xs p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-900 font-medium" 
+                        className="w-full text-xs p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-900 font-medium" 
                         placeholder="Nộp Văn A" 
                       />
                     </div>
@@ -392,7 +392,7 @@ function PricingPageContent() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full text-xs p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-900 font-medium" 
+                        className="w-full text-xs p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-900 font-medium" 
                         placeholder="ten@congty.com" 
                       />
                     </div>
@@ -406,7 +406,7 @@ function PricingPageContent() {
                         required
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="w-full text-xs p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-900 font-medium" 
+                        className="w-full text-xs p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-900 font-medium" 
                         placeholder="Công ty TNHH Giải pháp số" 
                       />
                     </div>
@@ -417,7 +417,7 @@ function PricingPageContent() {
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full text-xs p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-900 font-medium" 
+                        className="w-full text-xs p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-900 font-medium" 
                         placeholder="0912 xxx xxx" 
                       />
                     </div>
@@ -429,7 +429,7 @@ function PricingPageContent() {
                       rows={4}
                       value={formData.note}
                       onChange={(e) => setFormData({ ...formData, note: e.target.value })}
-                      className="w-full text-xs p-3 bg-white border border-gray-200 rounded focus:border-[#EE0033] focus:outline-none text-gray-900 font-medium" 
+                      className="w-full text-xs p-3 bg-white border border-gray-200 rounded-[8px] focus:border-[#EE0033] focus:outline-none text-gray-900 font-medium" 
                       placeholder="Cần bao nhiêu vCPUs, RAM, SSD? Đường truyền ưu tiên thế nào? Mục tiêu bảo mật riêng..."
                     />
                   </div>
@@ -437,7 +437,7 @@ function PricingPageContent() {
                   <div className="pt-2">
                     <button 
                       type="submit"
-                      className="w-full p-3 bg-[#EE0033] hover:bg-[#FF302D] text-white font-bold text-xs uppercase tracking-wider rounded transition-all-200 shadow-md focus-ring-brand"
+                      className="w-full p-3 bg-[#EE0033] hover:bg-[#FF302D] text-white font-bold text-xs uppercase tracking-wider rounded-[8px] transition-all-200 shadow-md focus-ring-brand"
                     >
                       Gửi yêu cầu Báo giá doanh nghiệp lớn
                     </button>

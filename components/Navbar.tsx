@@ -384,7 +384,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
         <div className="h-[36px] bg-[#1A1A1A] text-white text-[12px] relative z-[1010] flex items-center border-b border-white/5">
           {/* ━━━ Selector 2: TOP BAR INNER ALIGNMENT ━━━ */}
           <div className="ali-container h-[36px] flex justify-end items-center">
-            <a href="tel:18008088" className="h-full flex items-center gap-1.5 px-4 border-r border-white/10 text-white font-semibold hover:text-[#EE0033] transition-colors whitespace-nowrap">
+            <a href="tel:18008088" className="h-full flex items-center gap-1.5 px-4 border-r border-white/10 text-white font-normal hover:text-[#EE0033] transition-colors whitespace-nowrap">
               <Phone className="w-3.5 h-3.5 text-[#EE0033]" />
               <span>Hotline: 1800 8088</span>
             </a>
@@ -405,7 +405,7 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
                 className="flex items-center gap-1.5 text-white hover:text-white transition-colors focus:outline-none whitespace-nowrap cursor-pointer h-full"
               >
                 <Globe className="w-3.5 h-3.5 text-[#EE0033]" />
-                <span className="font-semibold">{currentLang}</span>
+                <span className="font-normal">{currentLang}</span>
                 <ChevronDown className={`w-3 h-3 text-white/50 transition-transform ${langOpen ? 'rotate-180 text-white' : ''}`} />
               </button>
               {langOpen && (
@@ -1539,10 +1539,13 @@ export default function Navbar({ forceServicesOpen = false, forceMobileDrawer = 
               <div>
                 <div className="flex items-center justify-between border-b border-gray-100 pb-4 mb-5">
                   <Link href={isGlobal ? "/global" : "/vn"} className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-                    <img 
+                    <Image 
                       src="https://res.cloudinary.com/dpyizq1m2/image/upload/v1782053913/logo-IDC_2_up2gqp.svg" 
                       alt="Viettel IDC" 
+                      width={150}
+                      height={28}
                       className="h-7 w-auto object-contain"
+                      referrerPolicy="no-referrer"
                     />
                   </Link>
                   <button onClick={() => setMobileMenuOpen(false)} className="p-1 text-gray-500 hover:text-black">

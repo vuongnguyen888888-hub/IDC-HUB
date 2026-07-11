@@ -1208,7 +1208,7 @@ function SolutionDetailPageContent({ params }: PageProps) {
                           value={ctaForm.name}
                           onChange={(e) => setCtaForm({ ...ctaForm, name: e.target.value })}
                           placeholder="Ví dụ: Nguyễn Văn Vương"
-                          className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
+                          className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-[8px] pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
                         />
                       </div>
                     </div>
@@ -1228,7 +1228,7 @@ function SolutionDetailPageContent({ params }: PageProps) {
                             value={ctaForm.email}
                             onChange={(e) => setCtaForm({ ...ctaForm, email: e.target.value })}
                             placeholder="name@company.com"
-                            className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
+                            className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-[8px] pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
                           />
                         </div>
                       </div>
@@ -1246,7 +1246,7 @@ function SolutionDetailPageContent({ params }: PageProps) {
                             value={ctaForm.phone}
                             onChange={(e) => setCtaForm({ ...ctaForm, phone: e.target.value })}
                             placeholder="Ví dụ: 098xxxxx7"
-                            className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
+                            className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-[8px] pl-10 pr-4 py-3 focus:outline-none focus:ring-1 focus:ring-[#EE0033] focus:border-[#EE0033] transition-all font-medium placeholder-neutral-400"
                           />
                         </div>
                       </div>
@@ -1259,14 +1259,14 @@ function SolutionDetailPageContent({ params }: PageProps) {
                         type="text"
                         readOnly
                         value={ctaForm.solution}
-                        className="w-full bg-neutral-100 border border-neutral-200 text-neutral-600 text-xs rounded-xl px-4 py-3 focus:outline-none font-medium"
+                        className="w-full bg-neutral-100 border border-neutral-200 text-neutral-600 text-xs rounded-[8px] px-4 py-3 focus:outline-none font-medium"
                       />
                     </div>
 
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      className="w-full bg-[#EE0033] hover:bg-[#D0002A] text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-[#EE0033]/20 flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 active:translate-y-0 text-xs md:text-sm mt-6 cursor-pointer"
+                      className="w-full bg-[#EE0033] hover:bg-[#D0002A] text-white font-bold py-3.5 px-6 rounded-[8px] shadow-lg shadow-[#EE0033]/20 flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 active:translate-y-0 text-xs md:text-sm mt-6 cursor-pointer"
                     >
                       <span>Gửi yêu cầu tư vấn ngay</span>
                       <ArrowRight className="w-4 h-4 text-white" />

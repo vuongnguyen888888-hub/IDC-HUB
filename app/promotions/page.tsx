@@ -161,7 +161,7 @@ export default function PromotionsPage() {
 
                   <Link
                     href={getLocalizedPath('/contact')}
-                    className="w-full text-center py-2 bg-gray-900 hover:bg-[#EE0033] text-white flex items-center justify-center font-bold text-xs rounded-xl transition-all block"
+                    className="w-full text-center py-2 bg-gray-900 hover:bg-[#EE0033] text-white flex items-center justify-center font-bold text-xs rounded-[8px] transition-all block"
                   >
                     <span>{isGlobal ? 'Redeem Offer' : 'Đăng ký áp dụng'}</span>
                   </Link>
